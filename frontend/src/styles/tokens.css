@@ -1,0 +1,32 @@
+:root {
+  --color-water-100: #f0f8ff;
+  --color-water-300: #4fc3f7;
+  --color-water-400: #29b6f6;
+  --color-water-700: #0277bd;
+  --color-leaf-500: #43a047;
+  --color-leaf-700: #2e7d32;
+  --color-leaf-400: #66bb6a;
+  --color-warm-500: #f57c00;
+  --color-warm-400: #ffa726;
+  --color-sun-300: #ffd36c;
+  --color-sun-500: #ffb300;
+  --color-danger-500: #e53935;
+  --color-ink-900: #1a2e3a;
+  --color-ink-700: #546e7a;
+  --color-white: #ffffff;
+  --shadow-soft: 0 18px 45px rgba(2, 119, 189, 0.12);
+  --shadow-card: 0 12px 32px rgba(26, 46, 58, 0.08);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  --page-width: min(1180px, calc(100vw - 32px));
+  --transition-base: 180ms ease;
+  --font-heading: 'Manrope', 'Noto Sans', sans-serif;
+  --font-body: 'Noto Sans', 'Segoe UI', sans-serif;
+  --font-size-base: 16px;
+}
+
+html[data-comfort='true'] {
+  --font-size-base: 17px;
+}

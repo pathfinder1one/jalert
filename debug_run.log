@@ -1,0 +1,12 @@
+[32m2026-03-31 18:17:28[0m | [33m[1mWARNING [0m | [36mapp.ml.models[0m:[36m92[0m - [33m[1mWater quality model not found — train first or use synthetic fallback[0m
+[32m2026-03-31 18:17:28[0m | [33m[1mWARNING [0m | [36mapp.ml.models[0m:[36m200[0m - [33m[1mDisease outbreak model not found — use synthetic fallback[0m
+[32m2026-03-31 18:17:28[0m | [1mINFO    [0m | [36mapp.main[0m:[36m42[0m - [1m============================================================[0m
+[32m2026-03-31 18:17:28[0m | [1mINFO    [0m | [36mapp.main[0m:[36m43[0m - [1m  Starting JALERT - Intelligent Water & Health Alert System v1.0.0[0m
+[32m2026-03-31 18:17:28[0m | [1mINFO    [0m | [36mapp.main[0m:[36m44[0m - [1m  Environment: development[0m
+[32m2026-03-31 18:17:28[0m | [1mINFO    [0m | [36mapp.main[0m:[36m45[0m - [1m============================================================[0m
+[32m2026-03-31 18:17:28[0m | [1mINFO    [0m | [36mapp.core.database[0m:[36m68[0m - [1mDatabase tables initialized[0m
+[32m2026-03-31 18:17:28[0m | [1mINFO    [0m | [36mapp.core.redis_manager[0m:[36m22[0m - [1mRedis connected[0m
+[32m2026-03-31 18:17:28[0m | [1mINFO    [0m | [36mapp.main[0m:[36m65[0m - [1mSkipping Kafka startup during local web serving.[0m
+[32m2026-03-31 18:17:28[0m | [1mINFO    [0m | [36mapp.main[0m:[36m67[0m - [1mAll systems online. JALERT is ready.[0m
+[32m2026-03-31 18:17:29[0m | [31m[1mERROR   [0m | [36mapp.core.database[0m:[36m58[0m - [31m[1mDatabase session error: Could not determine join condition between parent/child tables on relationship User.health_reports - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.[0m
+INFO:     127.0.0.1:64781 - "POST /api/v1/auth/register HTTP/1.1" 500 Internal Server Error

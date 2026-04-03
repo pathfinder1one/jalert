@@ -1,0 +1,325 @@
+"""
+JALERT - Database Models
+All SQLAlchemy ORM models
+"""
+import uuid
+import enum
+from datetime import datetime, timezone
+from typing import Optional, List
+from sqlalchemy import (
+    String, Float, Integer, Boolean, DateTime, Text, JSON,
+    ForeignKey, Enum, Index, func
+)
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.dialects.postgresql import UUID
+from app.core.database import Base
+
+
+def utcnow():
+    return datetime.now(timezone.utc)
+
+
+def new_uuid():
+    return str(uuid.uuid4())
+
+
+# ── Enums ─────────────────────────────────────────────────────────────────────
+
+class UserRole(str, enum.Enum):
+    ADMIN = "admin"
+    HEALTH_WORKER = "health_worker"
+    PUBLIC = "public"
+
+
+class AlertSeverity(str, enum.Enum):
+    LOW = "low"
+    MODERATE = "moderate"
+    HIGH = "high"
+    CRITICAL = "critical"
+
+
+class AlertStatus(str, enum.Enum):
+    ACTIVE = "active"
+    RESOLVED = "resolved"
+    ACKNOWLEDGED = "acknowledged"
+
+
+class AlertType(str, enum.Enum):
+    WATER_QUALITY = "water_quality"
+    DISEASE_OUTBREAK = "disease_outbreak"
+    FLOOD_RISK = "flood_risk"
+    MANUAL = "manual"
+    AI_PREDICTED = "ai_predicted"
+
+
+class RiskCategory(str, enum.Enum):
+    LOW = "low"
+    MODERATE = "moderate"
+    HIGH = "high"
+    CRITICAL = "critical"
+
+
+class SensorStatus(str, enum.Enum):
+    ACTIVE = "active"
+    INACTIVE = "inactive"
+    FAULTY = "faulty"
+    MAINTENANCE = "maintenance"
+
+
+class CitizenRequestStatus(str, enum.Enum):
+    OPEN = "open"
+    IN_PROGRESS = "in_progress"
+    RESOLVED = "resolved"
+
+
+# ── Models ────────────────────────────────────────────────────────────────────
+
+class User(Base):
+    __tablename__ = "users"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
+    phone: Mapped[Optional[str]] = mapped_column(String(20))
+    hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
+    role: Mapped[UserRole] = mapped_column(Enum(UserRole), default=UserRole.PUBLIC)
+    village_id: Mapped[Optional[str]] = mapped_column(ForeignKey("villages.id"))
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    preferred_language: Mapped[str] = mapped_column(String(5), default="en")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    village: Mapped[Optional["Village"]] = relationship(back_populates="users")
+    health_reports: Mapped[List["HealthReport"]] = relationship(
+        back_populates="user",
+        foreign_keys="HealthReport.user_id",
+    )
+    assigned_health_reports: Mapped[List["HealthReport"]] = relationship(
+        back_populates="assigned_worker",
+        foreign_keys="HealthReport.assigned_worker_id",
+    )
+    audit_logs: Mapped[List["AuditLog"]] = relationship(back_populates="user")
+    citizen_requests: Mapped[List["CitizenRequest"]] = relationship(back_populates="user")
+
+
+class Village(Base):
+    __tablename__ = "villages"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    name: Mapped[str] = mapped_column(String(200), nullable=False)
+    district: Mapped[str] = mapped_column(String(100), nullable=False)
+    state: Mapped[str] = mapped_column(String(100), nullable=False)
+    latitude: Mapped[float] = mapped_column(Float, nullable=False)
+    longitude: Mapped[float] = mapped_column(Float, nullable=False)
+    population: Mapped[int] = mapped_column(Integer, default=0)
+    pincode: Mapped[Optional[str]] = mapped_column(String(10))
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    users: Mapped[List["User"]] = relationship(back_populates="village")
+    sensors: Mapped[List["Sensor"]] = relationship(back_populates="village")
+    alerts: Mapped[List["Alert"]] = relationship(back_populates="village")
+    ai_predictions: Mapped[List["AIPrediction"]] = relationship(back_populates="village")
+    health_reports: Mapped[List["HealthReport"]] = relationship(back_populates="village")
+    citizen_requests: Mapped[List["CitizenRequest"]] = relationship(back_populates="village")
+
+    __table_args__ = (
+        Index("ix_village_district_state", "district", "state"),
+    )
+
+
+class Sensor(Base):
+    __tablename__ = "sensors"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    village_id: Mapped[str] = mapped_column(ForeignKey("villages.id"), nullable=False)
+    sensor_code: Mapped[str] = mapped_column(String(50), unique=True, nullable=False)
+    sensor_type: Mapped[str] = mapped_column(String(50), default="water_quality")
+    location_name: Mapped[Optional[str]] = mapped_column(String(200))
+    latitude: Mapped[Optional[float]] = mapped_column(Float)
+    longitude: Mapped[Optional[float]] = mapped_column(Float)
+    status: Mapped[SensorStatus] = mapped_column(Enum(SensorStatus), default=SensorStatus.ACTIVE)
+    firmware_version: Mapped[Optional[str]] = mapped_column(String(20))
+    last_seen: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    village: Mapped["Village"] = relationship(back_populates="sensors")
+    readings: Mapped[List["SensorReading"]] = relationship(back_populates="sensor")
+
+    __table_args__ = (
+        Index("ix_sensor_village", "village_id"),
+        Index("ix_sensor_status", "status"),
+    )
+
+
+class SensorReading(Base):
+    __tablename__ = "sensor_readings"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    sensor_id: Mapped[str] = mapped_column(ForeignKey("sensors.id"), nullable=False)
+    village_id: Mapped[str] = mapped_column(String(36), nullable=False)
+    timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    # Water quality parameters
+    ph: Mapped[Optional[float]] = mapped_column(Float)
+    turbidity: Mapped[Optional[float]] = mapped_column(Float)     # NTU
+    ecoli: Mapped[Optional[float]] = mapped_column(Float)         # CFU/100ml
+    tds: Mapped[Optional[float]] = mapped_column(Float)           # mg/L
+    temperature: Mapped[Optional[float]] = mapped_column(Float)   # Celsius
+    dissolved_oxygen: Mapped[Optional[float]] = mapped_column(Float)
+    nitrate: Mapped[Optional[float]] = mapped_column(Float)
+    arsenic: Mapped[Optional[float]] = mapped_column(Float)
+    fluoride: Mapped[Optional[float]] = mapped_column(Float)
+
+    # Environmental
+    rainfall_mm: Mapped[Optional[float]] = mapped_column(Float)
+    flood_level_m: Mapped[Optional[float]] = mapped_column(Float)
+    humidity: Mapped[Optional[float]] = mapped_column(Float)
+    air_temp: Mapped[Optional[float]] = mapped_column(Float)
+
+    # Metadata
+    is_anomaly: Mapped[bool] = mapped_column(Boolean, default=False)
+    quality_score: Mapped[Optional[float]] = mapped_column(Float)
+    raw_payload: Mapped[Optional[dict]] = mapped_column(JSON)
+
+    sensor: Mapped["Sensor"] = relationship(back_populates="readings")
+
+    __table_args__ = (
+        Index("ix_reading_sensor_time", "sensor_id", "timestamp"),
+        Index("ix_reading_village_time", "village_id", "timestamp"),
+    )
+
+
+class Alert(Base):
+    __tablename__ = "alerts"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    village_id: Mapped[str] = mapped_column(ForeignKey("villages.id"), nullable=False)
+    alert_type: Mapped[AlertType] = mapped_column(Enum(AlertType), nullable=False)
+    severity: Mapped[AlertSeverity] = mapped_column(Enum(AlertSeverity), nullable=False)
+    status: Mapped[AlertStatus] = mapped_column(Enum(AlertStatus), default=AlertStatus.ACTIVE)
+    title: Mapped[str] = mapped_column(String(300), nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
+    recommended_actions: Mapped[Optional[dict]] = mapped_column(JSON)  # list of actions
+    affected_population: Mapped[Optional[int]] = mapped_column(Integer)
+    triggered_by: Mapped[Optional[str]] = mapped_column(String(100))   # rule or AI agent
+    sensor_reading_id: Mapped[Optional[str]] = mapped_column(ForeignKey("sensor_readings.id"))
+    ai_prediction_id: Mapped[Optional[str]] = mapped_column(ForeignKey("ai_predictions.id"))
+    resolved_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
+    resolved_by: Mapped[Optional[str]] = mapped_column(ForeignKey("users.id"))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    village: Mapped["Village"] = relationship(back_populates="alerts")
+
+    __table_args__ = (
+        Index("ix_alert_village_severity", "village_id", "severity"),
+        Index("ix_alert_status", "status"),
+        Index("ix_alert_created", "created_at"),
+    )
+
+
+class HealthReport(Base):
+    __tablename__ = "health_reports"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    village_id: Mapped[str] = mapped_column(ForeignKey("villages.id"), nullable=False)
+    user_id: Mapped[Optional[str]] = mapped_column(ForeignKey("users.id"))
+    reporter_name: Mapped[Optional[str]] = mapped_column(String(100))
+    age: Mapped[Optional[int]] = mapped_column(Integer)
+    gender: Mapped[Optional[str]] = mapped_column(String(10))
+    symptoms: Mapped[dict] = mapped_column(JSON)           # {symptom: severity}
+    symptom_onset: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
+    suspected_disease: Mapped[Optional[str]] = mapped_column(String(100))
+    is_hospitalized: Mapped[bool] = mapped_column(Boolean, default=False)
+    is_recovered: Mapped[bool] = mapped_column(Boolean, default=False)
+    notes: Mapped[Optional[str]] = mapped_column(Text)
+    assigned_worker_id: Mapped[Optional[str]] = mapped_column(ForeignKey("users.id"))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    village: Mapped["Village"] = relationship(back_populates="health_reports")
+    user: Mapped[Optional["User"]] = relationship(
+        back_populates="health_reports",
+        foreign_keys=[user_id],
+    )
+    assigned_worker: Mapped[Optional["User"]] = relationship(
+        back_populates="assigned_health_reports",
+        foreign_keys=[assigned_worker_id],
+    )
+
+    __table_args__ = (
+        Index("ix_health_village_time", "village_id", "created_at"),
+    )
+
+
+class AIPrediction(Base):
+    __tablename__ = "ai_predictions"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    village_id: Mapped[str] = mapped_column(ForeignKey("villages.id"), nullable=False)
+    risk_score: Mapped[float] = mapped_column(Float, nullable=False)
+    risk_category: Mapped[RiskCategory] = mapped_column(Enum(RiskCategory), nullable=False)
+    outbreak_timeline_days: Mapped[Optional[int]] = mapped_column(Integer)
+    water_quality_score: Mapped[Optional[float]] = mapped_column(Float)
+    disease_risk_score: Mapped[Optional[float]] = mapped_column(Float)
+    weather_risk_score: Mapped[Optional[float]] = mapped_column(Float)
+    community_health_score: Mapped[Optional[float]] = mapped_column(Float)
+    agent_outputs: Mapped[Optional[dict]] = mapped_column(JSON)   # raw agent outputs
+    recommended_actions: Mapped[Optional[dict]] = mapped_column(JSON)
+    shap_values: Mapped[Optional[dict]] = mapped_column(JSON)
+    model_version: Mapped[Optional[str]] = mapped_column(String(20))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    village: Mapped["Village"] = relationship(back_populates="ai_predictions")
+
+    __table_args__ = (
+        Index("ix_prediction_village_time", "village_id", "created_at"),
+        Index("ix_prediction_risk", "risk_score"),
+    )
+
+
+class AuditLog(Base):
+    __tablename__ = "audit_logs"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    user_id: Mapped[Optional[str]] = mapped_column(ForeignKey("users.id"))
+    action: Mapped[str] = mapped_column(String(100), nullable=False)
+    resource_type: Mapped[str] = mapped_column(String(50))
+    resource_id: Mapped[Optional[str]] = mapped_column(String(36))
+    detail: Mapped[Optional[dict]] = mapped_column(JSON)
+    ip_address: Mapped[Optional[str]] = mapped_column(String(45))
+    user_agent: Mapped[Optional[str]] = mapped_column(String(300))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    user: Mapped[Optional["User"]] = relationship(back_populates="audit_logs")
+
+    __table_args__ = (
+        Index("ix_audit_user", "user_id"),
+        Index("ix_audit_action", "action"),
+        Index("ix_audit_time", "created_at"),
+    )
+
+
+class CitizenRequest(Base):
+    __tablename__ = "citizen_requests"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    village_id: Mapped[str] = mapped_column(ForeignKey("villages.id"), nullable=False)
+    user_id: Mapped[Optional[str]] = mapped_column(ForeignKey("users.id"))
+    reporter_name: Mapped[str] = mapped_column(String(100), nullable=False)
+    contact_phone: Mapped[Optional[str]] = mapped_column(String(20))
+    category: Mapped[str] = mapped_column(String(100), nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
+    severity: Mapped[AlertSeverity] = mapped_column(Enum(AlertSeverity), default=AlertSeverity.MODERATE)
+    status: Mapped[CitizenRequestStatus] = mapped_column(Enum(CitizenRequestStatus), default=CitizenRequestStatus.OPEN)
+    preferred_channel: Mapped[Optional[str]] = mapped_column(String(50))
+    resolution_notes: Mapped[Optional[str]] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    village: Mapped["Village"] = relationship(back_populates="citizen_requests")
+    user: Mapped[Optional["User"]] = relationship(back_populates="citizen_requests")
+
+    __table_args__ = (
+        Index("ix_request_village_status", "village_id", "status"),
+        Index("ix_request_created", "created_at"),
+    )
