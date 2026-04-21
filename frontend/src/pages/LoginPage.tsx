@@ -1,4 +1,5 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { ShieldCheck } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,13 +16,14 @@ type FormValues = z.infer<typeof schema>;
 
 export const LoginPage = () => {
   const { t } = useTranslation();
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
 
   if (isAuthenticated) {
-    return <Navigate replace to="/" />;
+    return <Navigate replace to={user?.role === 'admin' ? '/admin-portal' : '/'} />;
   }
 
   return (
@@ -37,8 +39,11 @@ export const LoginPage = () => {
           className="stack"
           onSubmit={form.handleSubmit(async (values) => {
             try {
-              await login(values.email, values.password);
+              const profile = await login(values.email, values.password);
               toast.success('Logged in successfully.');
+              if (profile.role === 'admin') {
+                navigate('/admin-portal', { replace: true });
+              }
             } catch {
               toast.error('Login failed. Please check your email and password.');
             }
@@ -59,9 +64,15 @@ export const LoginPage = () => {
           </button>
         </form>
 
-        <p className="subtle">
-          Need an account? <Link to="/register">Create one here</Link>
-        </p>
+        <div className="auth-paths">
+          <Link className="auth-path-chip" to="/admin/login">
+            <ShieldCheck size={16} />
+            Administrator login
+          </Link>
+          <Link className="auth-path-chip" to="/register">
+            Need an account? Create one here
+          </Link>
+        </div>
       </section>
     </main>
   );

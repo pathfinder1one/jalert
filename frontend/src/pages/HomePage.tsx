@@ -1,39 +1,141 @@
 import { useQuery } from '@tanstack/react-query';
-import { Droplets, HeartPulse, ShieldCheck, Waves } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Activity, ArrowRight, BellRing, Droplets, HeartPulse, ShieldCheck, Waves, Bot } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { imagery } from '../assets/imagery';
 import { ErrorState } from '../components/ErrorState';
 import { LoadingState } from '../components/LoadingState';
+import { PageHero } from '../components/PageHero';
 import { Reveal } from '../components/Reveal';
 import { SectionHeader } from '../components/SectionHeader';
-import { StatCard } from '../components/StatCard';
-import { BrandLogo } from '../components/BrandLogo';
 import { useAuth } from '../context/AuthContext';
 import { usePreferences } from '../context/PreferencesContext';
 import { villageService } from '../services/villageService';
 import { formatDate, formatNumber, sentenceCase } from '../utils/format';
 
-const trustCards = [
+const showcaseCards = [
   {
     icon: Droplets,
-    title: 'Water safety',
-    text: 'See whether water conditions are safe, changing, or need urgent attention.',
+    kicker: 'Water Safety',
+    title: 'Water quality that reads clearly',
+    text: 'Turn raw source readings into a public-friendly card that explains what changed and what needs attention.',
+    chip: 'Source quality watch',
+    panelTitle: 'Water readiness',
+    metricLabel: 'Safe supply points',
+    metricValue: '18 / 21',
+    metricNote: 'Latest village snapshot',
+    floatingTitle: 'Today',
+    floatingValue: '83',
+    floatingNote: 'Quality score',
+    bullets: [
+      'Spot pH and turbidity drift early',
+      'Make safe versus watch status obvious',
+    ],
+    rows: [
+      { label: 'North', value: 86 },
+      { label: 'East', value: 72 },
+      { label: 'South', value: 91 },
+    ],
+    primaryLabel: 'View water status',
+    primaryTo: '/village-status',
+    secondaryLabel: 'Open sensors',
+    secondaryTo: '/sensors',
   },
   {
     icon: HeartPulse,
-    title: 'Health reporting',
-    text: 'Share symptoms early so field teams can notice clusters before they become outbreaks.',
+    kicker: 'Health Reporting',
+    title: 'Community health without the spreadsheet feel',
+    text: 'Surface symptom reporting and escalation cues in a cleaner action card for families and field teams.',
+    chip: 'Health report flow',
+    panelTitle: 'Response readiness',
+    metricLabel: 'Open follow-ups',
+    metricValue: '12',
+    metricNote: 'Prioritized for local teams',
+    floatingTitle: 'Follow-up',
+    floatingValue: '2 hrs',
+    floatingNote: 'Median acknowledgement',
+    bullets: [
+      'Early cluster visibility for villages',
+      'Plain-language severity for families',
+    ],
+    rows: [
+      { label: 'Fever', value: 64 },
+      { label: 'GI', value: 47 },
+      { label: 'Skin', value: 31 },
+    ],
+    primaryLabel: 'Report an issue',
+    primaryTo: '/citizen-services',
+    secondaryLabel: 'See health reports',
+    secondaryTo: '/health-reports',
   },
   {
     icon: ShieldCheck,
-    title: 'Village confidence',
-    text: 'Give families and local workers one place to check trusted updates in plain language.',
+    kicker: 'Village Confidence',
+    title: 'Official trust cards with less weight',
+    text: 'Combine local status, confidence language, and decision support without making the interface feel heavy.',
+    chip: 'Village confidence layer',
+    panelTitle: 'Village status',
+    metricLabel: 'Confidence',
+    metricValue: '94%',
+    metricNote: 'Based on synced data',
+    floatingTitle: 'Coverage',
+    floatingValue: '3 feeds',
+    floatingNote: 'Water, alerts, reports',
+    bullets: [
+      'One public-facing source of truth',
+      'Fast drilldown into the right workflow',
+    ],
+    rows: [
+      { label: 'Sensors', value: 92 },
+      { label: 'Alerts', value: 76 },
+      { label: 'Reports', value: 88 },
+    ],
+    primaryLabel: 'Check village profile',
+    primaryTo: '/village-profile',
+    secondaryLabel: 'Feature center',
+    secondaryTo: '/feature-center',
   },
   {
     icon: Waves,
-    title: 'Live response',
-    text: 'Use real-time alerts, clear action steps, and local monitoring for faster response.',
+    kicker: 'Live Response',
+    title: 'Alert cards built for quick response',
+    text: 'Pair a premium shell with clear actions so people can move from awareness to response without friction.',
+    chip: 'Alert response queue',
+    panelTitle: 'Response timeline',
+    metricLabel: 'Active alerts',
+    metricValue: '07',
+    metricNote: 'Updated every sync',
+    floatingTitle: 'Escalation',
+    floatingValue: 'Ready',
+    floatingNote: 'Field team notified',
+    bullets: [
+      'Signal which alerts need attention first',
+      'Keep status, trend, and CTA together',
+    ],
+    rows: [
+      { label: 'Critical', value: 28 },
+      { label: 'High', value: 54 },
+      { label: 'Moderate', value: 76 },
+    ],
+    primaryLabel: 'Open alerts',
+    primaryTo: '/alerts',
+    secondaryLabel: 'Download reports',
+    secondaryTo: '/reports',
+  },
+];
+
+const trustNotes = [
+  {
+    title: 'Village-ready language',
+    text: 'The cards keep the tone calm and civic, while still making the next action obvious.',
+  },
+  {
+    title: 'Useful on the ground',
+    text: 'Status, supporting detail, and a clear CTA all live inside the same card shell.',
+  },
+  {
+    title: 'Built for action',
+    text: 'Each card can preview a signal, show confidence, and send the user to the right workflow fast.',
   },
 ];
 
@@ -51,62 +153,21 @@ export const HomePage = () => {
 
   return (
     <>
-      <section className="hero">
-        <div className="hero-copy">
-          <div className="hero-ripple hero-ripple-one" />
-          <div className="hero-ripple hero-ripple-two" />
-          <div className="hero-brand-panel">
-            <BrandLogo className="hero-brand-logo" showTagline={false} />
-            <div className="hero-brand-note">
-              Water, health, farming, and local response brought together in one calm public-facing experience.
-            </div>
-          </div>
-          <div className="eyebrow">Village safety shaped by water, crops, and care</div>
-          <h1>{t('home.title')}</h1>
-          <p>{t('home.subtitle')}</p>
-          <div className="hero-actions">
-            <Link className="secondary-button" to="/feature-center">
-              Explore all features
-            </Link>
-            <Link className="primary-button" to="/village-profile">
-              {t('home.ctaStatus')}
-            </Link>
-            <Link className="secondary-button" to="/alerts">
-              {t('home.ctaAlerts')}
-            </Link>
-            <Link className="ghost-button" to="/citizen-services">
-              Citizen Services
-            </Link>
-          </div>
-          <div className="hero-highlights">
-            <div className="hero-highlight">
-              <span className="subtle">River and field view</span>
-              <strong>Readable risk guidance</strong>
-            </div>
-            <div className="hero-highlight">
-              <span className="subtle">Community support</span>
-              <strong>Multilingual access</strong>
-            </div>
-            <div className="hero-highlight">
-              <span className="subtle">Smart connection</span>
-              <strong>Alerts and reports together</strong>
-            </div>
-          </div>
-        </div>
-
-        <div className="hero-media">
-          <img
-            src={imagery.hero}
-            alt="Farms and water landscape representing village water and health monitoring"
-          />
-          <div className="hero-overlay-card">
-            <strong>Inspired by your new brand mark</strong>
-            <p className="subtle">
-              Soft water blues, farm greens, and warm civic accents now shape the interface across the site.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Public village intelligence"
+        title={t('home.title')}
+        subtitle={t('home.subtitle')}
+        image={imagery.hero}
+        primaryLabel="Explore feature center"
+        primaryTo="/feature-center"
+        secondaryLabel="Open village dashboard"
+        secondaryTo="/village-status"
+        statItems={[
+          { label: 'Water score', value: '83' },
+          { label: 'Active alerts', value: '07' },
+          { label: 'Confidence', value: '94%' },
+        ]}
+      />
 
       <Reveal className="section">
         <SectionHeader
@@ -114,15 +175,70 @@ export const HomePage = () => {
           subtitle="Every section of JALERT is written and designed to help normal users understand what is happening in their village and what to do next."
         />
         <div className="card-grid">
-          {trustCards.map((card, index) => (
+          {showcaseCards.map((card, index) => (
             <Reveal key={card.title} delay={index * 70}>
-              <article className="feature-card interactive-card">
-                <div className="eyebrow">
-                  <card.icon size={16} />
-                  {card.title}
+              <article className="showcase-card interactive-card">
+                <div className="showcase-copy">
+                  <div className="showcase-kicker">
+                    <card.icon size={16} />
+                    {card.kicker}
+                  </div>
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                  <ul className="showcase-bullets">
+                    {card.bullets.map((bullet) => (
+                      <li key={bullet}>{bullet}</li>
+                    ))}
+                  </ul>
                 </div>
-                <h3>{card.title}</h3>
-                <p>{card.text}</p>
+
+                <div className="showcase-visual">
+                  <div className="showcase-dashboard">
+                    <div className="showcase-dashboard-utility">
+                      <div className="showcase-inline-chip">{card.chip}</div>
+                      <div className="showcase-inline-stat">
+                        <span>{card.floatingTitle}</span>
+                        <strong>{card.floatingValue}</strong>
+                        <small>{card.floatingNote}</small>
+                      </div>
+                    </div>
+
+                    <div className="showcase-dashboard-head">
+                      <strong>{card.panelTitle}</strong>
+                      <span>{card.metricNote}</span>
+                    </div>
+
+                    <div className="showcase-metric-line">
+                      <div>
+                        <span>{card.metricLabel}</span>
+                        <strong>{card.metricValue}</strong>
+                      </div>
+                      <Activity size={18} />
+                    </div>
+
+                    <div className="showcase-chart">
+                      {card.rows.map((row) => (
+                        <div key={row.label} className="showcase-chart-row">
+                          <span>{row.label}</span>
+                          <div className="showcase-bar-track">
+                            <div className="showcase-bar-fill" style={{ width: `${row.value}%` }} />
+                          </div>
+                          <strong>{row.value}</strong>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="showcase-actions">
+                  <Link className="showcase-primary" to={card.primaryTo}>
+                    {card.primaryLabel}
+                  </Link>
+                  <Link className="showcase-secondary" to={card.secondaryTo}>
+                    {card.secondaryLabel}
+                    <ArrowRight size={16} />
+                  </Link>
+                </div>
               </article>
             </Reveal>
           ))}
@@ -145,22 +261,71 @@ export const HomePage = () => {
         ) : dashboardQuery.isError ? (
           <ErrorState description="We could not load the live highlights right now." />
         ) : dashboardQuery.data ? (
-          <div className="metric-grid">
-            <StatCard
-              label="Current village risk"
-              value={sentenceCase(dashboardQuery.data.risk.category)}
-              helper={`Updated ${formatDate(dashboardQuery.data.risk.last_updated)}`}
-            />
-            <StatCard
-              label="Water quality score"
-              value={formatNumber(dashboardQuery.data.latest_sensor.quality_score)}
-              helper="Based on the most recent sensor snapshot"
-            />
-            <StatCard
-              label="Active alerts"
-              value={String(dashboardQuery.data.active_alerts.length)}
-              helper={`${dashboardQuery.data.village.name}, ${dashboardQuery.data.village.district}`}
-            />
+          <div className="bento-grid">
+            <article className="bento-card bento-card-primary interactive-card">
+              <div className="bento-kicker">
+                <BellRing size={16} />
+                Live village snapshot
+              </div>
+              <h3>{dashboardQuery.data.village.name}</h3>
+              <p className="bento-subtitle">
+                {dashboardQuery.data.village.district}, {dashboardQuery.data.village.state}
+              </p>
+              <div className="bento-highlight-row">
+                <div>
+                  <span>Population</span>
+                  <strong>{formatNumber(dashboardQuery.data.village.population, 0)}</strong>
+                </div>
+                <div>
+                  <span>Risk score</span>
+                  <strong>{formatNumber(dashboardQuery.data.risk.score)}</strong>
+                </div>
+              </div>
+              <div className="bento-chip-row">
+                <span className="bento-chip">
+                  Category: {sentenceCase(dashboardQuery.data.risk.category)}
+                </span>
+                <span className="bento-chip">
+                  Updated {formatDate(dashboardQuery.data.risk.last_updated)}
+                </span>
+              </div>
+            </article>
+
+            <article className="bento-card interactive-card">
+              <div className="bento-kicker">
+                <Droplets size={16} />
+                Water quality
+              </div>
+              <strong className="bento-value">
+                {formatNumber(dashboardQuery.data.latest_sensor.quality_score)}
+              </strong>
+              <p className="bento-subtitle">Based on the most recent sensor snapshot.</p>
+              <ul className="bento-list">
+                <li>pH: {formatNumber(dashboardQuery.data.latest_sensor.ph)}</li>
+                <li>Turbidity: {formatNumber(dashboardQuery.data.latest_sensor.turbidity)}</li>
+                <li>Last reading: {formatDate(dashboardQuery.data.latest_sensor.timestamp)}</li>
+              </ul>
+            </article>
+
+            <article className="bento-card interactive-card">
+              <div className="bento-kicker">
+                <ShieldCheck size={16} />
+                Alerts and follow-up
+              </div>
+              <strong className="bento-value">{String(dashboardQuery.data.active_alerts.length)}</strong>
+              <p className="bento-subtitle">Active alerts currently open for this village.</p>
+              <ul className="bento-list">
+                {dashboardQuery.data.active_alerts.length ? (
+                  dashboardQuery.data.active_alerts.slice(0, 3).map((alert) => (
+                    <li key={alert.id}>
+                      {sentenceCase(alert.severity)}: {alert.title}
+                    </li>
+                  ))
+                ) : (
+                  <li>No active alerts are open right now.</li>
+                )}
+              </ul>
+            </article>
           </div>
         ) : (
           <article className="content-card">
@@ -172,20 +337,19 @@ export const HomePage = () => {
       </Reveal>
 
       <Reveal className="section split-layout">
-          <article className="content-card interactive-card">
-            <SectionHeader
-              title="AI assistance for real questions"
-              subtitle="The floating assistant can help users find alerts, explain predictions, check water safety, and move to the right page quickly."
-            />
-          <ul className="action-list">
-            <li>Show my village alerts</li>
-            <li>Explain this prediction</li>
-            <li>How safe is the water?</li>
-            <li>Download my report</li>
-          </ul>
+          <article className="content-card interactive-card" style={{ display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'center' }}>
+              <SectionHeader
+                title="Real AI Assistant"
+                subtitle="Talk directly to the JALERT assistant with live village context."
+              />
           <p className="body-copy">
-            It works like a simple guide, not a technical chatbot. The answers are connected to the same backend data used across the website.
+            Understand complex alerts, ask about water metrics, and view real-time data insights completely naturally.
           </p>
+          <div>
+            <Link className="primary-button" to="/chat" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+              <Bot size={18} /> Open Fullscreen Chat
+            </Link>
+          </div>
           </article>
 
           <article className="content-card interactive-card">
@@ -213,30 +377,18 @@ export const HomePage = () => {
           subtitle="The interface keeps the tone calm, the language simple, and the actions practical."
         />
         <div className="grid-3">
-          <Reveal delay={40}>
-            <article className="testimonial-card interactive-card">
-              <h3>Village-ready language</h3>
-              <p>
-                Clear labels, meaningful status colors, and room for Indian language support across the full site.
-              </p>
-            </article>
-          </Reveal>
-          <Reveal delay={100}>
-            <article className="testimonial-card interactive-card">
-              <h3>Useful on the ground</h3>
-              <p>
-                Health reports, water readings, alerts, and report downloads are connected in one user-facing flow.
-              </p>
-            </article>
-          </Reveal>
-          <Reveal delay={160}>
-            <article className="testimonial-card interactive-card">
-              <h3>Built for action</h3>
-              <p>
-                Families can understand the update, workers can respond, and village leaders can share reports quickly.
-              </p>
-            </article>
-          </Reveal>
+          {trustNotes.map((note, index) => (
+            <Reveal key={note.title} delay={40 + index * 60}>
+              <article className="testimonial-card interactive-card">
+                <div className="eyebrow">
+                  <ShieldCheck size={16} />
+                  Trust Layer
+                </div>
+                <h3>{note.title}</h3>
+                <p>{note.text}</p>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </Reveal>
     </>

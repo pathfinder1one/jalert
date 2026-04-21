@@ -9,23 +9,24 @@ import {
 } from 'react';
 import { authService } from '../services/authService';
 import { getStoredTokens, onAuthExpired } from '../services/http';
-import type { User } from '../types/api';
+import type { User, UserRole } from '../types/api';
 
 interface AuthContextValue {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<User>;
   register: (payload: {
     name: string;
     email: string;
     phone?: string;
     password: string;
+    role?: UserRole;
     preferred_language: string;
     village_id?: string;
-  }) => Promise<void>;
+  }) => Promise<User>;
   logout: () => void;
-  refreshProfile: () => Promise<void>;
+  refreshProfile: () => Promise<User>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -37,6 +38,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const refreshProfile = useCallback(async () => {
     const profile = await authService.me();
     setUser(profile);
+    return profile;
   }, []);
 
   useEffect(() => {
@@ -69,7 +71,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const login = useCallback(async (email: string, password: string) => {
     await authService.login({ email, password });
-    await refreshProfile();
+    return refreshProfile();
   }, [refreshProfile]);
 
   const register = useCallback(
@@ -78,12 +80,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       email: string;
       phone?: string;
       password: string;
+      role?: UserRole;
       preferred_language: string;
       village_id?: string;
     }) => {
       await authService.register(payload);
       await authService.login({ email: payload.email, password: payload.password });
-      await refreshProfile();
+      return refreshProfile();
     },
     [refreshProfile],
   );

@@ -66,10 +66,18 @@ async def get_prediction_history(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(require_any),
 ):
-    """Get prediction history for trend analysis"""
-    history = await PredictionService.ensure_history(village_id, db, minimum_points=min(limit, 14))
-    history = history[:limit]
-    if history and _needs_prediction_refresh(history[0]):
+    """Get prediction history for trend analysis without blocking UI on synthetic backfill."""
+    result = await db.execute(
+        select(AIPrediction)
+        .where(AIPrediction.village_id == village_id)
+        .order_by(desc(AIPrediction.created_at))
+        .limit(limit)
+    )
+    history = result.scalars().all()
+    if not history:
+        pred = await PredictionService.predict(village_id, db, force_refresh=False)
+        history = [pred]
+    elif _needs_prediction_refresh(history[0]):
         pred = await PredictionService.predict(village_id, db, force_refresh=False)
         history = [pred, *history[: max(limit - 1, 0)]]
     return history

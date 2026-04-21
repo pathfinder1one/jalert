@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Area, AreaChart, Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import { imagery } from '../assets/imagery';
 import { EmptyState } from '../components/EmptyState';
 import { ErrorState } from '../components/ErrorState';
@@ -17,6 +18,7 @@ import { villageService } from '../services/villageService';
 import { formatCompactDate, formatDate, formatNumber, sentenceCase, toActionList } from '../utils/format';
 
 export const PredictionsPage = () => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { isAuthenticated, user } = useAuth();
   const { activeVillageId, setActiveVillageId } = usePreferences();
@@ -45,7 +47,7 @@ export const PredictionsPage = () => {
   const historyQuery = useQuery({
     queryKey: ['prediction-history', activeVillageId],
     queryFn: () => predictionService.history(activeVillageId!, 30),
-    enabled: Boolean(isAuthenticated && activeVillageId),
+    enabled: Boolean(isAuthenticated && activeVillageId && latestQuery.data),
     staleTime: 60 * 1000,
     placeholderData: keepPreviousData,
   });
@@ -53,7 +55,7 @@ export const PredictionsPage = () => {
   const explainQuery = useQuery({
     queryKey: ['prediction-explain', activeVillageId],
     queryFn: () => predictionService.explain(activeVillageId!),
-    enabled: Boolean(isAuthenticated && activeVillageId),
+    enabled: Boolean(isAuthenticated && activeVillageId && latestQuery.data),
     staleTime: 60 * 1000,
     placeholderData: keepPreviousData,
   });
@@ -121,10 +123,14 @@ export const PredictionsPage = () => {
     <>
       <PageHero
         eyebrow="AI assessment"
-        title="AI predictions explained in everyday language"
-        subtitle="Understand village risk levels, recent changes, and practical next steps without technical jargon."
-        image={imagery.handPump}
-        compact
+        title={t('predictions.title')}
+        subtitle={t('predictions.subtitle')}
+        image={imagery.report}
+        badges={['Risk score', 'Disease trends', 'Water signal', 'AI explanation']}
+        primaryLabel="Open village status"
+        primaryTo="/village-status"
+        secondaryLabel="See alerts"
+        secondaryTo="/alerts"
       />
 
       {!isAuthenticated ? (
@@ -132,8 +138,8 @@ export const PredictionsPage = () => {
           <LoginPrompt />
         </section>
       ) : (
-        <>
-          <section className="section content-card">
+        <div className="predictions-page">
+          <section className="section content-card prediction-toolbar-card">
             <div className="inline-between">
               <VillageSelector
                 villages={villagesQuery.data ?? []}
@@ -162,7 +168,7 @@ export const PredictionsPage = () => {
           {latestQuery.data ? (
             <>
               <section className="section split-layout">
-                <article className="content-card">
+                <article className="content-card prediction-lead-card">
                   <div className="helper-row">
                     <StatusBadge value={latestQuery.data.risk_category} />
                     <span className="subtle">Updated {formatDate(latestQuery.data.created_at)}</span>
@@ -177,9 +183,20 @@ export const PredictionsPage = () => {
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
+                  <div className="prediction-chip-row">
+                    <span className="prediction-chip">
+                      Outbreak timeline: {latestQuery.data.outbreak_timeline_days ?? 'None'}
+                    </span>
+                    <span className="prediction-chip">
+                      Water score: {formatNumber(latestQuery.data.water_quality_score)}
+                    </span>
+                    <span className="prediction-chip">
+                      Disease score: {formatNumber(latestQuery.data.disease_risk_score)}
+                    </span>
+                  </div>
                 </article>
 
-                <article className="chart-card content-card">
+                <article className="chart-card content-card prediction-chart-card">
                   <h3>Component score breakdown</h3>
                   <div className="chart-shell">
                     <ResponsiveContainer width="100%" height="100%">
@@ -195,7 +212,7 @@ export const PredictionsPage = () => {
               </section>
 
               <section className="section split-layout">
-                <article className="chart-card content-card">
+                <article className="chart-card content-card prediction-chart-card prediction-history-card">
                   <h3>Risk trend history</h3>
                   <div className="chart-shell">
                     <ResponsiveContainer width="100%" height="100%">
@@ -209,7 +226,7 @@ export const PredictionsPage = () => {
                   </div>
                 </article>
 
-                <article className="content-card">
+                <article className="content-card prediction-note-card">
                   <h3>Simple explanation</h3>
                   <p className="body-copy">
                     The model combines the latest water readings, symptom patterns, local health reports, and weather factors. The goal is not to replace field judgement, but to help communities notice risk earlier.
@@ -224,12 +241,12 @@ export const PredictionsPage = () => {
               </section>
 
               <section className="section split-layout">
-                <article className="content-card">
+                <article className="content-card prediction-insight-card">
                   <h3>What the model looked at</h3>
                   {topFactors.length ? (
-                    <div className="stack">
+                    <div className="stack prediction-factor-stack">
                       {topFactors.map(([name, value]) => (
-                        <div key={name} className="alert-card">
+                        <div key={name} className="alert-card prediction-factor-row">
                           <div className="inline-between">
                             <strong>{sentenceCase(name.replace(/_/g, ' '))}</strong>
                             <span className="status-badge neutral">
@@ -246,12 +263,12 @@ export const PredictionsPage = () => {
                   )}
                 </article>
 
-                <article className="content-card">
+                <article className="content-card prediction-agent-panel">
                   <h3>Model and agent outputs</h3>
                   {agentCards.length ? (
-                    <div className="stack">
+                    <div className="stack prediction-agent-stack">
                       {agentCards.map(([name, value]) => (
-                        <article key={name} className="alert-card">
+                        <article key={name} className="alert-card prediction-agent-card">
                           <div className="inline-between">
                             <strong>{sentenceCase(name.replace(/_/g, ' '))}</strong>
                             <span className="status-badge safe">
@@ -278,7 +295,7 @@ export const PredictionsPage = () => {
               </section>
             </>
           ) : null}
-        </>
+        </div>
       )}
     </>
   );

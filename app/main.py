@@ -13,7 +13,7 @@ from loguru import logger
 import sys
 
 from app.core.config import settings
-from app.core.database import init_db, close_db, AsyncSessionLocal
+from app.core.database import init_db, close_db, AsyncSessionLocal, DATABASE_URL, IS_SQLITE, engine
 from app.core.redis_manager import redis_manager
 from app.services.bootstrap_service import seed_sensor_network_if_empty, seed_villages_if_empty
 from app.services.ogd_data_service import warm_public_water_resource_cache
@@ -46,6 +46,8 @@ async def lifespan(app: FastAPI):
     logger.info("=" * 60)
     logger.info(f"  Starting {settings.APP_NAME} v{settings.APP_VERSION}")
     logger.info(f"  Environment: {settings.ENVIRONMENT}")
+    logger.info(f"  Database: {'SQLite' if IS_SQLITE else 'Server DB'} via {type(engine.sync_engine.pool).__name__}")
+    logger.info(f"  Database URL: {DATABASE_URL}")
     logger.info("=" * 60)
 
     app.state.database_available = False
@@ -136,7 +138,7 @@ and protecting rural communities in India.
     app.add_middleware(RateLimitMiddleware)
 
     # ── Routers ────────────────────────────────────────────────────────────────
-    from app.routers import auth, sensors, alerts, predictions, health, reports, villages, websockets, ml_training, water_resources, village_intelligence
+    from app.routers import auth, sensors, alerts, predictions, health, reports, villages, websockets, ml_training, water_resources, village_intelligence, chat
 
     PREFIX = "/api/v1"
     app.include_router(auth.router, prefix=PREFIX)
@@ -149,6 +151,7 @@ and protecting rural communities in India.
     app.include_router(ml_training.router, prefix=PREFIX)
     app.include_router(water_resources.router, prefix=PREFIX)
     app.include_router(village_intelligence.router, prefix=PREFIX)
+    app.include_router(chat.router, prefix=PREFIX)
     app.include_router(websockets.router)  # No prefix for WS
 
     # ── Health endpoints ───────────────────────────────────────────────────────
@@ -231,3 +234,5 @@ if __name__ == "__main__":
         reload=settings.DEBUG,
         log_level="debug" if settings.DEBUG else "info",
     )
+
+# Trigger reload

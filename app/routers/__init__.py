@@ -11,6 +11,7 @@ from app.routers import (
     villages,
     water_resources,
     websockets,
+    chat,
 )
 
 __all__ = [
@@ -25,4 +26,5 @@ __all__ = [
     "ml_training",
     "water_resources",
     "village_intelligence",
+    "chat",
 ]

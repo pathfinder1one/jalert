@@ -1,8 +1,10 @@
-import { Bot, Mic, Send, Volume2, Waves } from 'lucide-react';
+import { Mic, Send, Volume2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+
+import { AssistantRobot } from './AssistantRobot';
 import { assistantService } from '../services/assistantService';
 import { useAuth } from '../context/AuthContext';
 import { usePreferences } from '../context/PreferencesContext';
@@ -146,9 +148,12 @@ export const AssistantWidget = () => {
       {isOpen ? (
         <aside className="assistant-panel">
           <div className="inline-between">
-            <div>
+            <div className="assistant-widget-header">
+              <AssistantRobot size="sm" className="assistant-widget-robot" />
+              <div>
               <h3>{t('assistant.title')}</h3>
               <p className="subtle">{t('assistant.subtitle')}</p>
+              </div>
             </div>
             <button type="button" className="ghost-button" onClick={() => setIsOpen(false)}>
               Close
@@ -234,7 +239,7 @@ export const AssistantWidget = () => {
         onClick={() => setIsOpen(true)}
       >
         <span className="assistant-fab-ring" />
-        {isOpen ? <Bot size={24} /> : <Waves size={24} />}
+        <AssistantRobot size="sm" className="assistant-fab-robot" />
       </button>
     </>
   );

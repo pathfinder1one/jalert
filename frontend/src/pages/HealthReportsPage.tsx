@@ -119,6 +119,11 @@ export const HealthReportsPage = () => {
         title="Report symptoms early and help your village respond sooner"
         subtitle="Share health concerns in simple language. Health workers can review local trends and identify possible clusters."
         image={imagery.community}
+        badges={['Symptom reporting', 'Cluster detection', 'Field review', 'Real-time trends']}
+        primaryLabel="Submit a report"
+        primaryTo="/health-reports"
+        secondaryLabel="Open alerts"
+        secondaryTo="/alerts"
       />
 
       {!isAuthenticated ? (

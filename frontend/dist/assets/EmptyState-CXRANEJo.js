@@ -1,0 +1,1 @@
+import{j as e}from"./index-DWTRpdex.js";const i=({title:t="Nothing to show yet",description:s="When new data arrives, it will appear here."})=>e.jsxs("div",{className:"empty-state",children:[e.jsx("h3",{children:t}),e.jsx("p",{className:"section-subtitle",children:s})]});export{i as E};

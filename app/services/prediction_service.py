@@ -18,9 +18,39 @@ from loguru import logger
 
 
 _sqlite_prediction_write_lock = asyncio.Lock()
+_prediction_locks: dict[str, asyncio.Lock] = {}
+_prediction_memory_cache: dict[str, AIPrediction] = {}
+_prediction_memory_cache_ttl = timedelta(minutes=10)
 
 
 class PredictionService:
+    @staticmethod
+    def _get_prediction_lock(village_id: str) -> asyncio.Lock:
+        lock = _prediction_locks.get(village_id)
+        if lock is None:
+            lock = asyncio.Lock()
+            _prediction_locks[village_id] = lock
+        return lock
+
+    @staticmethod
+    def _get_cached_prediction(village_id: str) -> Optional[AIPrediction]:
+        prediction = _prediction_memory_cache.get(village_id)
+        if prediction is None:
+            return None
+        created_at = getattr(prediction, "created_at", None)
+        if created_at is None:
+            _prediction_memory_cache.pop(village_id, None)
+            return None
+        now = datetime.now(timezone.utc)
+        if now - created_at > _prediction_memory_cache_ttl:
+            _prediction_memory_cache.pop(village_id, None)
+            return None
+        return prediction
+
+    @staticmethod
+    def _store_cached_prediction(prediction: AIPrediction) -> None:
+        _prediction_memory_cache[prediction.village_id] = prediction
+
     @staticmethod
     def _prediction_needs_rebuild(prediction: Optional[AIPrediction]) -> bool:
         if prediction is None:
@@ -36,13 +66,23 @@ class PredictionService:
 
     @staticmethod
     async def _get_latest_prediction_record(village_id: str, db: AsyncSession) -> Optional[AIPrediction]:
+        cached_prediction = PredictionService._get_cached_prediction(village_id)
         result = await db.execute(
             select(AIPrediction)
             .where(AIPrediction.village_id == village_id)
             .order_by(desc(AIPrediction.created_at))
             .limit(1)
         )
-        return result.scalar_one_or_none()
+        db_prediction = result.scalar_one_or_none()
+        if cached_prediction is None:
+            return db_prediction
+        if db_prediction is None:
+            return cached_prediction
+        cached_created = getattr(cached_prediction, "created_at", None)
+        db_created = getattr(db_prediction, "created_at", None)
+        if cached_created and db_created and cached_created > db_created:
+            return cached_prediction
+        return db_prediction
 
     @staticmethod
     def _category_from_score(score: float) -> RiskCategory:
@@ -324,150 +364,150 @@ class PredictionService:
     @staticmethod
     async def predict(village_id: str, db: AsyncSession, force_refresh: bool = False) -> AIPrediction:
         from app.ml.models import water_quality_model, disease_outbreak_model, explainability
+        async with PredictionService._get_prediction_lock(village_id):
+            if not force_refresh:
+                existing_prediction = await PredictionService._get_latest_prediction_record(village_id, db)
+                if existing_prediction is not None and not PredictionService._prediction_needs_rebuild(existing_prediction):
+                    return existing_prediction
 
-        if not force_refresh:
-            existing_prediction = await PredictionService._get_latest_prediction_record(village_id, db)
-            if existing_prediction is not None and not PredictionService._prediction_needs_rebuild(existing_prediction):
-                return existing_prediction
+            # Check cache
+            if not force_refresh:
+                try:
+                    cached = await redis_manager.get(f"prediction:{village_id}")
+                except Exception as exc:
+                    cached = None
+                    logger.warning(f"Prediction cache read skipped for village {village_id}: {exc}")
+                if cached:
+                    logger.debug(f"Returning cached prediction for village {village_id}")
+                    pred = await PredictionService._get_latest_prediction_record(village_id, db)
+                    if pred and not PredictionService._prediction_needs_rebuild(pred):
+                        return pred
 
-        # Check cache
-        if not force_refresh:
+            # Fetch village info
+            result = await db.execute(select(Village).where(Village.id == village_id))
+            village = result.scalar_one_or_none()
+            if not village:
+                from fastapi import HTTPException
+                raise HTTPException(status_code=404, detail="Village not found")
+
+            # Collect context
+            readings = await PredictionService.get_latest_readings(village_id, db)
+            health_reports = await PredictionService.get_recent_health_reports(village_id, db)
+
+            latest_reading = readings[0] if readings else {}
+            symptom_counts = PredictionService._aggregate_symptoms(health_reports)
+
+            ml_water = water_quality_model.predict(latest_reading)
+            ml_disease = disease_outbreak_model.predict({
+                **latest_reading,
+                "water_quality_score": ml_water.get("risk_score", 50),
+                "symptom_count": len(symptom_counts),
+                "fever_cases": symptom_counts.get("fever", 0),
+                "diarrhea_cases": symptom_counts.get("diarrhea", 0),
+                "vomiting_cases": symptom_counts.get("vomiting", 0),
+                "days_since_rain": 0,
+            })
+
             try:
-                cached = await redis_manager.get(f"prediction:{village_id}")
+                from app.agents.orchestrator import AgentContext, orchestrator
+
+                context = AgentContext(
+                    village_id=village_id,
+                    village_name=village.name,
+                    sensor_readings=readings,
+                    health_reports=health_reports,
+                    weather_data=None,
+                    historical_predictions=[],
+                )
+                orch_result = await orchestrator.run(context)
             except Exception as exc:
-                cached = None
-                logger.warning(f"Prediction cache read skipped for village {village_id}: {exc}")
-            if cached:
-                logger.debug(f"Returning cached prediction for village {village_id}")
-                # Still return DB object
-                pred = await PredictionService._get_latest_prediction_record(village_id, db)
-                if pred and not PredictionService._prediction_needs_rebuild(pred):
-                    return pred
+                logger.warning(f"AI orchestrator unavailable, using ML fallback for village {village_id}: {exc}")
+                orch_result = PredictionService._fallback_orchestrator_result(
+                    village_id=village_id,
+                    latest_reading=latest_reading,
+                    health_reports=health_reports,
+                    ml_water=ml_water,
+                    ml_disease=ml_disease,
+                )
 
-        # Fetch village info
-        result = await db.execute(select(Village).where(Village.id == village_id))
-        village = result.scalar_one_or_none()
-        if not village:
-            from fastapi import HTTPException
-            raise HTTPException(status_code=404, detail="Village not found")
-
-        # Collect context
-        readings = await PredictionService.get_latest_readings(village_id, db)
-        health_reports = await PredictionService.get_recent_health_reports(village_id, db)
-
-        latest_reading = readings[0] if readings else {}
-        symptom_counts = PredictionService._aggregate_symptoms(health_reports)
-
-        ml_water = water_quality_model.predict(latest_reading)
-        ml_disease = disease_outbreak_model.predict({
-            **latest_reading,
-            "water_quality_score": ml_water.get("risk_score", 50),
-            "symptom_count": len(symptom_counts),
-            "fever_cases": symptom_counts.get("fever", 0),
-            "diarrhea_cases": symptom_counts.get("diarrhea", 0),
-            "vomiting_cases": symptom_counts.get("vomiting", 0),
-            "days_since_rain": 0,
-        })
-
-        try:
-            from app.agents.orchestrator import AgentContext, orchestrator
-
-            context = AgentContext(
-                village_id=village_id,
-                village_name=village.name,
-                sensor_readings=readings,
-                health_reports=health_reports,
-                weather_data=None,
-                historical_predictions=[],
+            # Blend ML and Agent scores (60% agent, 40% ML)
+            final_score = (
+                orch_result["risk_score"] * 0.6 +
+                ml_water.get("risk_score", 50) * 0.2 +
+                ml_disease.get("risk_score", 40) * 0.2
             )
-            orch_result = await orchestrator.run(context)
-        except Exception as exc:
-            logger.warning(f"AI orchestrator unavailable, using ML fallback for village {village_id}: {exc}")
-            orch_result = PredictionService._fallback_orchestrator_result(
+            final_score = round(min(100, max(0, final_score)), 2)
+
+            category = PredictionService._category_from_score(final_score)
+
+            # SHAP explanation
+            shap_result = explainability.explain_water_quality(water_quality_model, latest_reading)
+
+            # Save prediction
+            prediction = AIPrediction(
+                id=str(uuid.uuid4()),
                 village_id=village_id,
-                latest_reading=latest_reading,
-                health_reports=health_reports,
-                ml_water=ml_water,
-                ml_disease=ml_disease,
+                risk_score=final_score,
+                risk_category=category,
+                outbreak_timeline_days=orch_result.get("outbreak_timeline_days"),
+                water_quality_score=orch_result.get("water_quality_score"),
+                disease_risk_score=orch_result.get("disease_risk_score"),
+                weather_risk_score=orch_result.get("weather_risk_score"),
+                community_health_score=orch_result.get("community_health_score"),
+                agent_outputs=orch_result.get("agent_outputs"),
+                recommended_actions=orch_result.get("recommended_actions"),
+                shap_values=shap_result,
+                model_version="1.0",
+                created_at=datetime.now(timezone.utc),
             )
-
-        # Blend ML and Agent scores (60% agent, 40% ML)
-        final_score = (
-            orch_result["risk_score"] * 0.6 +
-            ml_water.get("risk_score", 50) * 0.2 +
-            ml_disease.get("risk_score", 40) * 0.2
-        )
-        final_score = round(min(100, max(0, final_score)), 2)
-
-        category = PredictionService._category_from_score(final_score)
-
-        # SHAP explanation
-        shap_result = explainability.explain_water_quality(water_quality_model, latest_reading)
-
-        # Save prediction
-        prediction = AIPrediction(
-            id=str(uuid.uuid4()),
-            village_id=village_id,
-            risk_score=final_score,
-            risk_category=category,
-            outbreak_timeline_days=orch_result.get("outbreak_timeline_days"),
-            water_quality_score=orch_result.get("water_quality_score"),
-            disease_risk_score=orch_result.get("disease_risk_score"),
-            weather_risk_score=orch_result.get("weather_risk_score"),
-            community_health_score=orch_result.get("community_health_score"),
-            agent_outputs=orch_result.get("agent_outputs"),
-            recommended_actions=orch_result.get("recommended_actions"),
-            shap_values=shap_result,
-            model_version="1.0",
-            created_at=datetime.now(timezone.utc),
-        )
-        prediction_saved = False
-        try:
-            if IS_SQLITE:
-                async with _sqlite_prediction_write_lock:
-                    latest_existing = await PredictionService._get_latest_prediction_record(village_id, db)
-                    if latest_existing is not None and not force_refresh and not PredictionService._prediction_needs_rebuild(latest_existing):
-                        return latest_existing
+            PredictionService._store_cached_prediction(prediction)
+            prediction_saved = False
+            try:
+                if IS_SQLITE:
+                    async with _sqlite_prediction_write_lock:
+                        latest_existing = await PredictionService._get_latest_prediction_record(village_id, db)
+                        if latest_existing is not None and not force_refresh and not PredictionService._prediction_needs_rebuild(latest_existing):
+                            return latest_existing
+                        db.add(prediction)
+                        await db.flush()
+                        prediction_saved = True
+                else:
                     db.add(prediction)
                     await db.flush()
                     prediction_saved = True
-            else:
-                db.add(prediction)
-                await db.flush()
-                prediction_saved = True
-        except OperationalError as exc:
-            if IS_SQLITE and "database is locked" in str(exc).lower():
-                logger.warning(f"Prediction save skipped for village {village_id}: {exc}")
-                await db.rollback()
-                fallback_prediction = await PredictionService._get_latest_prediction_record(village_id, db)
-                if fallback_prediction is not None:
-                    return fallback_prediction
-                logger.info(f"Returning unsaved in-memory prediction for village {village_id} after SQLite lock")
-            else:
-                raise
+            except OperationalError as exc:
+                if IS_SQLITE and "database is locked" in str(exc).lower():
+                    logger.warning(f"Prediction save skipped for village {village_id}: {exc}")
+                    await db.rollback()
+                    fallback_prediction = await PredictionService._get_latest_prediction_record(village_id, db)
+                    if fallback_prediction is not None and not PredictionService._prediction_needs_rebuild(fallback_prediction):
+                        return fallback_prediction
+                    logger.info(f"Returning unsaved in-memory prediction for village {village_id} after SQLite lock")
+                else:
+                    raise
 
-        # Generate AI alert if high risk
-        if prediction_saved and final_score >= 25:
-            await AlertService.create_ai_alert(
-                village_id=village_id,
-                risk_score=final_score,
-                category=category.value,
-                description=f"AI analysis detected {category.value} risk (score: {final_score}/100). "
-                            f"{'Outbreak predicted in ' + str(orch_result.get('outbreak_timeline_days')) + ' days.' if orch_result.get('outbreak_timeline_days') else ''}",
-                actions=orch_result.get("recommended_actions", [])[:5],
-                prediction_id=prediction.id,
-                db=db,
-            )
+            # Generate AI alert if high risk
+            if prediction_saved and final_score >= 25:
+                await AlertService.create_ai_alert(
+                    village_id=village_id,
+                    risk_score=final_score,
+                    category=category.value,
+                    description=f"AI analysis detected {category.value} risk (score: {final_score}/100). "
+                                f"{'Outbreak predicted in ' + str(orch_result.get('outbreak_timeline_days')) + ' days.' if orch_result.get('outbreak_timeline_days') else ''}",
+                    actions=orch_result.get("recommended_actions", [])[:5],
+                    prediction_id=prediction.id,
+                    db=db,
+                )
 
-        # Cache for 30 mins
-        try:
-            await redis_manager.set(
-                f"prediction:{village_id}",
-                {"risk_score": final_score, "category": category.value, "id": prediction.id},
-                ttl=1800,
-            )
-        except Exception as exc:
-            logger.warning(f"Prediction cache write skipped for village {village_id}: {exc}")
+            # Cache for 30 mins
+            try:
+                await redis_manager.set(
+                    f"prediction:{village_id}",
+                    {"risk_score": final_score, "category": category.value, "id": prediction.id},
+                    ttl=1800,
+                )
+            except Exception as exc:
+                logger.warning(f"Prediction cache write skipped for village {village_id}: {exc}")
 
-        logger.info(f"Prediction saved: village={village_id} score={final_score} category={category.value}")
-        return prediction
+            logger.info(f"Prediction saved: village={village_id} score={final_score} category={category.value}")
+            return prediction

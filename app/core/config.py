@@ -24,7 +24,7 @@ class Settings(BaseSettings):
 
     # Database
     DATABASE_URL: str = Field(
-        default="sqlite+aiosqlite:///./jalert_local.db",
+        default="sqlite+aiosqlite:///./jalert.db",
         env="DATABASE_URL"
     )
     DATABASE_POOL_SIZE: int = 20
@@ -55,6 +55,9 @@ class Settings(BaseSettings):
     LLM_MODEL: str = "gpt-4o"
     LLM_TEMPERATURE: float = 0.1
     LLM_MAX_TOKENS: int = 2000
+    OLLAMA_URL: str = Field(default="http://localhost:11434/api/chat", env="OLLAMA_URL")
+    OLLAMA_MODEL: str = Field(default="gemma4:31b-cloud", env="OLLAMA_MODEL")
+    OLLAMA_TIMEOUT_SECONDS: float = Field(default=120.0, env="OLLAMA_TIMEOUT_SECONDS")
 
     # Twilio (SMS)
     TWILIO_ACCOUNT_SID: str = Field(default="", env="TWILIO_ACCOUNT_SID")

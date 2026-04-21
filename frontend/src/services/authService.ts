@@ -1,11 +1,12 @@
 import { http, clearStoredTokens, setStoredTokens } from './http';
-import type { AuthTokens, User } from '../types/api';
+import type { AuthTokens, User, UserRole } from '../types/api';
 
 interface RegisterPayload {
   name: string;
   email: string;
   phone?: string;
   password: string;
+  role?: UserRole;
   preferred_language: string;
   village_id?: string;
 }

@@ -238,6 +238,8 @@ export interface AssistantReply {
   id: string;
   text: string;
   links?: AssistantLink[];
+  mode?: 'llm' | 'local_fallback';
+  notice?: string | null;
 }
 
 export interface WaterResourceItem {

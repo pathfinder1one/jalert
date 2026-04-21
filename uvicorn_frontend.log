@@ -1,7 +1,56 @@
-[32m2026-04-01 21:39:31[0m | [1mINFO    [0m | [36mapp.ml.models[0m:[36m101[0m - [1mWater quality model loaded from ml_models\water_quality_rf.joblib[0m
-[32m2026-04-01 21:39:31[0m | [1mINFO    [0m | [36mapp.ml.models[0m:[36m209[0m - [1mDisease outbreak model loaded from ml_models\disease_outbreak_xgb.joblib[0m
-[32m2026-04-01 21:39:31[0m | [1mINFO    [0m | [36mapp.main[0m:[36m46[0m - [1m============================================================[0m
-[32m2026-04-01 21:39:31[0m | [1mINFO    [0m | [36mapp.main[0m:[36m47[0m - [1m  Starting JALERT - Intelligent Water & Health Alert System v1.0.0[0m
-[32m2026-04-01 21:39:31[0m | [1mINFO    [0m | [36mapp.main[0m:[36m48[0m - [1m  Environment: development[0m
-[32m2026-04-01 21:39:31[0m | [1mINFO    [0m | [36mapp.main[0m:[36m49[0m - [1m============================================================[0m
-[32m2026-04-01 21:39:31[0m | [1mINFO    [0m | [36mapp.core.database[0m:[36m71[0m - [1mDatabase tables initialized[0m
+[32m2026-04-05 03:35:45[0m | [1mINFO    [0m | [36mapp.ml.models[0m:[36m101[0m - [1mWater quality model loaded from ml_models\water_quality_rf.joblib[0m
+[32m2026-04-05 03:35:45[0m | [1mINFO    [0m | [36mapp.ml.models[0m:[36m209[0m - [1mDisease outbreak model loaded from ml_models\disease_outbreak_xgb.joblib[0m
+[32m2026-04-05 03:35:46[0m | [1mINFO    [0m | [36mapp.main[0m:[36m46[0m - [1m============================================================[0m
+[32m2026-04-05 03:35:46[0m | [1mINFO    [0m | [36mapp.main[0m:[36m47[0m - [1m  Starting JALERT - Intelligent Water & Health Alert System v1.0.0[0m
+[32m2026-04-05 03:35:46[0m | [1mINFO    [0m | [36mapp.main[0m:[36m48[0m - [1m  Environment: development[0m
+[32m2026-04-05 03:35:46[0m | [1mINFO    [0m | [36mapp.main[0m:[36m49[0m - [1m  Database: SQLite via AsyncAdaptedQueuePool[0m
+[32m2026-04-05 03:35:46[0m | [1mINFO    [0m | [36mapp.main[0m:[36m50[0m - [1m  Database URL: sqlite+aiosqlite:///./jalert.db[0m
+[32m2026-04-05 03:35:46[0m | [1mINFO    [0m | [36mapp.main[0m:[36m51[0m - [1m============================================================[0m
+[32m2026-04-05 03:35:46[0m | [1mINFO    [0m | [36mapp.core.database[0m:[36m104[0m - [1mDatabase tables initialized[0m
+[32m2026-04-05 03:35:49[0m | [1mINFO    [0m | [36mapp.services.bootstrap_service[0m:[36m229[0m - [1mPrepared 300 real village candidates from groundwater datasets[0m
+[32m2026-04-05 03:35:49[0m | [1mINFO    [0m | [36mapp.core.redis_manager[0m:[36m22[0m - [1mRedis connected[0m
+[32m2026-04-05 03:35:49[0m | [1mINFO    [0m | [36mapp.main[0m:[36m75[0m - [1mSkipping Kafka startup during local web serving.[0m
+[32m2026-04-05 03:35:49[0m | [1mINFO    [0m | [36mapp.main[0m:[36m80[0m - [1mAll systems online. JALERT is ready.[0m
+[32m2026-04-05 03:35:50[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /health -> 200 [383.0ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:56265 - "GET /health HTTP/1.1" 200 OK
+[32m2026-04-05 03:35:53[0m | [1mINFO    [0m | [36mapp.services.ogd_data_service[0m:[36m497[0m - [1mBuilt official water observation cache in 4.12s[0m
+[32m2026-04-05 03:36:10[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /health -> 200 [198.78ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:56765 - "GET /health HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:10[0m | [1mINFO    [0m | [36mapp.services.ogd_data_service[0m:[36m511[0m - [1mBuilt groundwater level cache in 16.95s[0m
+[32m2026-04-05 03:36:14[0m | [1mINFO    [0m | [36mapp.services.ogd_data_service[0m:[36m587[0m - [1mBuilt public water resource payload cache in 24.73s[0m
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /sensors -> 200 [168.89ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:58004 - "GET /sensors HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /assets/index-BfbDNQfq.js -> 200 [11.85ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:58004 - "GET /assets/index-BfbDNQfq.js HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /assets/SensorsPage-DDzZHmtQ.js -> 200 [40.58ms] IP=127.0.0.1[0m
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /assets/useQuery-Dzw_BUx7.js -> 200 [41.27ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:58004 - "GET /assets/SensorsPage-DDzZHmtQ.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57230 - "GET /assets/useQuery-Dzw_BUx7.js HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /assets/EmptyState-D99Dzi2u.js -> 200 [38.43ms] IP=127.0.0.1[0m
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /assets/ErrorState-CBBZf_EV.js -> 200 [38.07ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:63339 - "GET /assets/EmptyState-D99Dzi2u.js HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /assets/VillageSelector-ygmMBxD_.js -> 200 [37.69ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:49551 - "GET /assets/ErrorState-CBBZf_EV.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63451 - "GET /assets/VillageSelector-ygmMBxD_.js HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /assets/PageHero-BeljO-mS.js -> 200 [41.85ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:51242 - "GET /assets/PageHero-BeljO-mS.js HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /assets/useRealtimeVillage-Bb82ER9s.js -> 200 [61.04ms] IP=127.0.0.1[0m
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /assets/StatCard-CQPSLMyf.js -> 200 [64.4ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:57230 - "GET /assets/useRealtimeVillage-Bb82ER9s.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58004 - "GET /assets/StatCard-CQPSLMyf.js HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /assets/generateCategoricalChart-D6yA6exc.js -> 200 [64.65ms] IP=127.0.0.1[0m
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /assets/villageIntelligenceService-CMWjayVo.js -> 200 [68.11ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:63339 - "GET /assets/generateCategoricalChart-D6yA6exc.js HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:24[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /api/v1/auth/me -> 200 [61.91ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:49551 - "GET /assets/villageIntelligenceService-CMWjayVo.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63451 - "GET /api/v1/auth/me HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:25[0m | [1mINFO    [0m | [36mapp.utils.websocket_manager[0m:[36m26[0m - [1mWS connected: channel=sensor:8159f1ab-6595-4e63-b472-8f10faaeb28c total=1[0m
+[32m2026-04-05 03:36:25[0m | [1mINFO    [0m | [36mapp.utils.websocket_manager[0m:[36m107[0m - [1mRedis subscriber started for village 8159f1ab-6595-4e63-b472-8f10faaeb28c[0m
+[32m2026-04-05 03:36:25[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /api/v1/water-resources/ -> 200 [546.07ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:58004 - "GET /api/v1/water-resources/?limit=60 HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:25[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /api/v1/sensors/village/8159f1ab-6595-4e63-b472-8f10faaeb28c -> 200 [590.59ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:63339 - "GET /api/v1/sensors/village/8159f1ab-6595-4e63-b472-8f10faaeb28c HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:25[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /api/v1/villages/ -> 200 [607.33ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:57230 - "GET /api/v1/villages/ HTTP/1.1" 200 OK
+[32m2026-04-05 03:36:25[0m | [1mINFO    [0m | [36mapp.utils.middleware[0m:[36m61[0m - [1mGET /api/v1/sensors/readings/8159f1ab-6595-4e63-b472-8f10faaeb28c -> 200 [633.16ms] IP=127.0.0.1[0m
+INFO:     127.0.0.1:63451 - "GET /api/v1/sensors/readings/8159f1ab-6595-4e63-b472-8f10faaeb28c?hours=48&limit=150 HTTP/1.1" 200 OK

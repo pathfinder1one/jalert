@@ -115,6 +115,11 @@ export const AlertsPage = () => {
         title={t('alerts.title')}
         subtitle={t('alerts.subtitle')}
         image={imagery.waterBody}
+        badges={['Active warnings', 'Severity filters', 'Field team response', 'Manual alerts']}
+        primaryLabel="Open village status"
+        primaryTo="/village-status"
+        secondaryLabel="View reports"
+        secondaryTo="/reports"
       />
 
       {!isAuthenticated ? (

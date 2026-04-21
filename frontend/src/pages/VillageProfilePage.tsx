@@ -507,7 +507,11 @@ export const VillageProfilePage = () => {
         title="Village profile, trust signals, and public-service action in one view"
         subtitle="Explore JJM-style village profile details, scheme and source lineage, groundwater trends, contaminants, trust references, and family action guidance."
         image={imagery.community}
-        compact
+        badges={['JJM-style profile', 'Groundwater data', 'Contaminant detail', 'Family action guide']}
+        primaryLabel="Open village status"
+        primaryTo="/village-status"
+        secondaryLabel="Citizen services"
+        secondaryTo="/citizen-services"
       />
 
       {!isAuthenticated ? (
@@ -515,7 +519,7 @@ export const VillageProfilePage = () => {
           <LoginPrompt />
         </section>
       ) : (
-        <>
+        <div className="village-profile-page">
           <section className="section content-card">
             <div className="inline-between">
               <div>
@@ -1001,7 +1005,7 @@ export const VillageProfilePage = () => {
               })()}
             </>
           ) : null}
-        </>
+        </div>
       )}
     </>
   );

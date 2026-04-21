@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import asyncio
 import re
+import threading
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
@@ -102,6 +103,8 @@ BHUVAN_MAP_CONFIG = {
 _OFFICIAL_WATER_OBSERVATIONS_CACHE: Optional[Tuple[pd.DataFrame, Dict[str, List[str]]]] = None
 _GROUNDWATER_LEVEL_CACHE: Optional[Tuple[pd.DataFrame, List[str]]] = None
 _PUBLIC_RESOURCES_CACHE: Optional[Dict[str, Any]] = None
+_PUBLIC_RESOURCES_CACHE_LOCK = threading.Lock()
+_PUBLIC_RESOURCES_CACHE_WARMING = False
 
 STATE_NAME_MAP = {
     "andhra_pradesh": "Andhra Pradesh",
@@ -558,19 +561,60 @@ def _build_public_resources_payload() -> Dict[str, Any]:
     }
 
 
-def _get_cached_public_resources_payload() -> Dict[str, Any]:
-    global _PUBLIC_RESOURCES_CACHE
-    if _PUBLIC_RESOURCES_CACHE is None:
-        start = pd.Timestamp.utcnow()
-        _PUBLIC_RESOURCES_CACHE = _build_public_resources_payload()
-        elapsed = (pd.Timestamp.utcnow() - start).total_seconds()
-        logger.info("Built public water resource payload cache in {:.2f}s", elapsed)
+def _empty_public_resources_payload() -> Dict[str, Any]:
     return {
-        "summary": dict(_PUBLIC_RESOURCES_CACHE["summary"]),
-        "resources_frame": _PUBLIC_RESOURCES_CACHE["resources_frame"].copy(deep=True),
-        "available_states": list(_PUBLIC_RESOURCES_CACHE["available_states"]),
-        "source_files": {key: list(value) for key, value in _PUBLIC_RESOURCES_CACHE["source_files"].items()},
-        "map": dict(_PUBLIC_RESOURCES_CACHE["map"]),
+        "summary": {
+            "total_resources": 0,
+            "states_covered": 0,
+            "groundwater_resources": 0,
+            "surface_water_resources": 0,
+        },
+        "resources_frame": pd.DataFrame(),
+        "available_states": [],
+        "source_files": {},
+        "map": BHUVAN_MAP_CONFIG,
+    }
+
+
+def _warm_public_resources_cache_sync() -> None:
+    global _PUBLIC_RESOURCES_CACHE, _PUBLIC_RESOURCES_CACHE_WARMING
+    try:
+        start = pd.Timestamp.utcnow()
+        payload = _build_public_resources_payload()
+        elapsed = (pd.Timestamp.utcnow() - start).total_seconds()
+        with _PUBLIC_RESOURCES_CACHE_LOCK:
+            _PUBLIC_RESOURCES_CACHE = payload
+        logger.info("Built public water resource payload cache in {:.2f}s", elapsed)
+    except Exception as exc:
+        logger.warning(f"Public water resource payload cache warmup failed: {exc}")
+    finally:
+        _PUBLIC_RESOURCES_CACHE_WARMING = False
+
+
+def _ensure_public_resources_cache_building() -> None:
+    global _PUBLIC_RESOURCES_CACHE_WARMING
+    if _PUBLIC_RESOURCES_CACHE is not None or _PUBLIC_RESOURCES_CACHE_WARMING:
+        return
+    _PUBLIC_RESOURCES_CACHE_WARMING = True
+    threading.Thread(
+        target=_warm_public_resources_cache_sync,
+        name="jalert-public-water-cache",
+        daemon=True,
+    ).start()
+
+
+def _get_cached_public_resources_payload() -> Dict[str, Any]:
+    with _PUBLIC_RESOURCES_CACHE_LOCK:
+        cached_payload = _PUBLIC_RESOURCES_CACHE
+    if cached_payload is None:
+        _ensure_public_resources_cache_building()
+        return _empty_public_resources_payload()
+    return {
+        "summary": dict(cached_payload["summary"]),
+        "resources_frame": cached_payload["resources_frame"].copy(deep=True),
+        "available_states": list(cached_payload["available_states"]),
+        "source_files": {key: list(value) for key, value in cached_payload["source_files"].items()},
+        "map": dict(cached_payload["map"]),
     }
 
 
@@ -718,4 +762,4 @@ def get_water_resources_data(query: Optional[str] = None, state: Optional[str] =
 
 
 async def warm_public_water_resource_cache() -> None:
-    await asyncio.to_thread(get_water_resources_data, None, None, None, 1)
+    await asyncio.to_thread(_warm_public_resources_cache_sync)

@@ -84,6 +84,8 @@ export const SensorsPage = () => {
         limit: 60,
       }),
     staleTime: 5 * 60 * 1000,
+    refetchInterval: 60 * 1000,
+    refetchOnWindowFocus: false,
     placeholderData: keepPreviousData,
   });
   const mapOverviewQuery = useQuery<VillageMapOverview>({
@@ -204,16 +206,21 @@ export const SensorsPage = () => {
   }, [location.hash, latestReading, waterResources.length]);
 
   return (
-    <>
+    <div className="sensors-page">
       <PageHero
         eyebrow="Water monitoring and resources"
         title="Official water resources and live monitoring in one place"
         subtitle="Explore public water sources, groundwater stations, and village water-quality records, then check live readings for your selected village."
         image={imagery.waterBody}
+        badges={['Live sensor readings', 'Official datasets', 'Groundwater levels', 'Contaminant filters']}
+        primaryLabel="Explore water resources"
+        primaryTo="/sensors#water-resources"
+        secondaryLabel="Live monitoring"
+        secondaryTo="/sensors#iot-monitoring"
       />
 
-      <section id="water-resources" className="section split-layout">
-        <article className="content-card">
+      <section id="water-resources" className="section split-layout sensors-explorer-grid">
+        <article className="content-card sensors-explorer-card">
           <div className="inline-between">
             <div>
               <h3>Official water resources explorer</h3>
@@ -242,7 +249,7 @@ export const SensorsPage = () => {
             </div>
           </div>
 
-          <div className="form-grid" style={{ gridTemplateColumns: 'repeat(5, minmax(0, 1fr))' }}>
+          <div className="form-grid sensors-explorer-filters" style={{ gridTemplateColumns: 'repeat(5, minmax(0, 1fr))' }}>
             <div className="field">
               <label htmlFor="resource-query">Search location</label>
               <input
@@ -353,7 +360,7 @@ export const SensorsPage = () => {
                 />
               </div>
 
-              <div className="resource-map-card">
+              <div className="resource-map-card sensors-resource-map">
                 <WaterResourceIndiaMap
                   resources={waterResources}
                   overview={mapOverviewQuery.data}
@@ -379,56 +386,63 @@ export const SensorsPage = () => {
                 />
               </div>
 
-              <div className="stack">
-                {waterResources.slice(0, 20).map((resource) => (
-                  <article
-                    key={`${resource.resource_type}-${resource.resource_id}-${resource.name}`}
-                    className={`alert-card ${selectedResource?.resource_id === resource.resource_id ? 'selected-resource-card' : ''}`}
-                    onClick={() => setSelectedResourceId(resource.resource_id)}
-                    onKeyDown={(event) => {
-                      if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        setSelectedResourceId(resource.resource_id);
-                      }
-                    }}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    <div className="inline-between">
-                      <div>
-                        <h4>{resource.name}</h4>
-                        <p className="subtle">
-                          {resource.district_name || 'Unknown district'},{' '}
-                          {resource.state_name || 'Unknown state'}
-                        </p>
+              <div className="stack sensors-resource-list">
+                {waterResources.length ? (
+                  waterResources.slice(0, 20).map((resource) => (
+                    <article
+                      key={`${resource.resource_type}-${resource.resource_id}-${resource.name}`}
+                      className={`alert-card sensors-resource-row ${selectedResource?.resource_id === resource.resource_id ? 'selected-resource-card' : ''}`}
+                      onClick={() => setSelectedResourceId(resource.resource_id)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          setSelectedResourceId(resource.resource_id);
+                        }
+                      }}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <div className="inline-between">
+                        <div>
+                          <h4>{resource.name}</h4>
+                          <p className="subtle">
+                            {resource.district_name || 'Unknown district'},{' '}
+                            {resource.state_name || 'Unknown state'}
+                          </p>
+                        </div>
+                        <span
+                          className={`status-badge ${
+                            resource.resource_type.includes('groundwater') ? 'moderate' : 'safe'
+                          }`}
+                        >
+                          {sentenceCase(resource.resource_type.replace(/_/g, ' '))}
+                        </span>
                       </div>
-                      <span
-                        className={`status-badge ${
-                          resource.resource_type.includes('groundwater') ? 'moderate' : 'safe'
-                        }`}
-                      >
-                        {sentenceCase(resource.resource_type.replace(/_/g, ' '))}
-                      </span>
-                    </div>
-                    <div className="meta-row">
-                      {resource.water_quality_score != null ? (
-                        <span>Quality score {formatNumber(resource.water_quality_score)}</span>
-                      ) : null}
-                      {resource.ph != null ? <span>pH {formatNumber(resource.ph)}</span> : null}
-                      {resource.tds != null ? <span>TDS {formatNumber(resource.tds)}</span> : null}
-                      {resource.current_level != null ? (
-                        <span>Water level {formatNumber(resource.current_level)}</span>
-                      ) : null}
-                      {resource.level_diff != null ? (
-                        <span>Level change {formatNumber(resource.level_diff)}</span>
-                      ) : null}
-                    </div>
-                  </article>
-                ))}
+                      <div className="meta-row">
+                        {resource.water_quality_score != null ? (
+                          <span>Quality score {formatNumber(resource.water_quality_score)}</span>
+                        ) : null}
+                        {resource.ph != null ? <span>pH {formatNumber(resource.ph)}</span> : null}
+                        {resource.tds != null ? <span>TDS {formatNumber(resource.tds)}</span> : null}
+                        {resource.current_level != null ? (
+                          <span>Water level {formatNumber(resource.current_level)}</span>
+                        ) : null}
+                        {resource.level_diff != null ? (
+                          <span>Level change {formatNumber(resource.level_diff)}</span>
+                        ) : null}
+                      </div>
+                    </article>
+                  ))
+                ) : (
+                  <EmptyState
+                    title="Official water resources are warming up"
+                    description="The public dataset cache is still loading in the background. This page will refresh automatically in a moment."
+                  />
+                )}
               </div>
 
               {selectedResource ? (
-                <article className="content-card section-tight">
+                <article className="content-card section-tight sensors-selected-resource">
                   <div className="inline-between">
                     <div>
                       <h3>Selected water resource</h3>
@@ -507,7 +521,7 @@ export const SensorsPage = () => {
           ) : null}
         </article>
 
-        <article className="content-card">
+        <article className="content-card sensors-network-card">
           <h3>Source network connected to JALERT</h3>
           <ul className="action-list">
             <li>OGD India water-quality datasets</li>
@@ -558,7 +572,7 @@ export const SensorsPage = () => {
         </section>
       ) : (
         <>
-          <section className="section content-card">
+          <section className="section content-card sensors-toolbar-card">
             <div className="inline-between">
               <VillageSelector
                 villages={villagesQuery.data ?? []}
@@ -597,6 +611,56 @@ export const SensorsPage = () => {
             />
           ) : null}
 
+          {!readingsQuery.isLoading && !readingsQuery.isError && activeVillageId && !latestReading ? (
+            <>
+              <EmptyState
+                title="No water readings found for this history range"
+                description="This village is selected, but there are no returned sensor readings yet for the current time window. Try a longer range or wait for the next sync."
+              />
+
+              <section className="section metric-grid">
+                <StatCard
+                  label="Registered sensors"
+                  value={String(sensorSummary.total)}
+                  helper="Sensor points linked to this village"
+                />
+                <StatCard
+                  label="Last sensor seen"
+                  value={sensorSummary.latestSeen ? formatDate(sensorSummary.latestSeen) : 'No sync yet'}
+                  helper="Most recent device heartbeat"
+                />
+                <StatCard
+                  label="Mapped sources"
+                  value={String(waterResources.length)}
+                  helper="Water sources available for monitoring"
+                />
+              </section>
+
+              {sensorsQuery.data?.length ? (
+                <section className="section">
+                  <article className="content-card sensors-monitor-card">
+                    <h3>Registered sensors</h3>
+                    <div className="stack">
+                      {sensorsQuery.data.map((sensor) => (
+                        <article key={sensor.id} className="alert-card sensors-sensor-row">
+                          <div className="inline-between">
+                            <h4>{sensor.sensor_code}</h4>
+                            <span className={`status-badge ${sensor.status}`}>
+                              {sentenceCase(sensor.status)}
+                            </span>
+                          </div>
+                          <p className="subtle">
+                            {`${sensor.location_name || 'Unnamed sensor point'} | Last seen ${formatDate(sensor.last_seen)}`}
+                          </p>
+                        </article>
+                      ))}
+                    </div>
+                  </article>
+                </section>
+              ) : null}
+            </>
+          ) : null}
+
           {latestReading ? (
             <>
               <section id="iot-monitoring" className="section metric-grid">
@@ -618,7 +682,7 @@ export const SensorsPage = () => {
               </section>
 
               <section className="section split-layout">
-                <article className="chart-card content-card">
+                <article className="chart-card content-card sensors-chart-card">
                   <div className="inline-between">
                     <div>
                       <h3>Water reading trends</h3>
@@ -647,7 +711,7 @@ export const SensorsPage = () => {
                 </article>
 
                 <div className="stack">
-                  <article className="content-card">
+                  <article className="content-card sensors-monitor-card">
                     <h3>Latest snapshot</h3>
                     <ul className="action-list">
                       <li>Quality score: {formatNumber(latestReading.quality_score)}</li>
@@ -659,7 +723,7 @@ export const SensorsPage = () => {
                     </ul>
                   </article>
 
-                  <article className="content-card">
+                  <article className="content-card sensors-monitor-card">
                     <h3>Monitoring status</h3>
                     <ul className="action-list">
                       <li>Total registered sensors: {sensorSummary.total}</li>
@@ -674,11 +738,11 @@ export const SensorsPage = () => {
               </section>
 
               <section className="section">
-                <article className="content-card">
+                  <article className="content-card sensors-monitor-card">
                   <h3>Registered sensors</h3>
                   <div className="stack">
                     {sensorsQuery.data?.map((sensor) => (
-                      <article key={sensor.id} className="alert-card">
+                      <article key={sensor.id} className="alert-card sensors-sensor-row">
                         <div className="inline-between">
                           <h4>{sensor.sensor_code}</h4>
                           <span className={`status-badge ${sensor.status}`}>
@@ -697,6 +761,6 @@ export const SensorsPage = () => {
           ) : null}
         </>
       )}
-    </>
+    </div>
   );
 };

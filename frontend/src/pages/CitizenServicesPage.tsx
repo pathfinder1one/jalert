@@ -261,7 +261,11 @@ export const CitizenServicesPage = () => {
         title="Report water issues, track follow-up, and reach the right village team"
         subtitle="Built for families, panchayat members, and field users who need a simple way to raise water and health concerns."
         image={imagery.fieldWorker}
-        compact
+        badges={['Complaint tracking', 'Field follow-up', 'WhatsApp sharing', 'Offline draft support']}
+        primaryLabel="Raise a request"
+        primaryTo="/citizen-services"
+        secondaryLabel="Open village profile"
+        secondaryTo="/village-profile"
       />
 
       {!isAuthenticated ? (

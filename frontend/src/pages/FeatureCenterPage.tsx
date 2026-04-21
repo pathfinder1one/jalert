@@ -134,7 +134,11 @@ export const FeatureCenterPage = () => {
         title="Every major JALERT feature in one visible place"
         subtitle="Use this page as the public index of village intelligence, water mapping, citizen services, alerts, reports, accessibility tools, and AI support."
         image={imagery.hero}
-        compact
+        badges={['Village intelligence', 'Water monitoring', 'Citizen action', 'AI and accessibility']}
+        primaryLabel="Open village status"
+        primaryTo="/village-status"
+        secondaryLabel="Explore sensors"
+        secondaryTo="/sensors"
       />
 
       {sections.map((section, sectionIndex) => (

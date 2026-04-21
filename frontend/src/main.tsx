@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import App from './App';
 import './i18n';
 import 'leaflet/dist/leaflet.css';
+import './styles/tailwind.css';
 import './styles/tokens.css';
 import './styles/global.css';
 

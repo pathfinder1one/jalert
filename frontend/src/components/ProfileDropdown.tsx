@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronDown, LogIn, LogOut, UserPlus, UserRound } from 'lucide-react';
+import { ChevronDown, LogIn, LogOut, ShieldCheck, UserPlus, UserRound } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 
@@ -45,23 +45,35 @@ export const ProfileDropdown = () => {
                 {t('nav.login')}
                 <LogIn size={16} />
               </Link>
+              <Link to="/admin/login" onClick={() => setIsOpen(false)}>
+                Admin login
+                <ShieldCheck size={16} />
+              </Link>
               <Link to="/register" onClick={() => setIsOpen(false)}>
                 {t('nav.register')}
                 <UserPlus size={16} />
               </Link>
             </>
           ) : (
-            <button
-              type="button"
-              onClick={() => {
-                logout();
-                setIsOpen(false);
-                navigate('/');
-              }}
-            >
-              {t('nav.logout')}
-              <LogOut size={16} />
-            </button>
+            <>
+              {user?.role === 'admin' ? (
+                <Link to="/admin-portal" onClick={() => setIsOpen(false)}>
+                  Admin portal
+                  <ShieldCheck size={16} />
+                </Link>
+              ) : null}
+              <button
+                type="button"
+                onClick={() => {
+                  logout();
+                  setIsOpen(false);
+                  navigate('/');
+                }}
+              >
+                {t('nav.logout')}
+                <LogOut size={16} />
+              </button>
+            </>
           )}
         </div>
       ) : null}

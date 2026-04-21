@@ -103,6 +103,11 @@ export const VillageStatusPage = () => {
         title="Village status you can understand at a glance"
         subtitle="See water quality, local risk, recent alerts, and monitoring signals in one clear page."
         image={imagery.fieldWorker}
+        badges={['Water quality score', 'Risk snapshot', 'Live alerts', 'Sensor signals']}
+        primaryLabel="Explore village profile"
+        primaryTo="/village-profile"
+        secondaryLabel="Open sensors"
+        secondaryTo="/sensors"
       />
 
       {!isAuthenticated ? (

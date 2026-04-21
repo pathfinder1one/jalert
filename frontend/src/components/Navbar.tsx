@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../context/AuthContext';
 import { BrandLogo } from './BrandLogo';
 import { FeatureMenu } from './FeatureMenu';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -20,7 +21,11 @@ const navItems = [
 
 export const Navbar = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const items = user?.role === 'admin'
+    ? [...navItems, { to: '/admin-portal', key: 'Admin Portal' }]
+    : navItems;
 
   return (
     <header className="navbar">
@@ -43,7 +48,7 @@ export const Navbar = () => {
         </button>
 
         <nav className={`nav-links ${isOpen ? 'open' : ''}`} aria-label="Main navigation">
-          {navItems.map((item) => (
+          {items.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}

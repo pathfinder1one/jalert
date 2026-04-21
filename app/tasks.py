@@ -6,6 +6,7 @@ from celery import Celery
 from celery.schedules import crontab
 from app.core.config import settings
 from loguru import logger
+from sqlalchemy.ext.asyncio import create_async_engine
 
 celery_app = Celery(
     "jalert",
@@ -23,6 +24,20 @@ celery_app.conf.update(
     task_acks_late=True,
     worker_prefetch_multiplier=1,
 )
+
+
+def _create_task_engine():
+    """Use the same SQLite-safe engine settings as the web app."""
+    database_url = settings.DATABASE_URL
+    if database_url.startswith("sqlite"):
+        return create_async_engine(
+            database_url,
+            connect_args={"timeout": 10},
+            pool_size=1,
+            max_overflow=0,
+            pool_timeout=10,
+        )
+    return create_async_engine(database_url)
 
 # ── Scheduled Tasks ───────────────────────────────────────────────────────────
 
@@ -60,7 +75,7 @@ def run_all_predictions(self):
     from app.services.prediction_service import PredictionService
 
     async def _run():
-        engine = create_async_engine(settings.DATABASE_URL)
+        engine = _create_task_engine()
         SessionLocal = async_sessionmaker(engine, class_=AsyncSession)
         async with SessionLocal() as db:
             result = await db.execute(select(Village).where(Village.is_active == True))
@@ -87,7 +102,7 @@ def check_sensor_health(self):
     from datetime import datetime, timezone, timedelta
 
     async def _run():
-        engine = create_async_engine(settings.DATABASE_URL)
+        engine = _create_task_engine()
         SessionLocal = async_sessionmaker(engine, class_=AsyncSession)
         threshold = datetime.now(timezone.utc) - timedelta(hours=2)
         async with SessionLocal() as db:
@@ -124,7 +139,7 @@ def cleanup_audit_logs(self):
     from datetime import datetime, timezone, timedelta
 
     async def _run():
-        engine = create_async_engine(settings.DATABASE_URL)
+        engine = _create_task_engine()
         SessionLocal = async_sessionmaker(engine, class_=AsyncSession)
         cutoff = datetime.now(timezone.utc) - timedelta(days=90)
         async with SessionLocal() as db:
@@ -151,7 +166,7 @@ def send_alert_notifications(self, alert_id: str):
     from app.services.alert_service import NotificationService
 
     async def _run():
-        engine = create_async_engine(settings.DATABASE_URL)
+        engine = _create_task_engine()
         SessionLocal = async_sessionmaker(engine, class_=AsyncSession)
         async with SessionLocal() as db:
             a_result = await db.execute(select(Alert).where(Alert.id == alert_id))

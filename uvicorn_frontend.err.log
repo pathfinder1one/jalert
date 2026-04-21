@@ -1,2 +1,6 @@
-INFO:     Started server process [12648]
+INFO:     Started server process [29532]
 INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:49708 - "WebSocket /ws/village/8159f1ab-6595-4e63-b472-8f10faaeb28c/sensors" [accepted]
+INFO:     connection open

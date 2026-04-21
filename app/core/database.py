@@ -3,6 +3,7 @@ JALERT - Database Configuration
 Async SQLAlchemy with PostgreSQL
 """
 from pathlib import Path
+import shutil
 from fastapi import HTTPException
 from sqlalchemy import event
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
@@ -22,12 +23,27 @@ IS_SQLITE = DATABASE_URL.startswith("sqlite")
 if IS_SQLITE:
     sqlite_path = DATABASE_URL.replace("sqlite+aiosqlite:///", "", 1)
     if sqlite_path and sqlite_path != ":memory:":
-        Path(sqlite_path).expanduser().resolve().parent.mkdir(parents=True, exist_ok=True)
+        resolved_sqlite_path = Path(sqlite_path).expanduser().resolve()
+        resolved_sqlite_path.parent.mkdir(parents=True, exist_ok=True)
+        legacy_sqlite_path = resolved_sqlite_path.with_name("jalert_local.db")
+        if (
+            resolved_sqlite_path.name == "jalert.db"
+            and legacy_sqlite_path.exists()
+            and legacy_sqlite_path.stat().st_size > 0
+            and (not resolved_sqlite_path.exists() or resolved_sqlite_path.stat().st_size == 0)
+        ):
+            shutil.copy2(legacy_sqlite_path, resolved_sqlite_path)
+            logger.info(
+                f"Migrated legacy local database from {legacy_sqlite_path.name} to {resolved_sqlite_path.name}"
+            )
 
     engine = create_async_engine(
         DATABASE_URL,
         echo=settings.SQL_ECHO,
-        connect_args={"timeout": 15},
+        connect_args={"timeout": 10},
+        pool_size=20,
+        max_overflow=20,
+        pool_timeout=30,
     )
 else:
     engine = create_async_engine(

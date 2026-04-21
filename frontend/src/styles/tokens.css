@@ -13,6 +13,10 @@
   --color-danger-500: #e53935;
   --color-ink-900: #1a2e3a;
   --color-ink-700: #546e7a;
+  --color-night-950: #071121;
+  --color-night-900: #0b1730;
+  --color-night-800: #122348;
+  --color-night-700: #1b2d58;
   --color-white: #ffffff;
   --shadow-soft: 0 18px 45px rgba(2, 119, 189, 0.12);
   --shadow-card: 0 12px 32px rgba(26, 46, 58, 0.08);
