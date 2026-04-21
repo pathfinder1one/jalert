@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { Activity, ArrowRight, BellRing, Droplets, HeartPulse, ShieldCheck, Waves, Bot } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { imagery } from '../assets/imagery';
 import { ErrorState } from '../components/ErrorState';
@@ -140,7 +139,6 @@ const trustNotes = [
 ];
 
 export const HomePage = () => {
-  const { t } = useTranslation();
   const { isAuthenticated } = useAuth();
   const { activeVillageId } = usePreferences();
 
@@ -154,19 +152,14 @@ export const HomePage = () => {
   return (
     <>
       <PageHero
-        eyebrow="Public village intelligence"
-        title={t('home.title')}
-        subtitle={t('home.subtitle')}
+        eyebrow="Public village intelligence, made readable"
+        title="See water, alerts, and village risk in one calm civic view"
+        subtitle="JALERT turns live water readings, community reports, and AI-supported village signals into clear public guidance that families, field teams, and administrators can act on."
         image={imagery.hero}
         primaryLabel="Explore feature center"
         primaryTo="/feature-center"
-        secondaryLabel="Open village dashboard"
+        secondaryLabel="Open village status"
         secondaryTo="/village-status"
-        statItems={[
-          { label: 'Water score', value: '83' },
-          { label: 'Active alerts', value: '07' },
-          { label: 'Confidence', value: '94%' },
-        ]}
       />
 
       <Reveal className="section">

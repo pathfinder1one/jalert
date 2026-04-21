@@ -1,0 +1,1 @@
+import{j as s}from"./index-bvvHnH1F.js";const o=({title:e="We could not load this section",description:t="Please try again in a moment.",action:r})=>s.jsxs("div",{className:"error-state",children:[s.jsx("h3",{children:e}),s.jsx("p",{className:"section-subtitle",children:t}),r]});export{o as E};

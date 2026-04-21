@@ -1,1 +1,0 @@
-import{h as r}from"./index-DWTRpdex.js";const s={async list(a){const{data:t}=await r.get("/alerts/",{params:a});return t},async createManual(a){const{data:t}=await r.post("/alerts/manual",a);return t},async resolve(a){const{data:t}=await r.patch(`/alerts/${a}/resolve`);return t}};export{s as a};
