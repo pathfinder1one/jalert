@@ -138,13 +138,30 @@ and protecting rural communities in India.
     app.add_middleware(RateLimitMiddleware)
 
     # ── Routers ────────────────────────────────────────────────────────────────
-    from app.routers import auth, sensors, alerts, predictions, health, reports, villages, websockets, ml_training, water_resources, village_intelligence, chat
+    from app.routers import (
+        admin,
+        alerts,
+        auth,
+        chat,
+        health,
+        ml_training,
+        notifications,
+        predictions,
+        reports,
+        sensors,
+        village_intelligence,
+        villages,
+        water_resources,
+        websockets,
+    )
 
     PREFIX = "/api/v1"
     app.include_router(auth.router, prefix=PREFIX)
+    app.include_router(admin.router, prefix=PREFIX)
     app.include_router(villages.router, prefix=PREFIX)
     app.include_router(sensors.router, prefix=PREFIX)
     app.include_router(alerts.router, prefix=PREFIX)
+    app.include_router(notifications.router, prefix=PREFIX)
     app.include_router(predictions.router, prefix=PREFIX)
     app.include_router(health.router, prefix=PREFIX)
     app.include_router(reports.router, prefix=PREFIX)

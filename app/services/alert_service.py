@@ -7,13 +7,29 @@ from datetime import datetime, timezone
 from typing import List, Optional, Dict, Any
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, and_, desc
+from sqlalchemy.orm import selectinload
 from fastapi import HTTPException
 import asyncio
 
-from app.models.user import Alert, AlertType, AlertSeverity, AlertStatus, SensorReading, Village, User
+from app.models.user import (
+    Alert,
+    AlertIncident,
+    AlertType,
+    AlertSeverity,
+    AlertStatus,
+    NotificationChannel,
+    NotificationDeliveryStatus,
+    SensorReading,
+    User,
+    UserPreference,
+    UserRole,
+    Village,
+)
 from app.schemas.schemas import AlertCreate, AlertFilter
 from app.core.config import settings
 from app.core.redis_manager import redis_manager
+from app.services.audit_service import AuditService
+from app.services.notification_center_service import NotificationCenterService
 from loguru import logger
 
 
@@ -137,19 +153,79 @@ class NotificationService:
     async def broadcast_alert(alert: Alert, db: AsyncSession) -> None:
         """Broadcast alert to all users in the village"""
         result = await db.execute(
-            select(User).where(
+            select(User)
+            .options(selectinload(User.preferences))
+            .where(
                 and_(User.village_id == alert.village_id, User.is_active == True)
             )
         )
         users = result.scalars().all()
 
         msg = f"JALERT [{alert.severity.upper()}]: {alert.title}. {alert.description}"
-        tasks = []
         for user in users:
-            if user.phone and alert.severity in (AlertSeverity.HIGH, AlertSeverity.CRITICAL):
-                tasks.append(NotificationService.send_sms(user.phone, msg))
-        if tasks:
-            await asyncio.gather(*tasks, return_exceptions=True)
+            preferences = user.preferences
+            await NotificationCenterService.create(
+                db,
+                user_id=user.id,
+                village_id=alert.village_id,
+                alert_id=alert.id,
+                kind="alert",
+                title=alert.title,
+                message=msg,
+                severity=alert.severity,
+                link="/alerts",
+                channel=NotificationChannel.IN_APP,
+                delivery_status=NotificationDeliveryStatus.SENT,
+            )
+
+            if (
+                user.phone
+                and alert.severity in (AlertSeverity.HIGH, AlertSeverity.CRITICAL)
+                and (preferences.sms_notifications if preferences else True)
+            ):
+                sms_sent = await NotificationService.send_sms(user.phone, msg)
+                await NotificationCenterService.create(
+                    db,
+                    user_id=user.id,
+                    village_id=alert.village_id,
+                    alert_id=alert.id,
+                    kind="alert",
+                    title=f"SMS alert: {alert.title}",
+                    message=msg,
+                    severity=alert.severity,
+                    link="/alerts",
+                    channel=NotificationChannel.SMS,
+                    delivery_status=(
+                        NotificationDeliveryStatus.SENT
+                        if sms_sent
+                        else NotificationDeliveryStatus.FAILED
+                    ),
+                )
+
+            if (
+                user.phone
+                and alert.severity == AlertSeverity.CRITICAL
+                and preferences
+                and preferences.voice_notifications
+            ):
+                voice_sent = await NotificationService.send_voice_alert(user.phone, msg)
+                await NotificationCenterService.create(
+                    db,
+                    user_id=user.id,
+                    village_id=alert.village_id,
+                    alert_id=alert.id,
+                    kind="alert",
+                    title=f"Voice alert: {alert.title}",
+                    message=msg,
+                    severity=alert.severity,
+                    link="/alerts",
+                    channel=NotificationChannel.VOICE,
+                    delivery_status=(
+                        NotificationDeliveryStatus.SENT
+                        if voice_sent
+                        else NotificationDeliveryStatus.FAILED
+                    ),
+                )
 
 
 class AlertService:
@@ -188,6 +264,46 @@ class AlertService:
             severity = AlertSeverity.HIGH if severity is None else AlertService._max_severity(severity, AlertSeverity.HIGH)
 
         return severity
+
+    @staticmethod
+    async def _get_alert(alert_id: str, db: AsyncSession) -> Alert:
+        result = await db.execute(
+            select(Alert)
+            .options(
+                selectinload(Alert.incident).selectinload(AlertIncident.assigned_to_user),
+                selectinload(Alert.incident).selectinload(AlertIncident.acknowledged_by_user),
+            )
+            .where(Alert.id == alert_id)
+        )
+        alert = result.scalar_one_or_none()
+        if alert is None:
+            raise HTTPException(status_code=404, detail="Alert not found")
+        return alert
+
+    @staticmethod
+    async def _ensure_incident(alert: Alert, db: AsyncSession) -> AlertIncident:
+        if alert.incident is not None:
+            return alert.incident
+
+        incident = AlertIncident(alert_id=alert.id)
+        db.add(incident)
+        await db.flush()
+        alert.incident = incident
+        return incident
+
+    @staticmethod
+    async def _publish_workflow_event(alert: Alert, event: str) -> None:
+        await redis_manager.publish(
+            f"alerts:{alert.village_id}",
+            {
+                "event": event,
+                "alert_id": alert.id,
+                "status": alert.status,
+                "severity": alert.severity,
+                "title": alert.title,
+                "village_id": alert.village_id,
+            },
+        )
 
     @staticmethod
     async def ensure_alert_feed(village_id: str, db: AsyncSession) -> None:
@@ -430,6 +546,15 @@ class AlertService:
         )
         db.add(alert)
         await db.flush()
+        await NotificationService.broadcast_alert(alert, db)
+        await AuditService.log(
+            db,
+            action="alert.manual.create",
+            resource_type="alert",
+            resource_id=alert.id,
+            user_id=user_id,
+            detail={"village_id": data.village_id, "severity": data.severity.value},
+        )
 
         await redis_manager.publish(f"alerts:{data.village_id}", {
             "event": "manual_alert", "alert_id": alert.id, "severity": data.severity
@@ -457,23 +582,166 @@ class AlertService:
         query = select(Alert)
         if conditions:
             query = query.where(and_(*conditions))
-        query = query.order_by(desc(Alert.created_at)).offset(filters.offset).limit(filters.limit)
+        query = (
+            query.options(
+                selectinload(Alert.incident).selectinload(AlertIncident.assigned_to_user),
+                selectinload(Alert.incident).selectinload(AlertIncident.acknowledged_by_user),
+            )
+            .order_by(desc(Alert.created_at))
+            .offset(filters.offset)
+            .limit(filters.limit)
+        )
 
         result = await db.execute(query)
         return result.scalars().all()
 
     @staticmethod
-    async def resolve_alert(alert_id: str, user_id: str, db: AsyncSession) -> Alert:
-        result = await db.execute(select(Alert).where(Alert.id == alert_id))
-        alert: Optional[Alert] = result.scalar_one_or_none()
-        if not alert:
-            raise HTTPException(status_code=404, detail="Alert not found")
+    async def acknowledge_alert(
+        alert_id: str,
+        user_id: str,
+        note: Optional[str],
+        db: AsyncSession,
+    ) -> Alert:
+        alert = await AlertService._get_alert(alert_id, db)
+        if alert.status == AlertStatus.RESOLVED:
+            raise HTTPException(status_code=400, detail="Resolved alerts cannot be acknowledged")
+
+        incident = await AlertService._ensure_incident(alert, db)
+        alert.status = AlertStatus.ACKNOWLEDGED
+        incident.acknowledged_by_id = user_id
+        incident.acknowledged_at = datetime.now(timezone.utc)
+
+        await AuditService.log(
+            db,
+            action="alert.acknowledge",
+            resource_type="alert",
+            resource_id=alert.id,
+            user_id=user_id,
+            detail={"note": note},
+        )
+        await AlertService._publish_workflow_event(alert, "alert_acknowledged")
+        await db.flush()
+        return await AlertService._get_alert(alert_id, db)
+
+    @staticmethod
+    async def assign_alert(
+        alert_id: str,
+        assigned_to_user_id: str,
+        actor_id: str,
+        note: Optional[str],
+        db: AsyncSession,
+    ) -> Alert:
+        alert = await AlertService._get_alert(alert_id, db)
+        worker_result = await db.execute(select(User).where(User.id == assigned_to_user_id))
+        assigned_user = worker_result.scalar_one_or_none()
+        if assigned_user is None:
+            raise HTTPException(status_code=404, detail="Assigned user not found")
+        if assigned_user.role not in (UserRole.ADMIN, UserRole.HEALTH_WORKER):
+            raise HTTPException(status_code=400, detail="Only admins or health workers can own alerts")
+
+        incident = await AlertService._ensure_incident(alert, db)
+        incident.assigned_to_user_id = assigned_to_user_id
+        if alert.status == AlertStatus.ACTIVE:
+            alert.status = AlertStatus.ACKNOWLEDGED
+
+        await NotificationCenterService.create(
+            db,
+            user_id=assigned_user.id,
+            village_id=alert.village_id,
+            alert_id=alert.id,
+            kind="alert_assignment",
+            title=f"Assigned alert: {alert.title}",
+            message=f"You were assigned to follow up on '{alert.title}'.",
+            severity=alert.severity,
+            link="/alerts",
+            channel=NotificationChannel.IN_APP,
+            delivery_status=NotificationDeliveryStatus.SENT,
+        )
+        await AuditService.log(
+            db,
+            action="alert.assign",
+            resource_type="alert",
+            resource_id=alert.id,
+            user_id=actor_id,
+            detail={"assigned_to_user_id": assigned_to_user_id, "note": note},
+        )
+        await AlertService._publish_workflow_event(alert, "alert_assigned")
+        await db.flush()
+        return await AlertService._get_alert(alert_id, db)
+
+    @staticmethod
+    async def escalate_alert(
+        alert_id: str,
+        escalation_level: int,
+        reason: str,
+        actor_id: str,
+        db: AsyncSession,
+    ) -> Alert:
+        alert = await AlertService._get_alert(alert_id, db)
+        incident = await AlertService._ensure_incident(alert, db)
+        incident.escalation_level = max(incident.escalation_level, escalation_level)
+        incident.escalation_reason = reason
+        incident.escalated_at = datetime.now(timezone.utc)
+        if alert.status == AlertStatus.ACTIVE:
+            alert.status = AlertStatus.ACKNOWLEDGED
+
+        admin_result = await db.execute(
+            select(User)
+            .options(selectinload(User.preferences))
+            .where(User.role == UserRole.ADMIN, User.is_active == True)  # noqa: E712
+        )
+        admins = admin_result.scalars().all()
+        await NotificationCenterService.create_many(
+            db,
+            user_ids=[admin.id for admin in admins],
+            village_id=alert.village_id,
+            alert_id=alert.id,
+            kind="alert_escalation",
+            title=f"Escalated alert: {alert.title}",
+            message=reason,
+            severity=alert.severity,
+            link="/alerts",
+            channel=NotificationChannel.IN_APP,
+            delivery_status=NotificationDeliveryStatus.SENT,
+            data={"escalation_level": escalation_level},
+        )
+        await AuditService.log(
+            db,
+            action="alert.escalate",
+            resource_type="alert",
+            resource_id=alert.id,
+            user_id=actor_id,
+            detail={"escalation_level": escalation_level, "reason": reason},
+        )
+        await AlertService._publish_workflow_event(alert, "alert_escalated")
+        await db.flush()
+        return await AlertService._get_alert(alert_id, db)
+
+    @staticmethod
+    async def resolve_alert(
+        alert_id: str,
+        user_id: str,
+        db: AsyncSession,
+        resolution_note: Optional[str] = None,
+    ) -> Alert:
+        alert = await AlertService._get_alert(alert_id, db)
 
         alert.status = AlertStatus.RESOLVED
         alert.resolved_at = datetime.now(timezone.utc)
         alert.resolved_by = user_id
+        incident = await AlertService._ensure_incident(alert, db)
+        incident.resolution_note = resolution_note
+        await AuditService.log(
+            db,
+            action="alert.resolve",
+            resource_type="alert",
+            resource_id=alert.id,
+            user_id=user_id,
+            detail={"resolution_note": resolution_note},
+        )
+        await AlertService._publish_workflow_event(alert, "alert_resolved")
         await db.flush()
-        return alert
+        return await AlertService._get_alert(alert_id, db)
 
     @staticmethod
     async def create_ai_alert(
@@ -506,6 +774,7 @@ class AlertService:
         )
         db.add(alert)
         await db.flush()
+        await NotificationService.broadcast_alert(alert, db)
         await redis_manager.publish(f"alerts:{village_id}", {
             "event": "ai_alert", "alert_id": alert.id, "risk_score": risk_score
         })

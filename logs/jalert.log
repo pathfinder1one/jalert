@@ -10503,3 +10503,1133 @@
 2026-04-20 18:25:32.196 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantPage-Dmnb3VIs.js -> 200 [24.15ms] IP=127.0.0.1
 2026-04-20 18:25:32.207 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPrompt-CwWLaU7D.js -> 200 [36.21ms] IP=127.0.0.1
 2026-04-20 18:25:32.284 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/report_image-BH09Dqye.png -> 200 [36.44ms] IP=127.0.0.1
+2026-04-21 14:26:04.810 | INFO     | app.ml.models:_load:101 - Water quality model loaded from ml_models\water_quality_rf.joblib
+2026-04-21 14:26:04.966 | INFO     | app.ml.models:_load:209 - Disease outbreak model loaded from ml_models\disease_outbreak_xgb.joblib
+2026-04-21 14:26:05.157 | INFO     | app.main:lifespan:46 - ============================================================
+2026-04-21 14:26:05.157 | INFO     | app.main:lifespan:47 -   Starting JALERT - Intelligent Water & Health Alert System v1.0.0
+2026-04-21 14:26:05.157 | INFO     | app.main:lifespan:48 -   Environment: development
+2026-04-21 14:26:05.157 | INFO     | app.main:lifespan:49 -   Database: SQLite via AsyncAdaptedQueuePool
+2026-04-21 14:26:05.157 | INFO     | app.main:lifespan:50 -   Database URL: sqlite+aiosqlite:///./jalert.db
+2026-04-21 14:26:05.157 | INFO     | app.main:lifespan:51 - ============================================================
+2026-04-21 14:26:05.172 | INFO     | app.core.database:init_db:104 - Database tables initialized
+2026-04-21 14:26:07.329 | INFO     | app.services.bootstrap_service:_build_village_candidates:229 - Prepared 300 real village candidates from groundwater datasets
+2026-04-21 14:26:07.557 | INFO     | app.core.redis_manager:connect:22 - Redis connected
+2026-04-21 14:26:07.557 | INFO     | app.main:lifespan:75 - Skipping Kafka startup during local web serving.
+2026-04-21 14:26:07.558 | INFO     | app.main:lifespan:80 - All systems online. JALERT is ready.
+2026-04-21 14:26:11.884 | INFO     | app.services.ogd_data_service:_get_cached_official_water_observations:497 - Built official water observation cache in 4.32s
+2026-04-21 14:26:16.131 | INFO     | app.utils.middleware:dispatch:61 - GET / -> 200 [576.66ms] IP=127.0.0.1
+2026-04-21 14:26:16.548 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-bvvHnH1F.js -> 200 [232.4ms] IP=127.0.0.1
+2026-04-21 14:26:16.675 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-NJ_CT_VG.css -> 200 [359.25ms] IP=127.0.0.1
+2026-04-21 14:26:18.173 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-C54sPxTl.js -> 200 [546.43ms] IP=127.0.0.1
+2026-04-21 14:26:18.265 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-BYajha-R.js -> 200 [639.01ms] IP=127.0.0.1
+2026-04-21 14:26:18.296 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-BxsYLVWh.js -> 200 [606.6ms] IP=127.0.0.1
+2026-04-21 14:26:18.342 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-JtSUT_fL.js -> 200 [652.79ms] IP=127.0.0.1
+2026-04-21 14:26:18.545 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-B41upwN3.js -> 200 [855.57ms] IP=127.0.0.1
+2026-04-21 14:26:18.607 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-CiVrdRGj.js -> 200 [917.97ms] IP=127.0.0.1
+2026-04-21 14:26:19.404 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/format-Ckrn_PMB.js -> 200 [626.09ms] IP=127.0.0.1
+2026-04-21 14:26:20.442 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-CPlLP1wd.js -> 200 [1364.82ms] IP=127.0.0.1
+2026-04-21 14:26:20.474 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/jalert-logo-Cjb_t2Hq.png -> 200 [1395.81ms] IP=127.0.0.1
+2026-04-21 14:26:20.612 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 401 [1147.19ms] IP=127.0.0.1
+2026-04-21 14:26:21.407 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [608.79ms] IP=127.0.0.1
+2026-04-21 14:26:21.455 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [656.31ms] IP=127.0.0.1
+2026-04-21 14:26:25.801 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [326.18ms] IP=127.0.0.1
+2026-04-21 14:26:35.493 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPage-BNnE1W75.js -> 200 [154.34ms] IP=127.0.0.1
+2026-04-21 14:26:35.494 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/zod-o8fmukIt.js -> 200 [154.87ms] IP=127.0.0.1
+2026-04-21 14:26:37.093 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/auth/login -> 200 [141.8ms] IP=127.0.0.1
+2026-04-21 14:26:37.113 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [11.29ms] IP=127.0.0.1
+2026-04-21 14:26:37.442 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/bf975481-d0fb-4fe6-bbe4-f22e749caa9b/dashboard -> 200 [142.54ms] IP=127.0.0.1
+2026-04-21 14:26:45.124 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPrompt-BwXbZy0m.js -> 200 [682.34ms] IP=127.0.0.1
+2026-04-21 14:26:45.173 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatusBadge-BcaCvsMY.js -> 200 [731.44ms] IP=127.0.0.1
+2026-04-21 14:26:45.205 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/siren-DtSJ1z_p.js -> 200 [763.05ms] IP=127.0.0.1
+2026-04-21 14:26:45.250 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useMutation-PNUmms3q.js -> 200 [807.96ms] IP=127.0.0.1
+2026-04-21 14:26:45.297 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/EmptyState-B-GfBxVG.js -> 200 [855.4ms] IP=127.0.0.1
+2026-04-21 14:26:45.330 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AlertsPage-C68dWzrL.js -> 200 [888.84ms] IP=127.0.0.1
+2026-04-21 14:26:46.031 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageSelector-DvvTVnKh.js -> 200 [372.67ms] IP=127.0.0.1
+2026-04-21 14:26:46.172 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/alertService-DD8qE2v-.js -> 200 [514.82ms] IP=127.0.0.1
+2026-04-21 14:26:47.309 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/water_body_image-BBdpioUp.png -> 200 [464.18ms] IP=127.0.0.1
+2026-04-21 14:26:48.841 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [1872.17ms] IP=127.0.0.1
+2026-04-21 14:26:49.245 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [2121.47ms] IP=127.0.0.1
+2026-04-21 14:26:49.526 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [2430.93ms] IP=127.0.0.1
+2026-04-21 14:26:55.734 | INFO     | app.services.ogd_data_service:_get_cached_groundwater_levels:511 - Built groundwater level cache in 43.84s
+2026-04-21 14:27:06.555 | INFO     | app.services.ogd_data_service:_warm_public_resources_cache_sync:587 - Built public water resource payload cache in 59.00s
+2026-04-21 14:27:16.640 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ReportsPage-ChE3Cyhu.js -> 200 [19.72ms] IP=127.0.0.1
+2026-04-21 14:27:16.641 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/calendar-days-CzriA1zV.js -> 200 [18.34ms] IP=127.0.0.1
+2026-04-21 14:27:16.646 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [15.13ms] IP=127.0.0.1
+2026-04-21 14:27:16.684 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/report_image-BH09Dqye.png -> 200 [22.38ms] IP=127.0.0.1
+2026-04-21 14:27:16.895 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/bf975481-d0fb-4fe6-bbe4-f22e749caa9b/dashboard -> 200 [136.63ms] IP=127.0.0.1
+2026-04-21 14:27:28.642 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [22.57ms] IP=127.0.0.1
+2026-04-21 14:27:28.674 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [48.61ms] IP=127.0.0.1
+2026-04-21 14:27:34.789 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AdminLoginPage-C8UynANt.js -> 200 [4.8ms] IP=127.0.0.1
+2026-04-21 14:27:36.193 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/auth/login -> 200 [37.87ms] IP=127.0.0.1
+2026-04-21 14:27:36.202 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [4.39ms] IP=127.0.0.1
+2026-04-21 14:27:39.688 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/auth/login -> 200 [48.06ms] IP=127.0.0.1
+2026-04-21 14:27:39.703 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [7.51ms] IP=127.0.0.1
+2026-04-21 14:27:39.754 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AdminPortalPage-Y56-fiN1.js -> 200 [26.64ms] IP=127.0.0.1
+2026-04-21 14:27:39.759 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatCard-B9CjZO-n.js -> 200 [25.63ms] IP=127.0.0.1
+2026-04-21 14:27:39.816 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/field_worker_image-ofkjtgua.png -> 200 [25.78ms] IP=127.0.0.1
+2026-04-21 14:27:39.938 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [142.3ms] IP=127.0.0.1
+2026-04-21 14:27:40.028 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/bf975481-d0fb-4fe6-bbe4-f22e749caa9b/dashboard -> 200 [226.32ms] IP=127.0.0.1
+2026-04-21 14:27:55.535 | INFO     | app.services.report_service:generate_village_pdf:205 - PDF generated for village bf975481-d0fb-4fe6-bbe4-f22e749caa9b: 3112 bytes
+2026-04-21 14:27:55.539 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/reports/bf975481-d0fb-4fe6-bbe4-f22e749caa9b/pdf -> 200 [675.21ms] IP=127.0.0.1
+2026-04-21 14:32:21.890 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PredictionsPage-BFMAdHSC.js -> 200 [24.51ms] IP=127.0.0.1
+2026-04-21 14:32:21.895 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/BarChart-DHcAUqpm.js -> 200 [24.14ms] IP=127.0.0.1
+2026-04-21 14:32:21.897 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/predictionService-y1bjulJi.js -> 200 [25.53ms] IP=127.0.0.1
+2026-04-21 14:32:21.917 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/generateCategoricalChart-4p1IIxPm.js -> 200 [45.14ms] IP=127.0.0.1
+2026-04-21 14:32:21.924 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [38.78ms] IP=127.0.0.1
+2026-04-21 14:32:22.073 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/report_image-BH09Dqye.png -> 200 [17.62ms] IP=127.0.0.1
+2026-04-21 14:32:22.207 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/bf975481-d0fb-4fe6-bbe4-f22e749caa9b/latest -> 200 [97.7ms] IP=127.0.0.1
+2026-04-21 14:32:22.348 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/bf975481-d0fb-4fe6-bbe4-f22e749caa9b/explain -> 200 [62.76ms] IP=127.0.0.1
+2026-04-21 14:32:22.352 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/bf975481-d0fb-4fe6-bbe4-f22e749caa9b/history -> 200 [72.24ms] IP=127.0.0.1
+2026-04-21 14:32:24.667 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/sensorService-DbU98cRC.js -> 200 [13.11ms] IP=127.0.0.1
+2026-04-21 14:32:24.669 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageStatusPage-Cn-unCLR.js -> 200 [17.73ms] IP=127.0.0.1
+2026-04-21 14:32:24.757 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/field_worker_image-ofkjtgua.png -> 200 [19.8ms] IP=127.0.0.1
+2026-04-21 14:32:24.874 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=alerts:bf975481-d0fb-4fe6-bbe4-f22e749caa9b total=1
+2026-04-21 14:32:24.875 | INFO     | app.utils.websocket_manager:subscribe_village:107 - Redis subscriber started for village bf975481-d0fb-4fe6-bbe4-f22e749caa9b
+2026-04-21 14:32:24.919 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=sensor:bf975481-d0fb-4fe6-bbe4-f22e749caa9b total=1
+2026-04-21 14:32:24.977 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/readings/bf975481-d0fb-4fe6-bbe4-f22e749caa9b -> 200 [82.9ms] IP=127.0.0.1
+2026-04-21 14:32:25.026 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/inventory -> 200 [131.0ms] IP=127.0.0.1
+2026-04-21 14:32:25.034 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/bf975481-d0fb-4fe6-bbe4-f22e749caa9b/dashboard -> 200 [151.02ms] IP=127.0.0.1
+2026-04-21 14:32:25.076 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/village/bf975481-d0fb-4fe6-bbe4-f22e749caa9b -> 200 [161.33ms] IP=127.0.0.1
+2026-04-21 14:32:25.079 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/bf975481-d0fb-4fe6-bbe4-f22e749caa9b/latest -> 200 [127.52ms] IP=127.0.0.1
+2026-04-21 14:32:32.407 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=alerts:bf975481-d0fb-4fe6-bbe4-f22e749caa9b
+2026-04-21 14:32:32.409 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=sensor:bf975481-d0fb-4fe6-bbe4-f22e749caa9b
+2026-04-21 14:32:32.410 | INFO     | app.routers.websockets:sensor_stream:48 - Sensor WS disconnected: village=bf975481-d0fb-4fe6-bbe4-f22e749caa9b
+2026-04-21 14:32:32.490 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=alerts:e572f8ab-8674-48f3-8054-db7a687f61ed total=1
+2026-04-21 14:32:32.492 | INFO     | app.utils.websocket_manager:subscribe_village:107 - Redis subscriber started for village e572f8ab-8674-48f3-8054-db7a687f61ed
+2026-04-21 14:32:32.563 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=sensor:e572f8ab-8674-48f3-8054-db7a687f61ed total=1
+2026-04-21 14:32:32.649 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/readings/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [77.69ms] IP=127.0.0.1
+2026-04-21 14:32:32.655 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/village/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [60.85ms] IP=127.0.0.1
+2026-04-21 14:32:32.680 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e572f8ab-8674-48f3-8054-db7a687f61ed/dashboard -> 200 [130.33ms] IP=127.0.0.1
+2026-04-21 14:32:32.691 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/inventory -> 200 [91.34ms] IP=127.0.0.1
+2026-04-21 14:32:33.064 | INFO     | app.agents.orchestrator:run:279 - Orchestrator running for village e572f8ab-8674-48f3-8054-db7a687f61ed
+2026-04-21 14:32:33.067 | INFO     | app.agents.orchestrator:run:345 - Orchestration complete: village=e572f8ab-8674-48f3-8054-db7a687f61ed score=25.38 category=moderate
+2026-04-21 14:32:40.047 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/e572f8ab-8674-48f3-8054-db7a687f61ed/latest -> 200 [7455.22ms] IP=127.0.0.1
+2026-04-21 14:34:56.070 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/report_image-BH09Dqye.png -> 200 [14.4ms] IP=127.0.0.1
+2026-04-21 14:34:56.074 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=alerts:e572f8ab-8674-48f3-8054-db7a687f61ed
+2026-04-21 14:34:56.079 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=sensor:e572f8ab-8674-48f3-8054-db7a687f61ed
+2026-04-21 14:34:56.082 | INFO     | app.routers.websockets:sensor_stream:48 - Sensor WS disconnected: village=e572f8ab-8674-48f3-8054-db7a687f61ed
+2026-04-21 14:34:56.206 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [49.98ms] IP=127.0.0.1
+2026-04-21 14:34:56.278 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/e572f8ab-8674-48f3-8054-db7a687f61ed/latest -> 200 [143.95ms] IP=127.0.0.1
+2026-04-21 14:34:56.383 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/e572f8ab-8674-48f3-8054-db7a687f61ed/history -> 200 [71.47ms] IP=127.0.0.1
+2026-04-21 14:34:56.392 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/e572f8ab-8674-48f3-8054-db7a687f61ed/explain -> 200 [77.12ms] IP=127.0.0.1
+2026-04-21 14:34:56.530 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HealthReportsPage-BptPN5SK.js -> 200 [8.32ms] IP=127.0.0.1
+2026-04-21 14:34:56.561 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [14.83ms] IP=127.0.0.1
+2026-04-21 14:34:56.728 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/health/clusters/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [104.77ms] IP=127.0.0.1
+2026-04-21 14:34:56.733 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/health/reports/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [109.33ms] IP=127.0.0.1
+2026-04-21 14:35:01.623 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/health/report -> 201 [17.77ms] IP=127.0.0.1
+2026-04-21 14:35:01.657 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/health/reports/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [23.38ms] IP=127.0.0.1
+2026-04-21 14:35:01.665 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/health/clusters/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [28.71ms] IP=127.0.0.1
+2026-04-21 14:35:52.345 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/health/report -> 201 [12.99ms] IP=127.0.0.1
+2026-04-21 14:35:52.418 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/health/clusters/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [58.29ms] IP=127.0.0.1
+2026-04-21 14:35:52.423 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/health/reports/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [66.16ms] IP=127.0.0.1
+2026-04-21 14:36:01.930 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/field_worker_image-ofkjtgua.png -> 200 [14.81ms] IP=127.0.0.1
+2026-04-21 14:36:02.149 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e572f8ab-8674-48f3-8054-db7a687f61ed/dashboard -> 200 [229.49ms] IP=127.0.0.1
+2026-04-21 14:36:10.441 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e572f8ab-8674-48f3-8054-db7a687f61ed/dashboard -> 200 [16.49ms] IP=127.0.0.1
+2026-04-21 14:36:22.171 | INFO     | app.services.report_service:generate_village_pdf:205 - PDF generated for village e572f8ab-8674-48f3-8054-db7a687f61ed: 2371 bytes
+2026-04-21 14:36:22.174 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/reports/e572f8ab-8674-48f3-8054-db7a687f61ed/pdf -> 200 [27.7ms] IP=127.0.0.1
+2026-04-21 14:36:54.109 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/FeatureCenterPage-DAW494kE.js -> 200 [6.78ms] IP=127.0.0.1
+2026-04-21 14:36:54.121 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [6.84ms] IP=127.0.0.1
+2026-04-21 14:36:54.175 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [49.53ms] IP=127.0.0.1
+2026-04-21 14:45:47.116 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/report_image-BH09Dqye.png -> 200 [9.08ms] IP=127.0.0.1
+2026-04-21 14:45:47.221 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [80.11ms] IP=127.0.0.1
+2026-04-21 14:45:48.821 | INFO     | app.utils.middleware:dispatch:61 - GET /reports -> 200 [4.53ms] IP=127.0.0.1
+2026-04-21 14:45:48.851 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-BS_-sXvA.css -> 200 [13.45ms] IP=127.0.0.1
+2026-04-21 14:45:48.874 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-D3qdp0k6.js -> 200 [35.1ms] IP=127.0.0.1
+2026-04-21 14:45:49.040 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/jalert-logo-Cjb_t2Hq.png -> 200 [7.43ms] IP=127.0.0.1
+2026-04-21 14:45:49.097 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ReportsPage-CL12hDid.js -> 200 [57.32ms] IP=127.0.0.1
+2026-04-21 14:45:49.111 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-BenNh7PW.js -> 200 [66.0ms] IP=127.0.0.1
+2026-04-21 14:45:49.111 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPrompt-36OEZ0dn.js -> 200 [61.2ms] IP=127.0.0.1
+2026-04-21 14:45:49.112 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-BZ9iWEpf.js -> 200 [61.52ms] IP=127.0.0.1
+2026-04-21 14:45:49.112 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/calendar-days-CNQa1XFh.js -> 200 [48.79ms] IP=127.0.0.1
+2026-04-21 14:45:49.168 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageSelector-C_moTFS9.js -> 200 [41.14ms] IP=127.0.0.1
+2026-04-21 14:45:49.173 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/format-Ckrn_PMB.js -> 200 [36.86ms] IP=127.0.0.1
+2026-04-21 14:45:49.177 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-CiT4fq7S.js -> 200 [41.1ms] IP=127.0.0.1
+2026-04-21 14:45:49.197 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [49.0ms] IP=127.0.0.1
+2026-04-21 14:45:49.271 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-9XjiiQVF.js -> 200 [61.2ms] IP=127.0.0.1
+2026-04-21 14:45:49.433 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [187.67ms] IP=127.0.0.1
+2026-04-21 14:45:49.505 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e572f8ab-8674-48f3-8054-db7a687f61ed/dashboard -> 200 [247.91ms] IP=127.0.0.1
+2026-04-21 14:46:07.652 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-GBUNwA7U.js -> 200 [20.88ms] IP=127.0.0.1
+2026-04-21 14:46:07.654 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-C32g2D9Q.js -> 200 [26.56ms] IP=127.0.0.1
+2026-04-21 14:46:07.658 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-nlL4KbO5.js -> 200 [26.91ms] IP=127.0.0.1
+2026-04-21 14:46:07.661 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-CleWKn_f.js -> 200 [25.2ms] IP=127.0.0.1
+2026-04-21 14:46:07.695 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [47.46ms] IP=127.0.0.1
+2026-04-21 14:46:07.770 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [29.37ms] IP=127.0.0.1
+2026-04-21 14:46:07.798 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [45.15ms] IP=127.0.0.1
+2026-04-21 14:46:08.063 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e572f8ab-8674-48f3-8054-db7a687f61ed/dashboard -> 200 [268.33ms] IP=127.0.0.1
+2026-04-21 14:46:10.361 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantPage-CAl1UH_j.js -> 200 [5.4ms] IP=127.0.0.1
+2026-04-21 14:48:29.155 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/SensorsPage-D-H0D5Ww.js -> 200 [75.93ms] IP=127.0.0.1
+2026-04-21 14:48:29.171 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/EmptyState-YjIHS7nB.js -> 200 [88.53ms] IP=127.0.0.1
+2026-04-21 14:48:29.245 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/generateCategoricalChart-CcZB5IUm.js -> 200 [142.62ms] IP=127.0.0.1
+2026-04-21 14:48:29.252 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/sensorService-2cvpyHYr.js -> 200 [150.06ms] IP=127.0.0.1
+2026-04-21 14:48:29.256 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageIntelligenceService-Br3zrFHX.js -> 200 [156.37ms] IP=127.0.0.1
+2026-04-21 14:48:29.261 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatCard-B3LKu4WW.js -> 200 [161.19ms] IP=127.0.0.1
+2026-04-21 14:48:29.372 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [60.26ms] IP=127.0.0.1
+2026-04-21 14:48:29.440 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/water_body_image-BBdpioUp.png -> 200 [11.55ms] IP=127.0.0.1
+2026-04-21 14:48:29.463 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=sensor:e572f8ab-8674-48f3-8054-db7a687f61ed total=1
+2026-04-21 14:48:30.165 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/water-resources/ -> 200 [658.02ms] IP=127.0.0.1
+2026-04-21 14:48:30.298 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/village/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [809.17ms] IP=127.0.0.1
+2026-04-21 14:48:30.299 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/readings/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [811.29ms] IP=127.0.0.1
+2026-04-21 14:48:31.689 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [2181.35ms] IP=127.0.0.1
+2026-04-21 14:50:29.918 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/map-overview -> 200 [120410.15ms] IP=127.0.0.1
+2026-04-21 14:54:38.519 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/map-overview -> 200 [129642.88ms] IP=127.0.0.1
+2026-04-21 14:54:38.522 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=sensor:e572f8ab-8674-48f3-8054-db7a687f61ed
+2026-04-21 14:54:38.522 | INFO     | app.routers.websockets:sensor_stream:48 - Sensor WS disconnected: village=e572f8ab-8674-48f3-8054-db7a687f61ed
+2026-04-21 14:54:38.780 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/water-resources/ -> 200 [261.35ms] IP=127.0.0.1
+2026-04-21 14:54:38.781 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/water-resources/ -> 200 [262.16ms] IP=127.0.0.1
+2026-04-21 14:54:38.799 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [289.02ms] IP=127.0.0.1
+2026-04-21 14:54:38.799 | INFO     | app.utils.middleware:dispatch:61 - GET /sensors -> 200 [289.63ms] IP=127.0.0.1
+2026-04-21 14:54:38.800 | INFO     | app.utils.middleware:dispatch:61 - GET / -> 200 [289.91ms] IP=127.0.0.1
+2026-04-21 14:54:38.800 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/FeatureCenterPage-Cg0mS8dy.js -> 200 [290.15ms] IP=127.0.0.1
+2026-04-21 14:54:38.807 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [297.11ms] IP=127.0.0.1
+2026-04-21 14:54:38.808 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [298.03ms] IP=127.0.0.1
+2026-04-21 14:54:38.837 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AlertsPage-7lS1L0IO.js -> 200 [25.27ms] IP=127.0.0.1
+2026-04-21 14:54:38.840 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useMutation-8qfXFQl_.js -> 200 [22.16ms] IP=127.0.0.1
+2026-04-21 14:54:38.840 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/siren-CM3NUY3g.js -> 200 [21.66ms] IP=127.0.0.1
+2026-04-21 14:54:38.841 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatusBadge-B7D96Uyk.js -> 200 [21.96ms] IP=127.0.0.1
+2026-04-21 14:54:38.862 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/alertService-DWVbMuSM.js -> 200 [27.69ms] IP=127.0.0.1
+2026-04-21 14:54:38.879 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [24.62ms] IP=127.0.0.1
+2026-04-21 14:54:38.888 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-DMfol7AI.js -> 200 [29.99ms] IP=127.0.0.1
+2026-04-21 14:54:38.889 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-C0rAOgtc.css -> 200 [25.68ms] IP=127.0.0.1
+2026-04-21 14:54:38.957 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-C0rAOgtc.css -> 200 [49.4ms] IP=127.0.0.1
+2026-04-21 14:54:38.957 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-DMfol7AI.js -> 200 [50.0ms] IP=127.0.0.1
+2026-04-21 14:54:39.092 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/SensorsPage-hIP5fpg2.js -> 200 [4.43ms] IP=127.0.0.1
+2026-04-21 14:54:39.096 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/jalert-logo-Cjb_t2Hq.png -> 200 [16.03ms] IP=127.0.0.1
+2026-04-21 14:54:39.113 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-C3jon0zV.js -> 200 [20.41ms] IP=127.0.0.1
+2026-04-21 14:54:39.124 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-BIBaM8f4.js -> 200 [25.22ms] IP=127.0.0.1
+2026-04-21 14:54:39.127 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-IK6DJkxv.js -> 200 [26.85ms] IP=127.0.0.1
+2026-04-21 14:54:39.141 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-BfnjiF0x.js -> 200 [26.56ms] IP=127.0.0.1
+2026-04-21 14:54:39.142 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-CpiIOyEn.js -> 200 [27.17ms] IP=127.0.0.1
+2026-04-21 14:54:39.151 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/format-Ckrn_PMB.js -> 200 [25.78ms] IP=127.0.0.1
+2026-04-21 14:54:39.159 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-DvnliUsy.js -> 200 [23.42ms] IP=127.0.0.1
+2026-04-21 14:54:39.168 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-CKfmmw-3.js -> 200 [25.44ms] IP=127.0.0.1
+2026-04-21 14:54:39.181 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-C3jon0zV.js -> 200 [28.57ms] IP=127.0.0.1
+2026-04-21 14:54:39.183 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [29.12ms] IP=127.0.0.1
+2026-04-21 14:54:39.187 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-IK6DJkxv.js -> 200 [24.33ms] IP=127.0.0.1
+2026-04-21 14:54:39.195 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/EmptyState-B7AT2xjN.js -> 200 [20.2ms] IP=127.0.0.1
+2026-04-21 14:54:39.203 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/jalert-logo-Cjb_t2Hq.png -> 200 [22.8ms] IP=127.0.0.1
+2026-04-21 14:54:39.221 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [25.2ms] IP=127.0.0.1
+2026-04-21 14:54:39.223 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-CpiIOyEn.js -> 200 [19.46ms] IP=127.0.0.1
+2026-04-21 14:54:39.243 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [29.22ms] IP=127.0.0.1
+2026-04-21 14:54:39.254 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPrompt-B1pkmvvb.js -> 200 [32.44ms] IP=127.0.0.1
+2026-04-21 14:54:39.267 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene--q0LQ0j7.js -> 200 [36.77ms] IP=127.0.0.1
+2026-04-21 14:54:39.275 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatCard-EbZ6bw_P.js -> 200 [34.69ms] IP=127.0.0.1
+2026-04-21 14:54:39.288 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [43.54ms] IP=127.0.0.1
+2026-04-21 14:54:39.323 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageSelector-GkNEqy2k.js -> 200 [46.82ms] IP=127.0.0.1
+2026-04-21 14:54:39.343 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/sensorService-B-dz8Y5h.js -> 200 [48.23ms] IP=127.0.0.1
+2026-04-21 14:54:39.401 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/generateCategoricalChart-DnHRYOOu.js -> 200 [57.16ms] IP=127.0.0.1
+2026-04-21 14:54:39.466 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/format-Ckrn_PMB.js -> 200 [49.96ms] IP=127.0.0.1
+2026-04-21 14:54:39.482 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageIntelligenceService-DBSS_vHl.js -> 200 [49.35ms] IP=127.0.0.1
+2026-04-21 14:54:39.527 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [7.9ms] IP=127.0.0.1
+2026-04-21 14:54:39.528 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene--q0LQ0j7.js -> 200 [10.37ms] IP=127.0.0.1
+2026-04-21 14:54:39.656 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [1.84ms] IP=127.0.0.1
+2026-04-21 14:54:39.797 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/water_body_image-BBdpioUp.png -> 200 [21.48ms] IP=127.0.0.1
+2026-04-21 14:54:39.808 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=sensor:e572f8ab-8674-48f3-8054-db7a687f61ed total=1
+2026-04-21 14:54:39.977 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/water-resources/ -> 200 [153.53ms] IP=127.0.0.1
+2026-04-21 14:54:40.041 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/map-overview -> 200 [219.87ms] IP=127.0.0.1
+2026-04-21 14:54:40.055 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [240.79ms] IP=127.0.0.1
+2026-04-21 14:54:40.057 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/village/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [237.65ms] IP=127.0.0.1
+2026-04-21 14:54:40.061 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/readings/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [237.1ms] IP=127.0.0.1
+2026-04-21 14:54:40.520 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/e572f8ab-8674-48f3-8054-db7a687f61ed -> 200 [503.51ms] IP=127.0.0.1
+2026-04-21 14:54:52.621 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-BIBaM8f4.js -> 200 [47.38ms] IP=127.0.0.1
+2026-04-21 14:54:52.629 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-DvnliUsy.js -> 200 [37.28ms] IP=127.0.0.1
+2026-04-21 14:54:52.632 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-BfnjiF0x.js -> 200 [47.78ms] IP=127.0.0.1
+2026-04-21 14:54:52.655 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-CKfmmw-3.js -> 200 [52.62ms] IP=127.0.0.1
+2026-04-21 14:54:52.735 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [29.99ms] IP=127.0.0.1
+2026-04-21 14:54:52.741 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=sensor:e572f8ab-8674-48f3-8054-db7a687f61ed
+2026-04-21 14:54:52.741 | INFO     | app.routers.websockets:sensor_stream:48 - Sensor WS disconnected: village=e572f8ab-8674-48f3-8054-db7a687f61ed
+2026-04-21 14:54:52.768 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [50.18ms] IP=127.0.0.1
+2026-04-21 14:54:53.028 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e572f8ab-8674-48f3-8054-db7a687f61ed/dashboard -> 200 [239.49ms] IP=127.0.0.1
+2026-04-21 14:54:55.710 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantPage-xJc4SnFw.js -> 200 [7.37ms] IP=127.0.0.1
+2026-04-21 14:54:55.795 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/report_image-BH09Dqye.png -> 200 [67.17ms] IP=127.0.0.1
+2026-04-21 14:55:45.302 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [20.29ms] IP=127.0.0.1
+2026-04-21 14:55:45.435 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [132.92ms] IP=127.0.0.1
+2026-04-21 14:55:45.472 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [94.68ms] IP=127.0.0.1
+2026-04-21 14:58:56.453 | INFO     | app.utils.middleware:dispatch:61 - GET / -> 200 [5.92ms] IP=127.0.0.1
+2026-04-21 14:58:56.515 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-BfIkihv4.css -> 200 [34.81ms] IP=127.0.0.1
+2026-04-21 14:58:56.541 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-BfsoRNyY.js -> 200 [57.8ms] IP=127.0.0.1
+2026-04-21 14:58:56.715 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/jalert-logo-Cjb_t2Hq.png -> 200 [41.76ms] IP=127.0.0.1
+2026-04-21 14:58:56.729 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-DIaNXF9_.js -> 200 [46.74ms] IP=127.0.0.1
+2026-04-21 14:58:56.734 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-Ct2f9ZU-.js -> 200 [42.54ms] IP=127.0.0.1
+2026-04-21 14:58:56.745 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-LLqhjHB8.js -> 200 [53.7ms] IP=127.0.0.1
+2026-04-21 14:58:56.797 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-B7Q7DwYw.js -> 200 [95.71ms] IP=127.0.0.1
+2026-04-21 14:58:56.805 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-HCKZIr-K.js -> 200 [97.95ms] IP=127.0.0.1
+2026-04-21 14:58:56.877 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 401 [12.14ms] IP=127.0.0.1
+2026-04-21 14:58:56.886 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-CZnyJ_CH.js -> 200 [60.51ms] IP=127.0.0.1
+2026-04-21 14:58:56.891 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/format-Ckrn_PMB.js -> 200 [63.23ms] IP=127.0.0.1
+2026-04-21 14:58:56.896 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-yGm58EPY.js -> 200 [68.15ms] IP=127.0.0.1
+2026-04-21 14:58:56.996 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-BgoxRyzR.js -> 200 [62.33ms] IP=127.0.0.1
+2026-04-21 14:58:57.025 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [78.22ms] IP=127.0.0.1
+2026-04-21 14:58:57.045 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [98.37ms] IP=127.0.0.1
+2026-04-21 14:58:57.528 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [2.52ms] IP=127.0.0.1
+2026-04-21 14:59:04.047 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantPage-CCrxHsZn.js -> 200 [11.15ms] IP=127.0.0.1
+2026-04-21 14:59:04.052 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPrompt-0aFi-pKi.js -> 200 [14.32ms] IP=127.0.0.1
+2026-04-21 14:59:04.161 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/report_image-BH09Dqye.png -> 200 [87.87ms] IP=127.0.0.1
+2026-04-21 14:59:06.868 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/zod-DAOj9WwP.js -> 200 [17.34ms] IP=127.0.0.1
+2026-04-21 14:59:06.871 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPage-yWkY-61D.js -> 200 [23.82ms] IP=127.0.0.1
+2026-04-21 14:59:06.943 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [58.31ms] IP=127.0.0.1
+2026-04-21 14:59:07.913 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/auth/login -> 200 [49.08ms] IP=127.0.0.1
+2026-04-21 14:59:07.934 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [13.35ms] IP=127.0.0.1
+2026-04-21 14:59:08.021 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AdminPortalPage-D_JRUnix.js -> 200 [47.07ms] IP=127.0.0.1
+2026-04-21 14:59:08.024 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatusBadge-Dv8c36Wx.js -> 200 [44.3ms] IP=127.0.0.1
+2026-04-21 14:59:08.028 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatCard-BNdMziiE.js -> 200 [48.2ms] IP=127.0.0.1
+2026-04-21 14:59:08.052 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/siren-Df1F23-V.js -> 200 [52.11ms] IP=127.0.0.1
+2026-04-21 14:59:08.110 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/field_worker_image-ofkjtgua.png -> 200 [26.88ms] IP=127.0.0.1
+2026-04-21 14:59:08.260 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [147.05ms] IP=127.0.0.1
+2026-04-21 14:59:09.783 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageSelector-Cn5fL_UF.js -> 200 [30.06ms] IP=127.0.0.1
+2026-04-21 14:59:09.787 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PredictionsPage-m6FH8OJj.js -> 200 [38.01ms] IP=127.0.0.1
+2026-04-21 14:59:09.791 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/EmptyState-BfjQo6MR.js -> 200 [38.74ms] IP=127.0.0.1
+2026-04-21 14:59:09.793 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useMutation-B-njGAXK.js -> 200 [39.94ms] IP=127.0.0.1
+2026-04-21 14:59:09.908 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/predictionService-CDViDv5i.js -> 200 [141.71ms] IP=127.0.0.1
+2026-04-21 14:59:09.915 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/generateCategoricalChart-cMZDVkGj.js -> 200 [147.64ms] IP=127.0.0.1
+2026-04-21 14:59:09.983 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/BarChart-DOMLpfqR.js -> 200 [53.95ms] IP=127.0.0.1
+2026-04-21 14:59:10.115 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [39.98ms] IP=127.0.0.1
+2026-04-21 14:59:10.205 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/ad2d7f2e-f53d-4463-a526-586f0de13999/latest -> 200 [35.47ms] IP=127.0.0.1
+2026-04-21 14:59:10.294 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/ad2d7f2e-f53d-4463-a526-586f0de13999/explain -> 200 [34.17ms] IP=127.0.0.1
+2026-04-21 14:59:10.380 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/ad2d7f2e-f53d-4463-a526-586f0de13999/history -> 200 [138.34ms] IP=127.0.0.1
+2026-04-21 14:59:10.886 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageIntelligenceService-DhswL_aG.js -> 200 [10.7ms] IP=127.0.0.1
+2026-04-21 14:59:10.889 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageProfilePage-Bn4qI7Wa.js -> 200 [18.54ms] IP=127.0.0.1
+2026-04-21 14:59:10.986 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [42.91ms] IP=127.0.0.1
+2026-04-21 14:59:11.210 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/catalog -> 200 [210.47ms] IP=127.0.0.1
+2026-04-21 14:59:11.301 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ad2d7f2e-f53d-4463-a526-586f0de13999/dashboard -> 200 [250.95ms] IP=127.0.0.1
+2026-04-21 14:59:12.597 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/ad2d7f2e-f53d-4463-a526-586f0de13999 -> 200 [1598.0ms] IP=127.0.0.1
+2026-04-21 14:59:12.678 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/ad2d7f2e-f53d-4463-a526-586f0de13999/compare -> 200 [61.09ms] IP=127.0.0.1
+2026-04-21 14:59:13.103 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [12.23ms] IP=127.0.0.1
+2026-04-21 14:59:13.318 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ad2d7f2e-f53d-4463-a526-586f0de13999/dashboard -> 200 [173.06ms] IP=127.0.0.1
+2026-04-21 14:59:16.072 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [12.12ms] IP=127.0.0.1
+2026-04-21 15:06:08.531 | INFO     | app.utils.middleware:dispatch:61 - GET /chat -> 200 [8.58ms] IP=127.0.0.1
+2026-04-21 15:06:08.638 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-C24CsI1R.css -> 200 [58.74ms] IP=127.0.0.1
+2026-04-21 15:06:08.640 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-Dfcf8L0E.js -> 200 [44.28ms] IP=127.0.0.1
+2026-04-21 15:06:08.855 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/jalert-logo-Cjb_t2Hq.png -> 200 [53.15ms] IP=127.0.0.1
+2026-04-21 15:06:08.870 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-DaN_x8OL.js -> 200 [50.28ms] IP=127.0.0.1
+2026-04-21 15:06:08.875 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantPage-_Rk2COo6.js -> 200 [55.03ms] IP=127.0.0.1
+2026-04-21 15:06:08.877 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPrompt-DeC9Rd-o.js -> 200 [48.24ms] IP=127.0.0.1
+2026-04-21 15:06:08.918 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-DSDwlpt6.js -> 200 [84.14ms] IP=127.0.0.1
+2026-04-21 15:06:08.982 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [124.5ms] IP=127.0.0.1
+2026-04-21 15:06:09.037 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-Cj7YyyZr.js -> 200 [63.41ms] IP=127.0.0.1
+2026-04-21 15:06:09.038 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/report_image-BH09Dqye.png -> 200 [64.55ms] IP=127.0.0.1
+2026-04-21 15:06:09.500 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [5.02ms] IP=127.0.0.1
+2026-04-21 15:06:12.463 | INFO     | app.utils.middleware:dispatch:61 - GET /chat -> 200 [11.75ms] IP=127.0.0.1
+2026-04-21 15:06:12.579 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [10.48ms] IP=127.0.0.1
+2026-04-21 15:06:26.578 | INFO     | app.routers.chat:chat_with_assistant:233 - Received chat request with model gemma4:31b-cloud for village ad2d7f2e-f53d-4463-a526-586f0de13999
+2026-04-21 15:06:30.627 | ERROR    | app.routers.chat:chat_with_assistant:269 - Could not connect to Ollama at http://localhost:11434/api/chat
+2026-04-21 15:06:30.637 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/chat -> 200 [4326.63ms] IP=127.0.0.1
+2026-04-21 15:08:17.298 | INFO     | app.utils.middleware:dispatch:61 - GET /chat -> 200 [4.8ms] IP=127.0.0.1
+2026-04-21 15:08:17.406 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-C24CsI1R.css -> 200 [25.7ms] IP=127.0.0.1
+2026-04-21 15:08:17.426 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-Dfcf8L0E.js -> 200 [39.36ms] IP=127.0.0.1
+2026-04-21 15:08:17.634 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/jalert-logo-Cjb_t2Hq.png -> 200 [47.71ms] IP=127.0.0.1
+2026-04-21 15:08:17.671 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantPage-_Rk2COo6.js -> 200 [72.63ms] IP=127.0.0.1
+2026-04-21 15:08:17.687 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-DSDwlpt6.js -> 200 [74.72ms] IP=127.0.0.1
+2026-04-21 15:08:17.689 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-DaN_x8OL.js -> 200 [79.43ms] IP=127.0.0.1
+2026-04-21 15:08:17.691 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPrompt-DeC9Rd-o.js -> 200 [80.42ms] IP=127.0.0.1
+2026-04-21 15:08:17.744 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [103.07ms] IP=127.0.0.1
+2026-04-21 15:08:17.812 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/report_image-BH09Dqye.png -> 200 [64.81ms] IP=127.0.0.1
+2026-04-21 15:08:17.821 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-Cj7YyyZr.js -> 200 [73.72ms] IP=127.0.0.1
+2026-04-21 15:08:18.420 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [4.97ms] IP=127.0.0.1
+2026-04-21 15:08:19.232 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-Bnc0TSYa.js -> 200 [24.67ms] IP=127.0.0.1
+2026-04-21 15:08:19.233 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-B1QXBRTO.js -> 200 [23.35ms] IP=127.0.0.1
+2026-04-21 15:08:19.234 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-BkHw2fWg.js -> 200 [23.92ms] IP=127.0.0.1
+2026-04-21 15:08:19.234 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-D3qpHMqF.js -> 200 [24.9ms] IP=127.0.0.1
+2026-04-21 15:08:19.265 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/format-Ckrn_PMB.js -> 200 [47.96ms] IP=127.0.0.1
+2026-04-21 15:08:19.271 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-DCi9uNCf.js -> 200 [53.33ms] IP=127.0.0.1
+2026-04-21 15:08:19.432 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [44.78ms] IP=127.0.0.1
+2026-04-21 15:08:19.442 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [46.06ms] IP=127.0.0.1
+2026-04-21 15:08:19.477 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ad2d7f2e-f53d-4463-a526-586f0de13999/dashboard -> 200 [75.2ms] IP=127.0.0.1
+2026-04-21 15:08:22.771 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/EmptyState-bzXaCdXO.js -> 200 [22.75ms] IP=127.0.0.1
+2026-04-21 15:08:22.772 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatCard-jCa8fyfC.js -> 200 [23.89ms] IP=127.0.0.1
+2026-04-21 15:08:22.773 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageStatusPage-BfDmA-VS.js -> 200 [27.09ms] IP=127.0.0.1
+2026-04-21 15:08:22.889 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/sensorService-DU-PjU5G.js -> 200 [132.46ms] IP=127.0.0.1
+2026-04-21 15:08:22.898 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/generateCategoricalChart-C4-aTTmo.js -> 200 [139.39ms] IP=127.0.0.1
+2026-04-21 15:08:22.931 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatusBadge-XO8rlCEN.js -> 200 [175.0ms] IP=127.0.0.1
+2026-04-21 15:08:23.113 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/predictionService-u8hF5dJL.js -> 200 [128.51ms] IP=127.0.0.1
+2026-04-21 15:08:23.114 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageSelector-CaoSAvZJ.js -> 200 [140.58ms] IP=127.0.0.1
+2026-04-21 15:08:23.223 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=alerts:ad2d7f2e-f53d-4463-a526-586f0de13999 total=1
+2026-04-21 15:08:23.225 | INFO     | app.utils.websocket_manager:subscribe_village:107 - Redis subscriber started for village ad2d7f2e-f53d-4463-a526-586f0de13999
+2026-04-21 15:08:23.466 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=sensor:ad2d7f2e-f53d-4463-a526-586f0de13999 total=1
+2026-04-21 15:08:23.543 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/field_worker_image-ofkjtgua.png -> 200 [120.74ms] IP=127.0.0.1
+2026-04-21 15:08:23.674 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/village/ad2d7f2e-f53d-4463-a526-586f0de13999 -> 200 [240.78ms] IP=127.0.0.1
+2026-04-21 15:08:23.735 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/readings/ad2d7f2e-f53d-4463-a526-586f0de13999 -> 200 [252.17ms] IP=127.0.0.1
+2026-04-21 15:08:23.754 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [320.93ms] IP=127.0.0.1
+2026-04-21 15:08:23.845 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/inventory -> 200 [410.84ms] IP=127.0.0.1
+2026-04-21 15:08:23.893 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ad2d7f2e-f53d-4463-a526-586f0de13999/dashboard -> 200 [382.11ms] IP=127.0.0.1
+2026-04-21 15:08:23.902 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/ad2d7f2e-f53d-4463-a526-586f0de13999/latest -> 200 [129.04ms] IP=127.0.0.1
+2026-04-21 15:11:01.497 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PredictionsPage-d1U5pEae.js -> 200 [19.0ms] IP=127.0.0.1
+2026-04-21 15:11:01.498 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useMutation-B8QtX1rN.js -> 200 [17.99ms] IP=127.0.0.1
+2026-04-21 15:11:01.498 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/BarChart-BqazMvuV.js -> 200 [17.41ms] IP=127.0.0.1
+2026-04-21 15:11:01.517 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [26.66ms] IP=127.0.0.1
+2026-04-21 15:11:01.580 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=alerts:ad2d7f2e-f53d-4463-a526-586f0de13999
+2026-04-21 15:11:01.605 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=sensor:ad2d7f2e-f53d-4463-a526-586f0de13999
+2026-04-21 15:11:01.616 | INFO     | app.routers.websockets:sensor_stream:48 - Sensor WS disconnected: village=ad2d7f2e-f53d-4463-a526-586f0de13999
+2026-04-21 15:11:05.238 | INFO     | app.utils.middleware:dispatch:61 - GET /predictions -> 200 [3.58ms] IP=127.0.0.1
+2026-04-21 15:11:05.306 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-Bifn5elR.js -> 200 [49.4ms] IP=127.0.0.1
+2026-04-21 15:11:05.308 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-C2DZFeqj.css -> 200 [54.17ms] IP=127.0.0.1
+2026-04-21 15:11:05.523 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/jalert-logo-Cjb_t2Hq.png -> 200 [55.41ms] IP=127.0.0.1
+2026-04-21 15:11:05.528 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PredictionsPage-DivqB0tZ.js -> 200 [48.38ms] IP=127.0.0.1
+2026-04-21 15:11:05.530 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-D8YFcr0W.js -> 200 [40.37ms] IP=127.0.0.1
+2026-04-21 15:11:05.539 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useMutation-e9KzL_XU.js -> 200 [42.74ms] IP=127.0.0.1
+2026-04-21 15:11:05.619 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/EmptyState-CdpqFrrP.js -> 200 [110.86ms] IP=127.0.0.1
+2026-04-21 15:11:05.624 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-CEHccBaf.js -> 200 [121.98ms] IP=127.0.0.1
+2026-04-21 15:11:06.691 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-DgjVVq-z.js -> 200 [1077.33ms] IP=127.0.0.1
+2026-04-21 15:11:06.693 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPrompt-BcQtfp6P.js -> 200 [109.21ms] IP=127.0.0.1
+2026-04-21 15:11:06.704 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatusBadge-CoKiqEYb.js -> 200 [112.49ms] IP=127.0.0.1
+2026-04-21 15:11:06.724 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageSelector-B0K6Vwtz.js -> 200 [75.93ms] IP=127.0.0.1
+2026-04-21 15:11:06.727 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/format-Ckrn_PMB.js -> 200 [78.81ms] IP=127.0.0.1
+2026-04-21 15:11:06.822 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/predictionService-SUjiZtMP.js -> 200 [82.42ms] IP=127.0.0.1
+2026-04-21 15:11:06.823 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/generateCategoricalChart-zbBto8mo.js -> 200 [83.9ms] IP=127.0.0.1
+2026-04-21 15:11:06.823 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/BarChart-RKaNYgP0.js -> 200 [61.74ms] IP=127.0.0.1
+2026-04-21 15:11:06.854 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [52.98ms] IP=127.0.0.1
+2026-04-21 15:11:06.970 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-DvX_N1g2.js -> 200 [49.77ms] IP=127.0.0.1
+2026-04-21 15:11:07.062 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [67.84ms] IP=127.0.0.1
+2026-04-21 15:11:07.085 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/report_image-BH09Dqye.png -> 200 [90.51ms] IP=127.0.0.1
+2026-04-21 15:11:07.183 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [166.93ms] IP=127.0.0.1
+2026-04-21 15:11:07.188 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/ad2d7f2e-f53d-4463-a526-586f0de13999/latest -> 200 [169.3ms] IP=127.0.0.1
+2026-04-21 15:11:07.521 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/ad2d7f2e-f53d-4463-a526-586f0de13999/explain -> 200 [222.84ms] IP=127.0.0.1
+2026-04-21 15:11:07.540 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/ad2d7f2e-f53d-4463-a526-586f0de13999/history -> 200 [237.62ms] IP=127.0.0.1
+2026-04-21 15:11:15.786 | INFO     | app.agents.orchestrator:run:279 - Orchestrator running for village 9cb484f8-da74-4ffd-acd4-8f09e6893a18
+2026-04-21 15:11:15.796 | INFO     | app.agents.orchestrator:run:345 - Orchestration complete: village=9cb484f8-da74-4ffd-acd4-8f09e6893a18 score=17.08 category=low
+2026-04-21 15:11:16.074 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/9cb484f8-da74-4ffd-acd4-8f09e6893a18/latest -> 200 [719.25ms] IP=127.0.0.1
+2026-04-21 15:11:16.107 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/9cb484f8-da74-4ffd-acd4-8f09e6893a18/explain -> 200 [750.02ms] IP=127.0.0.1
+2026-04-21 15:11:16.164 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/9cb484f8-da74-4ffd-acd4-8f09e6893a18/history -> 200 [806.46ms] IP=127.0.0.1
+2026-04-21 15:11:23.927 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/be4e2d2a-cead-4d00-9100-234dfca74398/latest -> 200 [47.89ms] IP=127.0.0.1
+2026-04-21 15:11:23.931 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/be4e2d2a-cead-4d00-9100-234dfca74398/history -> 200 [49.23ms] IP=127.0.0.1
+2026-04-21 15:11:23.948 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/be4e2d2a-cead-4d00-9100-234dfca74398/explain -> 200 [58.7ms] IP=127.0.0.1
+2026-04-21 15:11:28.774 | INFO     | app.agents.orchestrator:run:279 - Orchestrator running for village be4e2d2a-cead-4d00-9100-234dfca74398
+2026-04-21 15:11:28.780 | INFO     | app.agents.orchestrator:run:345 - Orchestration complete: village=be4e2d2a-cead-4d00-9100-234dfca74398 score=16.54 category=low
+2026-04-21 15:11:29.021 | ERROR    | app.core.database:get_db:91 - Database session error: can't compare offset-naive and offset-aware datetimes
+2026-04-21 15:12:25.634 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AdminPortalPage-CLpKk-80.js -> 200 [21.26ms] IP=127.0.0.1
+2026-04-21 15:12:25.642 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatCard-CxSer3Qe.js -> 200 [26.17ms] IP=127.0.0.1
+2026-04-21 15:12:25.646 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/siren-B8I8MUlg.js -> 200 [24.67ms] IP=127.0.0.1
+2026-04-21 15:12:25.706 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [72.39ms] IP=127.0.0.1
+2026-04-21 15:12:25.880 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/field_worker_image-ofkjtgua.png -> 200 [182.42ms] IP=127.0.0.1
+2026-04-21 15:12:26.007 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [253.72ms] IP=127.0.0.1
+2026-04-21 15:12:26.050 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/be4e2d2a-cead-4d00-9100-234dfca74398/dashboard -> 200 [296.84ms] IP=127.0.0.1
+2026-04-21 15:12:31.263 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AdminLoginPage-Cgpm98Gr.js -> 200 [19.02ms] IP=127.0.0.1
+2026-04-21 15:12:31.277 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/zod-DNkjuGPk.js -> 200 [30.09ms] IP=127.0.0.1
+2026-04-21 15:12:33.563 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPage-Dkn0BwRj.js -> 200 [4.66ms] IP=127.0.0.1
+2026-04-21 15:12:34.276 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/auth/login -> 200 [45.33ms] IP=127.0.0.1
+2026-04-21 15:12:34.290 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [8.57ms] IP=127.0.0.1
+2026-04-21 15:12:41.795 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [5.24ms] IP=127.0.0.1
+2026-04-21 15:12:48.951 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/auth/login -> 200 [42.77ms] IP=127.0.0.1
+2026-04-21 15:12:48.961 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [5.62ms] IP=127.0.0.1
+2026-04-21 15:12:49.025 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-B_ysle-o.js -> 200 [48.88ms] IP=127.0.0.1
+2026-04-21 15:12:49.035 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-i7xDGEgg.js -> 200 [48.05ms] IP=127.0.0.1
+2026-04-21 15:12:49.047 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-Cw79_XtA.js -> 200 [51.98ms] IP=127.0.0.1
+2026-04-21 15:12:49.049 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-lZFK-Gs3.js -> 200 [51.89ms] IP=127.0.0.1
+2026-04-21 15:12:49.142 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [58.86ms] IP=127.0.0.1
+2026-04-21 15:12:49.149 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [49.13ms] IP=127.0.0.1
+2026-04-21 15:12:49.299 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/be4e2d2a-cead-4d00-9100-234dfca74398/dashboard -> 200 [171.44ms] IP=127.0.0.1
+2026-04-21 15:12:54.394 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageStatusPage-BqJqoPE0.js -> 200 [10.04ms] IP=127.0.0.1
+2026-04-21 15:12:54.410 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/sensorService-DNienoQ8.js -> 200 [24.24ms] IP=127.0.0.1
+2026-04-21 15:12:54.520 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [107.89ms] IP=127.0.0.1
+2026-04-21 15:12:54.640 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/field_worker_image-ofkjtgua.png -> 200 [94.85ms] IP=127.0.0.1
+2026-04-21 15:12:54.808 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=alerts:be4e2d2a-cead-4d00-9100-234dfca74398 total=1
+2026-04-21 15:12:54.828 | INFO     | app.utils.websocket_manager:subscribe_village:107 - Redis subscriber started for village be4e2d2a-cead-4d00-9100-234dfca74398
+2026-04-21 15:12:54.936 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=sensor:be4e2d2a-cead-4d00-9100-234dfca74398 total=1
+2026-04-21 15:12:55.039 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/village/be4e2d2a-cead-4d00-9100-234dfca74398 -> 200 [142.99ms] IP=127.0.0.1
+2026-04-21 15:12:55.044 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/be4e2d2a-cead-4d00-9100-234dfca74398/latest -> 200 [280.83ms] IP=127.0.0.1
+2026-04-21 15:12:55.051 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/readings/be4e2d2a-cead-4d00-9100-234dfca74398 -> 200 [154.69ms] IP=127.0.0.1
+2026-04-21 15:12:55.114 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/inventory -> 200 [194.59ms] IP=127.0.0.1
+2026-04-21 15:12:55.139 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/be4e2d2a-cead-4d00-9100-234dfca74398/dashboard -> 200 [383.15ms] IP=127.0.0.1
+2026-04-21 15:12:58.173 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/CitizenServicesPage-B4Q-kQkT.js -> 200 [15.6ms] IP=127.0.0.1
+2026-04-21 15:12:58.176 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageIntelligenceService-DefwXdwL.js -> 200 [13.06ms] IP=127.0.0.1
+2026-04-21 15:12:58.263 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=alerts:be4e2d2a-cead-4d00-9100-234dfca74398
+2026-04-21 15:12:58.280 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=sensor:be4e2d2a-cead-4d00-9100-234dfca74398
+2026-04-21 15:12:58.289 | INFO     | app.routers.websockets:sensor_stream:48 - Sensor WS disconnected: village=be4e2d2a-cead-4d00-9100-234dfca74398
+2026-04-21 15:12:58.448 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/citizen-requests -> 200 [111.43ms] IP=127.0.0.1
+2026-04-21 15:12:58.516 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/be4e2d2a-cead-4d00-9100-234dfca74398/dashboard -> 200 [179.06ms] IP=127.0.0.1
+2026-04-21 15:13:00.663 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/be4e2d2a-cead-4d00-9100-234dfca74398 -> 200 [2325.68ms] IP=127.0.0.1
+2026-04-21 15:13:05.982 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HealthReportsPage-Xsykogq3.js -> 200 [5.3ms] IP=127.0.0.1
+2026-04-21 15:13:06.008 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [11.87ms] IP=127.0.0.1
+2026-04-21 15:13:11.581 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/field_worker_image-ofkjtgua.png -> 200 [15.19ms] IP=127.0.0.1
+2026-04-21 15:13:11.676 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [70.39ms] IP=127.0.0.1
+2026-04-21 15:13:37.266 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/village-intelligence/citizen-requests -> 201 [37.56ms] IP=127.0.0.1
+2026-04-21 15:13:37.425 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/citizen-requests -> 200 [140.0ms] IP=127.0.0.1
+2026-04-21 15:13:39.093 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/be4e2d2a-cead-4d00-9100-234dfca74398 -> 200 [1785.07ms] IP=127.0.0.1
+2026-04-21 15:13:40.978 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ReportsPage-B280GmHV.js -> 200 [11.02ms] IP=127.0.0.1
+2026-04-21 15:13:40.981 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/calendar-days-C1VEUcdD.js -> 200 [12.21ms] IP=127.0.0.1
+2026-04-21 15:13:41.040 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [55.86ms] IP=127.0.0.1
+2026-04-21 15:13:41.124 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/report_image-BH09Dqye.png -> 200 [123.98ms] IP=127.0.0.1
+2026-04-21 15:13:41.356 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/be4e2d2a-cead-4d00-9100-234dfca74398/dashboard -> 200 [272.58ms] IP=127.0.0.1
+2026-04-21 15:13:53.525 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [11.68ms] IP=127.0.0.1
+2026-04-21 15:14:45.010 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ProfilePage-BsispTjL.js -> 200 [11.58ms] IP=127.0.0.1
+2026-04-21 15:14:45.013 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/alertService-CFlOKOq5.js -> 200 [12.21ms] IP=127.0.0.1
+2026-04-21 15:14:45.024 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [12.91ms] IP=127.0.0.1
+2026-04-21 15:14:45.121 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [57.95ms] IP=127.0.0.1
+2026-04-21 15:20:45.749 | INFO     | app.main:lifespan:84 - Shutting down JALERT...
+2026-04-21 15:20:45.768 | INFO     | app.core.redis_manager:disconnect:27 - Redis disconnected
+2026-04-21 15:20:45.847 | INFO     | app.core.database:close_db:110 - Database connections closed
+2026-04-21 15:20:45.850 | INFO     | app.main:lifespan:97 - JALERT shutdown complete.
+2026-04-21 15:20:57.754 | INFO     | app.ml.models:_load:101 - Water quality model loaded from ml_models\water_quality_rf.joblib
+2026-04-21 15:20:58.010 | INFO     | app.ml.models:_load:209 - Disease outbreak model loaded from ml_models\disease_outbreak_xgb.joblib
+2026-04-21 15:20:58.705 | INFO     | app.main:lifespan:46 - ============================================================
+2026-04-21 15:20:58.706 | INFO     | app.main:lifespan:47 -   Starting JALERT - Intelligent Water & Health Alert System v1.0.0
+2026-04-21 15:20:58.706 | INFO     | app.main:lifespan:48 -   Environment: development
+2026-04-21 15:20:58.707 | INFO     | app.main:lifespan:49 -   Database: SQLite via AsyncAdaptedQueuePool
+2026-04-21 15:20:58.707 | INFO     | app.main:lifespan:50 -   Database URL: sqlite+aiosqlite:///./jalert.db
+2026-04-21 15:20:58.708 | INFO     | app.main:lifespan:51 - ============================================================
+2026-04-21 15:20:58.788 | INFO     | app.core.database:init_db:104 - Database tables initialized
+2026-04-21 15:21:05.351 | INFO     | app.services.bootstrap_service:_build_village_candidates:229 - Prepared 300 real village candidates from groundwater datasets
+2026-04-21 15:21:05.755 | INFO     | app.core.redis_manager:connect:22 - Redis connected
+2026-04-21 15:21:05.755 | INFO     | app.main:lifespan:75 - Skipping Kafka startup during local web serving.
+2026-04-21 15:21:05.756 | INFO     | app.main:lifespan:80 - All systems online. JALERT is ready.
+2026-04-21 15:21:05.886 | INFO     | app.main:lifespan:84 - Shutting down JALERT...
+2026-04-21 15:21:05.893 | INFO     | app.main:lifespan:91 - Public water resource cache warmup cancelled during shutdown.
+2026-04-21 15:21:05.898 | INFO     | app.core.redis_manager:disconnect:27 - Redis disconnected
+2026-04-21 15:21:05.911 | INFO     | app.core.database:close_db:110 - Database connections closed
+2026-04-21 15:21:05.914 | INFO     | app.main:lifespan:97 - JALERT shutdown complete.
+2026-04-21 15:21:35.756 | INFO     | app.services.ogd_data_service:_get_cached_official_water_observations:497 - Built official water observation cache in 29.99s
+2026-04-21 15:23:11.707 | INFO     | app.services.ogd_data_service:_get_cached_groundwater_levels:511 - Built groundwater level cache in 95.86s
+2026-04-21 15:23:24.719 | INFO     | app.services.ogd_data_service:_warm_public_resources_cache_sync:587 - Built public water resource payload cache in 138.96s
+2026-04-21 15:23:44.354 | INFO     | app.ml.models:_load:101 - Water quality model loaded from ml_models\water_quality_rf.joblib
+2026-04-21 15:23:44.864 | INFO     | app.ml.models:_load:209 - Disease outbreak model loaded from ml_models\disease_outbreak_xgb.joblib
+2026-04-21 15:23:46.899 | INFO     | app.main:lifespan:46 - ============================================================
+2026-04-21 15:23:46.899 | INFO     | app.main:lifespan:47 -   Starting JALERT - Intelligent Water & Health Alert System v1.0.0
+2026-04-21 15:23:46.899 | INFO     | app.main:lifespan:48 -   Environment: development
+2026-04-21 15:23:46.900 | INFO     | app.main:lifespan:49 -   Database: SQLite via AsyncAdaptedQueuePool
+2026-04-21 15:23:46.900 | INFO     | app.main:lifespan:50 -   Database URL: sqlite+aiosqlite:///./jalert.db
+2026-04-21 15:23:46.905 | INFO     | app.main:lifespan:51 - ============================================================
+2026-04-21 15:23:47.161 | INFO     | app.core.database:init_db:104 - Database tables initialized
+2026-04-21 15:24:00.622 | INFO     | app.services.bootstrap_service:_build_village_candidates:229 - Prepared 300 real village candidates from groundwater datasets
+2026-04-21 15:24:01.198 | INFO     | app.core.redis_manager:connect:22 - Redis connected
+2026-04-21 15:24:01.199 | INFO     | app.main:lifespan:75 - Skipping Kafka startup during local web serving.
+2026-04-21 15:24:01.200 | INFO     | app.main:lifespan:80 - All systems online. JALERT is ready.
+2026-04-21 15:24:01.339 | INFO     | app.main:lifespan:84 - Shutting down JALERT...
+2026-04-21 15:24:01.353 | INFO     | app.main:lifespan:91 - Public water resource cache warmup cancelled during shutdown.
+2026-04-21 15:24:01.354 | INFO     | app.core.redis_manager:disconnect:27 - Redis disconnected
+2026-04-21 15:24:01.357 | INFO     | app.core.database:close_db:110 - Database connections closed
+2026-04-21 15:24:01.359 | INFO     | app.main:lifespan:97 - JALERT shutdown complete.
+2026-04-21 15:24:08.222 | INFO     | app.services.ogd_data_service:_get_cached_official_water_observations:497 - Built official water observation cache in 7.02s
+2026-04-21 15:24:35.675 | INFO     | app.services.ogd_data_service:_get_cached_groundwater_levels:511 - Built groundwater level cache in 27.44s
+2026-04-21 15:24:37.720 | INFO     | app.services.ogd_data_service:_warm_public_resources_cache_sync:587 - Built public water resource payload cache in 36.52s
+2026-04-21 15:24:40.997 | INFO     | app.ml.models:_load:101 - Water quality model loaded from ml_models\water_quality_rf.joblib
+2026-04-21 15:24:41.081 | INFO     | app.ml.models:_load:209 - Disease outbreak model loaded from ml_models\disease_outbreak_xgb.joblib
+2026-04-21 15:24:41.225 | INFO     | app.main:lifespan:46 - ============================================================
+2026-04-21 15:24:41.225 | INFO     | app.main:lifespan:47 -   Starting JALERT - Intelligent Water & Health Alert System v1.0.0
+2026-04-21 15:24:41.225 | INFO     | app.main:lifespan:48 -   Environment: development
+2026-04-21 15:24:41.225 | INFO     | app.main:lifespan:49 -   Database: SQLite via AsyncAdaptedQueuePool
+2026-04-21 15:24:41.225 | INFO     | app.main:lifespan:50 -   Database URL: sqlite+aiosqlite:///./jalert.db
+2026-04-21 15:24:41.226 | INFO     | app.main:lifespan:51 - ============================================================
+2026-04-21 15:24:41.236 | INFO     | app.core.database:init_db:104 - Database tables initialized
+2026-04-21 15:24:43.227 | INFO     | app.services.bootstrap_service:_build_village_candidates:229 - Prepared 300 real village candidates from groundwater datasets
+2026-04-21 15:24:43.400 | INFO     | app.core.redis_manager:connect:22 - Redis connected
+2026-04-21 15:24:43.400 | INFO     | app.main:lifespan:75 - Skipping Kafka startup during local web serving.
+2026-04-21 15:24:43.401 | INFO     | app.main:lifespan:80 - All systems online. JALERT is ready.
+2026-04-21 15:24:43.477 | INFO     | app.utils.middleware:dispatch:61 - GET / -> 200 [67.03ms] IP=127.0.0.1
+2026-04-21 15:24:43.485 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [74.81ms] IP=127.0.0.1
+2026-04-21 15:24:43.493 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [83.64ms] IP=127.0.0.1
+2026-04-21 15:24:43.543 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageProfilePage-8OIcdvwv.js -> 200 [132.96ms] IP=127.0.0.1
+2026-04-21 15:24:43.665 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [254.56ms] IP=127.0.0.1
+2026-04-21 15:24:43.665 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [255.21ms] IP=127.0.0.1
+2026-04-21 15:24:43.814 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-Bifn5elR.js -> 200 [101.67ms] IP=127.0.0.1
+2026-04-21 15:24:43.855 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-C2DZFeqj.css -> 200 [123.8ms] IP=127.0.0.1
+2026-04-21 15:24:44.542 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/jalert-logo-Cjb_t2Hq.png -> 200 [60.91ms] IP=127.0.0.1
+2026-04-21 15:24:44.552 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-B_ysle-o.js -> 200 [62.97ms] IP=127.0.0.1
+2026-04-21 15:24:44.557 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-D8YFcr0W.js -> 200 [44.34ms] IP=127.0.0.1
+2026-04-21 15:24:44.625 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-CEHccBaf.js -> 200 [29.57ms] IP=127.0.0.1
+2026-04-21 15:24:44.626 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [64.61ms] IP=127.0.0.1
+2026-04-21 15:24:44.631 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-DgjVVq-z.js -> 200 [32.25ms] IP=127.0.0.1
+2026-04-21 15:24:44.669 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-i7xDGEgg.js -> 200 [18.7ms] IP=127.0.0.1
+2026-04-21 15:24:44.669 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/format-Ckrn_PMB.js -> 200 [16.75ms] IP=127.0.0.1
+2026-04-21 15:24:44.719 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-lZFK-Gs3.js -> 200 [22.83ms] IP=127.0.0.1
+2026-04-21 15:24:44.720 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-Cw79_XtA.js -> 200 [23.18ms] IP=127.0.0.1
+2026-04-21 15:24:44.811 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-DvX_N1g2.js -> 200 [84.71ms] IP=127.0.0.1
+2026-04-21 15:24:44.841 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [31.08ms] IP=127.0.0.1
+2026-04-21 15:24:44.986 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [174.75ms] IP=127.0.0.1
+2026-04-21 15:24:45.399 | INFO     | app.services.ogd_data_service:_get_cached_official_water_observations:497 - Built official water observation cache in 2.00s
+2026-04-21 15:24:45.409 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [248.3ms] IP=127.0.0.1
+2026-04-21 15:24:45.491 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/be4e2d2a-cead-4d00-9100-234dfca74398/dashboard -> 200 [127.46ms] IP=127.0.0.1
+2026-04-21 15:24:53.599 | INFO     | app.services.ogd_data_service:_get_cached_groundwater_levels:511 - Built groundwater level cache in 8.19s
+2026-04-21 15:24:55.616 | INFO     | app.services.ogd_data_service:_warm_public_resources_cache_sync:587 - Built public water resource payload cache in 12.21s
+2026-04-21 15:27:49.082 | INFO     | app.main:lifespan:84 - Shutting down JALERT...
+2026-04-21 15:27:49.083 | INFO     | app.core.redis_manager:disconnect:27 - Redis disconnected
+2026-04-21 15:27:49.087 | INFO     | app.core.database:close_db:110 - Database connections closed
+2026-04-21 15:27:49.088 | INFO     | app.main:lifespan:97 - JALERT shutdown complete.
+2026-04-21 15:27:53.513 | INFO     | app.ml.models:_load:101 - Water quality model loaded from ml_models\water_quality_rf.joblib
+2026-04-21 15:27:53.597 | INFO     | app.ml.models:_load:209 - Disease outbreak model loaded from ml_models\disease_outbreak_xgb.joblib
+2026-04-21 15:27:53.753 | INFO     | app.main:lifespan:46 - ============================================================
+2026-04-21 15:27:53.753 | INFO     | app.main:lifespan:47 -   Starting JALERT - Intelligent Water & Health Alert System v1.0.0
+2026-04-21 15:27:53.753 | INFO     | app.main:lifespan:48 -   Environment: development
+2026-04-21 15:27:53.753 | INFO     | app.main:lifespan:49 -   Database: SQLite via AsyncAdaptedQueuePool
+2026-04-21 15:27:53.753 | INFO     | app.main:lifespan:50 -   Database URL: sqlite+aiosqlite:///./jalert.db
+2026-04-21 15:27:53.754 | INFO     | app.main:lifespan:51 - ============================================================
+2026-04-21 15:27:53.764 | INFO     | app.core.database:init_db:104 - Database tables initialized
+2026-04-21 15:27:55.689 | INFO     | app.services.bootstrap_service:_build_village_candidates:229 - Prepared 300 real village candidates from groundwater datasets
+2026-04-21 15:27:55.874 | INFO     | app.core.redis_manager:connect:22 - Redis connected
+2026-04-21 15:27:55.874 | INFO     | app.main:lifespan:75 - Skipping Kafka startup during local web serving.
+2026-04-21 15:27:55.874 | INFO     | app.main:lifespan:80 - All systems online. JALERT is ready.
+2026-04-21 15:27:57.630 | INFO     | app.services.ogd_data_service:_get_cached_official_water_observations:497 - Built official water observation cache in 1.76s
+2026-04-21 15:28:05.968 | INFO     | app.services.ogd_data_service:_get_cached_groundwater_levels:511 - Built groundwater level cache in 8.33s
+2026-04-21 15:28:08.266 | INFO     | app.services.ogd_data_service:_warm_public_resources_cache_sync:587 - Built public water resource payload cache in 12.39s
+2026-04-21 15:29:15.088 | INFO     | app.main:lifespan:84 - Shutting down JALERT...
+2026-04-21 15:29:15.088 | INFO     | app.core.redis_manager:disconnect:27 - Redis disconnected
+2026-04-21 15:29:15.092 | INFO     | app.core.database:close_db:110 - Database connections closed
+2026-04-21 15:29:15.092 | INFO     | app.main:lifespan:97 - JALERT shutdown complete.
+2026-04-21 15:29:18.295 | INFO     | app.ml.models:_load:101 - Water quality model loaded from ml_models\water_quality_rf.joblib
+2026-04-21 15:29:18.385 | INFO     | app.ml.models:_load:209 - Disease outbreak model loaded from ml_models\disease_outbreak_xgb.joblib
+2026-04-21 15:29:18.541 | INFO     | app.main:lifespan:46 - ============================================================
+2026-04-21 15:29:18.541 | INFO     | app.main:lifespan:47 -   Starting JALERT - Intelligent Water & Health Alert System v1.0.0
+2026-04-21 15:29:18.541 | INFO     | app.main:lifespan:48 -   Environment: development
+2026-04-21 15:29:18.541 | INFO     | app.main:lifespan:49 -   Database: SQLite via AsyncAdaptedQueuePool
+2026-04-21 15:29:18.541 | INFO     | app.main:lifespan:50 -   Database URL: sqlite+aiosqlite:///./jalert.db
+2026-04-21 15:29:18.542 | INFO     | app.main:lifespan:51 - ============================================================
+2026-04-21 15:29:18.550 | INFO     | app.core.database:init_db:104 - Database tables initialized
+2026-04-21 15:29:20.469 | INFO     | app.services.bootstrap_service:_build_village_candidates:229 - Prepared 300 real village candidates from groundwater datasets
+2026-04-21 15:29:20.681 | INFO     | app.core.redis_manager:connect:22 - Redis connected
+2026-04-21 15:29:20.682 | INFO     | app.main:lifespan:75 - Skipping Kafka startup during local web serving.
+2026-04-21 15:29:20.682 | INFO     | app.main:lifespan:80 - All systems online. JALERT is ready.
+2026-04-21 15:29:22.639 | INFO     | app.services.ogd_data_service:_get_cached_official_water_observations:497 - Built official water observation cache in 1.96s
+2026-04-21 15:29:31.165 | INFO     | app.services.ogd_data_service:_get_cached_groundwater_levels:511 - Built groundwater level cache in 8.52s
+2026-04-21 15:29:33.356 | INFO     | app.services.ogd_data_service:_warm_public_resources_cache_sync:587 - Built public water resource payload cache in 12.67s
+2026-04-21 17:02:57.355 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/notifications/ -> 401 [5.14ms] IP=127.0.0.1
+2026-04-21 17:03:40.277 | INFO     | app.main:lifespan:84 - Shutting down JALERT...
+2026-04-21 17:03:40.279 | INFO     | app.core.redis_manager:disconnect:27 - Redis disconnected
+2026-04-21 17:03:40.285 | INFO     | app.core.database:close_db:110 - Database connections closed
+2026-04-21 17:03:40.291 | INFO     | app.main:lifespan:97 - JALERT shutdown complete.
+2026-04-21 17:03:48.365 | INFO     | app.ml.models:_load:101 - Water quality model loaded from ml_models\water_quality_rf.joblib
+2026-04-21 17:03:48.550 | INFO     | app.ml.models:_load:209 - Disease outbreak model loaded from ml_models\disease_outbreak_xgb.joblib
+2026-04-21 17:03:49.048 | INFO     | app.main:lifespan:46 - ============================================================
+2026-04-21 17:03:49.049 | INFO     | app.main:lifespan:47 -   Starting JALERT - Intelligent Water & Health Alert System v1.0.0
+2026-04-21 17:03:49.050 | INFO     | app.main:lifespan:48 -   Environment: development
+2026-04-21 17:03:49.050 | INFO     | app.main:lifespan:49 -   Database: SQLite via AsyncAdaptedQueuePool
+2026-04-21 17:03:49.051 | INFO     | app.main:lifespan:50 -   Database URL: sqlite+aiosqlite:///./jalert.db
+2026-04-21 17:03:49.053 | INFO     | app.main:lifespan:51 - ============================================================
+2026-04-21 17:03:49.096 | INFO     | app.core.database:init_db:104 - Database tables initialized
+2026-04-21 17:03:55.516 | INFO     | app.services.bootstrap_service:_build_village_candidates:229 - Prepared 300 real village candidates from groundwater datasets
+2026-04-21 17:03:56.326 | INFO     | app.core.redis_manager:connect:22 - Redis connected
+2026-04-21 17:03:56.327 | INFO     | app.main:lifespan:75 - Skipping Kafka startup during local web serving.
+2026-04-21 17:03:56.329 | INFO     | app.main:lifespan:80 - All systems online. JALERT is ready.
+2026-04-21 17:04:04.560 | INFO     | app.services.ogd_data_service:_get_cached_official_water_observations:497 - Built official water observation cache in 8.23s
+2026-04-21 17:04:14.569 | INFO     | app.services.ogd_data_service:_get_cached_groundwater_levels:511 - Built groundwater level cache in 10.00s
+2026-04-21 17:04:16.701 | INFO     | app.services.ogd_data_service:_warm_public_resources_cache_sync:587 - Built public water resource payload cache in 20.37s
+2026-04-21 17:06:05.428 | INFO     | app.main:lifespan:84 - Shutting down JALERT...
+2026-04-21 17:06:05.428 | INFO     | app.core.redis_manager:disconnect:27 - Redis disconnected
+2026-04-21 17:06:05.433 | INFO     | app.core.database:close_db:110 - Database connections closed
+2026-04-21 17:06:05.434 | INFO     | app.main:lifespan:97 - JALERT shutdown complete.
+2026-04-21 17:06:20.298 | INFO     | app.ml.models:_load:101 - Water quality model loaded from ml_models\water_quality_rf.joblib
+2026-04-21 17:06:20.384 | INFO     | app.ml.models:_load:209 - Disease outbreak model loaded from ml_models\disease_outbreak_xgb.joblib
+2026-04-21 17:06:20.533 | INFO     | app.main:lifespan:46 - ============================================================
+2026-04-21 17:06:20.534 | INFO     | app.main:lifespan:47 -   Starting JALERT - Intelligent Water & Health Alert System v1.0.0
+2026-04-21 17:06:20.534 | INFO     | app.main:lifespan:48 -   Environment: development
+2026-04-21 17:06:20.534 | INFO     | app.main:lifespan:49 -   Database: SQLite via AsyncAdaptedQueuePool
+2026-04-21 17:06:20.534 | INFO     | app.main:lifespan:50 -   Database URL: sqlite+aiosqlite:///./jalert.db
+2026-04-21 17:06:20.534 | INFO     | app.main:lifespan:51 - ============================================================
+2026-04-21 17:06:20.542 | INFO     | app.core.database:init_db:104 - Database tables initialized
+2026-04-21 17:06:26.326 | INFO     | app.services.bootstrap_service:_build_village_candidates:229 - Prepared 300 real village candidates from groundwater datasets
+2026-04-21 17:06:26.737 | INFO     | app.core.redis_manager:connect:22 - Redis connected
+2026-04-21 17:06:26.740 | INFO     | app.main:lifespan:75 - Skipping Kafka startup during local web serving.
+2026-04-21 17:06:26.740 | INFO     | app.main:lifespan:80 - All systems online. JALERT is ready.
+2026-04-21 17:06:27.460 | INFO     | app.utils.middleware:dispatch:61 - GET / -> 200 [467.66ms] IP=127.0.0.1
+2026-04-21 17:06:27.690 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-C2DZFeqj.css -> 200 [208.65ms] IP=127.0.0.1
+2026-04-21 17:06:27.691 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-gsu_hAgv.js -> 200 [219.7ms] IP=127.0.0.1
+2026-04-21 17:06:27.691 | INFO     | app.utils.middleware:dispatch:61 - GET /manifest.webmanifest -> 200 [54.03ms] IP=127.0.0.1
+2026-04-21 17:06:28.079 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-D9zSBMlT.js -> 200 [64.22ms] IP=127.0.0.1
+2026-04-21 17:06:28.080 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-DheqQ08m.js -> 200 [49.58ms] IP=127.0.0.1
+2026-04-21 17:06:28.080 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-DJeMKcM4.js -> 200 [49.98ms] IP=127.0.0.1
+2026-04-21 17:06:28.082 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-DgnrumsJ.js -> 200 [69.36ms] IP=127.0.0.1
+2026-04-21 17:06:28.083 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-Brhckysl.js -> 200 [52.58ms] IP=127.0.0.1
+2026-04-21 17:06:28.093 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useQuery-BNsiHKcN.js -> 200 [77.62ms] IP=127.0.0.1
+2026-04-21 17:06:29.097 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-Bl5PUyOa.js -> 200 [872.68ms] IP=127.0.0.1
+2026-04-21 17:06:30.081 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-BcFXtRQ7.js -> 200 [1857.26ms] IP=127.0.0.1
+2026-04-21 17:06:30.112 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/bell-ring-CERDVIOF.js -> 200 [1731.88ms] IP=127.0.0.1
+2026-04-21 17:06:30.123 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/format-Ckrn_PMB.js -> 200 [1898.89ms] IP=127.0.0.1
+2026-04-21 17:06:30.162 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/jalert-logo-Cjb_t2Hq.png -> 200 [1593.55ms] IP=127.0.0.1
+2026-04-21 17:06:30.170 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 401 [1087.17ms] IP=127.0.0.1
+2026-04-21 17:06:30.488 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [268.09ms] IP=127.0.0.1
+2026-04-21 17:06:30.491 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-BIXTCjk_.js -> 200 [270.94ms] IP=127.0.0.1
+2026-04-21 17:06:30.493 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [272.31ms] IP=127.0.0.1
+2026-04-21 17:06:32.469 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [422.83ms] IP=127.0.0.1
+2026-04-21 17:06:32.595 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [548.2ms] IP=127.0.0.1
+2026-04-21 17:06:33.032 | INFO     | app.utils.middleware:dispatch:61 - GET / -> 200 [297.31ms] IP=127.0.0.1
+2026-04-21 17:06:34.908 | INFO     | app.services.ogd_data_service:_get_cached_official_water_observations:497 - Built official water observation cache in 8.17s
+2026-04-21 17:06:44.732 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PredictionsPage-CSL5-m4F.js -> 200 [531.17ms] IP=127.0.0.1
+2026-04-21 17:06:44.794 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/EmptyState-BFqZ24Ry.js -> 200 [515.13ms] IP=127.0.0.1
+2026-04-21 17:06:44.902 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageSelector-Dn5pwbwb.js -> 200 [622.73ms] IP=127.0.0.1
+2026-04-21 17:06:44.997 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useMutation-pmEKMXz5.js -> 200 [717.74ms] IP=127.0.0.1
+2026-04-21 17:06:45.189 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPrompt-DmeExvMU.js -> 200 [909.1ms] IP=127.0.0.1
+2026-04-21 17:06:45.247 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatusBadge-CuNnxCGe.js -> 200 [967.39ms] IP=127.0.0.1
+2026-04-21 17:06:45.781 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/generateCategoricalChart-BsG1MtzF.js -> 200 [453.56ms] IP=127.0.0.1
+2026-04-21 17:06:45.872 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/predictionService-DmuYcg9o.js -> 200 [544.96ms] IP=127.0.0.1
+2026-04-21 17:06:45.980 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/BarChart-BpNywXSC.js -> 200 [479.75ms] IP=127.0.0.1
+2026-04-21 17:06:47.351 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/report_image-BH09Dqye.png -> 200 [437.07ms] IP=127.0.0.1
+2026-04-21 17:06:49.350 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPage-D5v59sCL.js -> 200 [356.81ms] IP=127.0.0.1
+2026-04-21 17:06:49.396 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/zod-aYdKiio5.js -> 200 [447.67ms] IP=127.0.0.1
+2026-04-21 17:06:52.008 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/auth/login -> 200 [845.97ms] IP=127.0.0.1
+2026-04-21 17:06:52.256 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [107.48ms] IP=127.0.0.1
+2026-04-21 17:06:52.539 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [142.16ms] IP=127.0.0.1
+2026-04-21 17:06:52.573 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/be4e2d2a-cead-4d00-9100-234dfca74398/dashboard -> 200 [100.68ms] IP=127.0.0.1
+2026-04-21 17:06:54.570 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/calendar-days-Beb_cwPE.js -> 200 [11.13ms] IP=127.0.0.1
+2026-04-21 17:06:54.573 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ReportsPage-yIL8osiF.js -> 200 [13.8ms] IP=127.0.0.1
+2026-04-21 17:06:54.865 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [263.11ms] IP=127.0.0.1
+2026-04-21 17:06:55.625 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ad2d7f2e-f53d-4463-a526-586f0de13999/dashboard -> 200 [61.58ms] IP=127.0.0.1
+2026-04-21 17:06:55.628 | INFO     | app.utils.middleware:dispatch:61 - PATCH /api/v1/auth/preferences -> 200 [56.99ms] IP=127.0.0.1
+2026-04-21 17:07:01.155 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/feabe378-4852-4a70-8d93-5f0129266c4c/dashboard -> 200 [94.36ms] IP=127.0.0.1
+2026-04-21 17:07:01.496 | INFO     | app.utils.middleware:dispatch:61 - PATCH /api/v1/auth/preferences -> 200 [20.84ms] IP=127.0.0.1
+2026-04-21 17:07:10.260 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatCard-BeVLZO8E.js -> 200 [421.13ms] IP=127.0.0.1
+2026-04-21 17:07:10.524 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/SensorsPage-xxglyhJ_.js -> 200 [684.76ms] IP=127.0.0.1
+2026-04-21 17:07:10.572 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageIntelligenceService-DACyEiOi.js -> 200 [732.79ms] IP=127.0.0.1
+2026-04-21 17:07:10.620 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/sensorService-eYOPZSSe.js -> 200 [780.33ms] IP=127.0.0.1
+2026-04-21 17:07:10.990 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=sensor:feabe378-4852-4a70-8d93-5f0129266c4c total=1
+2026-04-21 17:07:10.992 | INFO     | app.utils.websocket_manager:subscribe_village:107 - Redis subscriber started for village feabe378-4852-4a70-8d93-5f0129266c4c
+2026-04-21 17:07:11.868 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/water_body_image-BBdpioUp.png -> 200 [885.07ms] IP=127.0.0.1
+2026-04-21 17:07:12.428 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/water-resources/ -> 200 [160.09ms] IP=127.0.0.1
+2026-04-21 17:07:13.181 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/readings/feabe378-4852-4a70-8d93-5f0129266c4c -> 200 [913.66ms] IP=127.0.0.1
+2026-04-21 17:07:13.206 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/village/feabe378-4852-4a70-8d93-5f0129266c4c -> 200 [929.67ms] IP=127.0.0.1
+2026-04-21 17:07:15.046 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HealthReportsPage-CwJutZbe.js -> 200 [567.23ms] IP=127.0.0.1
+2026-04-21 17:07:15.099 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=sensor:feabe378-4852-4a70-8d93-5f0129266c4c
+2026-04-21 17:07:15.102 | INFO     | app.routers.websockets:sensor_stream:48 - Sensor WS disconnected: village=feabe378-4852-4a70-8d93-5f0129266c4c
+2026-04-21 17:07:16.425 | INFO     | app.services.ogd_data_service:_get_cached_groundwater_levels:511 - Built groundwater level cache in 41.51s
+2026-04-21 17:07:27.941 | INFO     | app.services.ogd_data_service:_warm_public_resources_cache_sync:587 - Built public water resource payload cache in 61.20s
+2026-04-21 17:07:57.351 | INFO     | app.services.ogd_data_service:_get_cached_groundwater_levels:511 - Built groundwater level cache in 44.87s
+2026-04-21 17:08:01.112 | INFO     | app.services.ogd_data_service:_get_cached_groundwater_levels:511 - Built groundwater level cache in 46.00s
+2026-04-21 17:08:04.051 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/feabe378-4852-4a70-8d93-5f0129266c4c -> 200 [51539.32ms] IP=127.0.0.1
+2026-04-21 17:08:04.065 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/feabe378-4852-4a70-8d93-5f0129266c4c/latest -> 200 [1370.84ms] IP=127.0.0.1
+2026-04-21 17:08:04.078 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/feabe378-4852-4a70-8d93-5f0129266c4c/latest -> 200 [1383.87ms] IP=127.0.0.1
+2026-04-21 17:08:07.251 | INFO     | app.services.ogd_data_service:_warm_public_resources_cache_sync:587 - Built public water resource payload cache in 54.84s
+2026-04-21 17:11:05.177 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/map-overview -> 200 [232717.96ms] IP=127.0.0.1
+2026-04-21 17:11:05.178 | INFO     | app.utils.middleware:dispatch:61 - PATCH /api/v1/auth/preferences -> 400 [8.78ms] IP=127.0.0.1
+2026-04-21 17:11:05.181 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [13.84ms] IP=127.0.0.1
+2026-04-21 17:11:05.183 | INFO     | app.utils.middleware:dispatch:61 - GET /admin/login -> 200 [15.34ms] IP=127.0.0.1
+2026-04-21 17:11:05.183 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/NotificationsPage-DxoaMeqU.js -> 200 [15.78ms] IP=127.0.0.1
+2026-04-21 17:11:05.183 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AdminLoginPage-DYPnuxWf.js -> 200 [15.69ms] IP=127.0.0.1
+2026-04-21 17:11:05.247 | INFO     | app.agents.orchestrator:run:279 - Orchestrator running for village 9cb484f8-da74-4ffd-acd4-8f09e6893a18
+2026-04-21 17:11:05.247 | INFO     | app.agents.orchestrator:run:345 - Orchestration complete: village=9cb484f8-da74-4ffd-acd4-8f09e6893a18 score=17.08 category=low
+2026-04-21 17:11:06.901 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/9cb484f8-da74-4ffd-acd4-8f09e6893a18/latest -> 200 [1731.83ms] IP=127.0.0.1
+2026-04-21 17:11:06.905 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/9cb484f8-da74-4ffd-acd4-8f09e6893a18/latest -> 200 [1735.31ms] IP=127.0.0.1
+2026-04-21 17:11:10.987 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-C2DZFeqj.css -> 200 [12.44ms] IP=127.0.0.1
+2026-04-21 17:11:11.004 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-gsu_hAgv.js -> 200 [32.1ms] IP=127.0.0.1
+2026-04-21 17:11:11.115 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-DgnrumsJ.js -> 200 [14.94ms] IP=127.0.0.1
+2026-04-21 17:11:11.116 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useQuery-BNsiHKcN.js -> 200 [15.04ms] IP=127.0.0.1
+2026-04-21 17:11:11.120 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-DJeMKcM4.js -> 200 [15.39ms] IP=127.0.0.1
+2026-04-21 17:11:11.121 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-D9zSBMlT.js -> 200 [16.36ms] IP=127.0.0.1
+2026-04-21 17:11:11.131 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-DheqQ08m.js -> 200 [22.56ms] IP=127.0.0.1
+2026-04-21 17:11:11.137 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-Brhckysl.js -> 200 [28.6ms] IP=127.0.0.1
+2026-04-21 17:11:11.158 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-BcFXtRQ7.js -> 200 [29.14ms] IP=127.0.0.1
+2026-04-21 17:11:11.165 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/format-Ckrn_PMB.js -> 200 [36.25ms] IP=127.0.0.1
+2026-04-21 17:11:11.165 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-Bl5PUyOa.js -> 200 [24.31ms] IP=127.0.0.1
+2026-04-21 17:11:11.175 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/bell-ring-CERDVIOF.js -> 200 [33.58ms] IP=127.0.0.1
+2026-04-21 17:11:11.178 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-BIXTCjk_.js -> 200 [24.13ms] IP=127.0.0.1
+2026-04-21 17:11:13.114 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [9.57ms] IP=127.0.0.1
+2026-04-21 17:11:19.812 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/auth/login -> 200 [32.67ms] IP=127.0.0.1
+2026-04-21 17:11:19.823 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [4.46ms] IP=127.0.0.1
+2026-04-21 17:11:19.878 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [41.08ms] IP=127.0.0.1
+2026-04-21 17:11:19.883 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AdminPortalPage-BGbudMr4.js -> 200 [30.95ms] IP=127.0.0.1
+2026-04-21 17:11:19.886 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/adminService-ComlMqVS.js -> 200 [24.59ms] IP=127.0.0.1
+2026-04-21 17:11:19.959 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/field_worker_image-ofkjtgua.png -> 200 [42.13ms] IP=127.0.0.1
+2026-04-21 17:11:20.055 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/users -> 200 [125.46ms] IP=127.0.0.1
+2026-04-21 17:11:20.104 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [179.47ms] IP=127.0.0.1
+2026-04-21 17:11:20.151 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/audit -> 200 [214.05ms] IP=127.0.0.1
+2026-04-21 17:11:56.950 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AlertsPage-ChlWXJsK.js -> 200 [9.84ms] IP=127.0.0.1
+2026-04-21 17:11:56.951 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/alertService-DLHsCoGz.js -> 200 [9.19ms] IP=127.0.0.1
+2026-04-21 17:11:57.019 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/users -> 200 [28.72ms] IP=127.0.0.1
+2026-04-21 17:11:57.056 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [68.72ms] IP=127.0.0.1
+2026-04-21 17:11:57.095 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [101.26ms] IP=127.0.0.1
+2026-04-21 17:12:02.001 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [29.52ms] IP=127.0.0.1
+2026-04-21 17:12:02.336 | INFO     | app.utils.middleware:dispatch:61 - PATCH /api/v1/auth/preferences -> 200 [13.06ms] IP=127.0.0.1
+2026-04-21 17:12:03.352 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [24.97ms] IP=127.0.0.1
+2026-04-21 17:12:04.706 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [9.78ms] IP=127.0.0.1
+2026-04-21 17:12:06.333 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [10.27ms] IP=127.0.0.1
+2026-04-21 17:12:10.546 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageStatusPage-B2EoHHHd.js -> 200 [7.66ms] IP=127.0.0.1
+2026-04-21 17:12:10.622 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=alerts:c1230b20-80ac-4a2f-ac5c-1d94a7737232 total=1
+2026-04-21 17:12:10.622 | INFO     | app.utils.websocket_manager:subscribe_village:107 - Redis subscriber started for village c1230b20-80ac-4a2f-ac5c-1d94a7737232
+2026-04-21 17:12:10.657 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=sensor:c1230b20-80ac-4a2f-ac5c-1d94a7737232 total=1
+2026-04-21 17:12:10.684 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/village/c1230b20-80ac-4a2f-ac5c-1d94a7737232 -> 200 [45.51ms] IP=127.0.0.1
+2026-04-21 17:12:10.688 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/c1230b20-80ac-4a2f-ac5c-1d94a7737232/latest -> 200 [49.8ms] IP=127.0.0.1
+2026-04-21 17:12:10.690 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/readings/c1230b20-80ac-4a2f-ac5c-1d94a7737232 -> 200 [51.61ms] IP=127.0.0.1
+2026-04-21 17:12:10.714 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/c1230b20-80ac-4a2f-ac5c-1d94a7737232/dashboard -> 200 [79.96ms] IP=127.0.0.1
+2026-04-21 17:12:10.775 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/inventory -> 200 [136.76ms] IP=127.0.0.1
+2026-04-21 17:12:25.141 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=alerts:c1230b20-80ac-4a2f-ac5c-1d94a7737232
+2026-04-21 17:12:25.142 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=sensor:c1230b20-80ac-4a2f-ac5c-1d94a7737232
+2026-04-21 17:12:25.142 | INFO     | app.routers.websockets:sensor_stream:48 - Sensor WS disconnected: village=c1230b20-80ac-4a2f-ac5c-1d94a7737232
+2026-04-21 17:12:25.196 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/c1230b20-80ac-4a2f-ac5c-1d94a7737232/dashboard -> 200 [36.63ms] IP=127.0.0.1
+2026-04-21 17:12:28.425 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/reports/activity -> 200 [16.48ms] IP=127.0.0.1
+2026-04-21 17:12:28.476 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/c1230b20-80ac-4a2f-ac5c-1d94a7737232/dashboard -> 200 [64.36ms] IP=127.0.0.1
+2026-04-21 17:12:36.340 | INFO     | app.services.report_service:generate_village_pdf:205 - PDF generated for village c1230b20-80ac-4a2f-ac5c-1d94a7737232: 3867 bytes
+2026-04-21 17:12:36.343 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/reports/c1230b20-80ac-4a2f-ac5c-1d94a7737232/pdf -> 200 [313.74ms] IP=127.0.0.1
+2026-04-21 17:13:06.180 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/notifications/ -> 200 [8.23ms] IP=127.0.0.1
+2026-04-21 17:13:20.887 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [27.53ms] IP=127.0.0.1
+2026-04-21 17:13:21.245 | INFO     | app.utils.middleware:dispatch:61 - PATCH /api/v1/auth/preferences -> 200 [26.71ms] IP=127.0.0.1
+2026-04-21 17:13:33.997 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [23.05ms] IP=127.0.0.1
+2026-04-21 17:13:34.341 | INFO     | app.utils.middleware:dispatch:61 - PATCH /api/v1/auth/preferences -> 200 [13.16ms] IP=127.0.0.1
+2026-04-21 17:13:46.022 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ProfilePage-D5evFEfv.js -> 200 [8.23ms] IP=127.0.0.1
+2026-04-21 17:13:46.104 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [52.32ms] IP=127.0.0.1
+2026-04-21 17:13:59.437 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/c73ba1c8-5e4b-42aa-b28b-2cb2aa981968/dashboard -> 200 [15.48ms] IP=127.0.0.1
+2026-04-21 17:15:54.416 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/c73ba1c8-5e4b-42aa-b28b-2cb2aa981968/dashboard -> 200 [36.48ms] IP=127.0.0.1
+2026-04-21 17:15:58.083 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/reports/c73ba1c8-5e4b-42aa-b28b-2cb2aa981968/csv/sensors -> 200 [15.08ms] IP=127.0.0.1
+2026-04-21 17:16:07.833 | INFO     | app.services.report_service:generate_village_pdf:205 - PDF generated for village c73ba1c8-5e4b-42aa-b28b-2cb2aa981968: 2565 bytes
+2026-04-21 17:16:11.142 | WARNING  | app.services.report_service:upload_to_s3:269 - S3 upload failed, using local report storage: An error occurred (AuthorizationHeaderMalformed) when calling the PutObject operation: The authorization header is malformed; a non-empty Access Key (AKID) must be provided in the credential.
+2026-04-21 17:16:11.177 | INFO     | app.services.report_service:save_locally:283 - Report saved locally: C:\Users\chira\Downloads\jalert_backend_1\jalert\data\generated_reports\reports\c73ba1c8-5e4b-42aa-b28b-2cb2aa981968\2026\04\21\report.pdf
+2026-04-21 17:16:11.210 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/reports/c73ba1c8-5e4b-42aa-b28b-2cb2aa981968/pdf/upload -> 200 [3408.22ms] IP=127.0.0.1
+2026-04-21 17:16:11.295 | INFO     | app.services.report_service:generate_village_pdf:205 - PDF generated for village c73ba1c8-5e4b-42aa-b28b-2cb2aa981968: 2565 bytes
+2026-04-21 17:16:12.182 | WARNING  | app.services.report_service:upload_to_s3:269 - S3 upload failed, using local report storage: An error occurred (AuthorizationHeaderMalformed) when calling the PutObject operation: The authorization header is malformed; a non-empty Access Key (AKID) must be provided in the credential.
+2026-04-21 17:16:12.188 | INFO     | app.services.report_service:save_locally:283 - Report saved locally: C:\Users\chira\Downloads\jalert_backend_1\jalert\data\generated_reports\reports\c73ba1c8-5e4b-42aa-b28b-2cb2aa981968\2026\04\21\report.pdf
+2026-04-21 17:16:12.221 | INFO     | app.services.report_service:generate_village_pdf:205 - PDF generated for village c73ba1c8-5e4b-42aa-b28b-2cb2aa981968: 2565 bytes
+2026-04-21 17:16:12.975 | WARNING  | app.services.report_service:upload_to_s3:269 - S3 upload failed, using local report storage: An error occurred (AuthorizationHeaderMalformed) when calling the PutObject operation: The authorization header is malformed; a non-empty Access Key (AKID) must be provided in the credential.
+2026-04-21 17:16:12.980 | INFO     | app.services.report_service:save_locally:283 - Report saved locally: C:\Users\chira\Downloads\jalert_backend_1\jalert\data\generated_reports\reports\c73ba1c8-5e4b-42aa-b28b-2cb2aa981968\2026\04\21\report.pdf
+2026-04-21 17:16:13.009 | INFO     | app.services.report_service:generate_village_pdf:205 - PDF generated for village c73ba1c8-5e4b-42aa-b28b-2cb2aa981968: 2565 bytes
+2026-04-21 17:16:13.755 | WARNING  | app.services.report_service:upload_to_s3:269 - S3 upload failed, using local report storage: An error occurred (AuthorizationHeaderMalformed) when calling the PutObject operation: The authorization header is malformed; a non-empty Access Key (AKID) must be provided in the credential.
+2026-04-21 17:16:13.765 | INFO     | app.services.report_service:save_locally:283 - Report saved locally: C:\Users\chira\Downloads\jalert_backend_1\jalert\data\generated_reports\reports\c73ba1c8-5e4b-42aa-b28b-2cb2aa981968\2026\04\21\report.pdf
+2026-04-21 17:16:13.818 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/reports/c73ba1c8-5e4b-42aa-b28b-2cb2aa981968/pdf/upload -> 200 [2623.07ms] IP=127.0.0.1
+2026-04-21 17:16:13.825 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/reports/c73ba1c8-5e4b-42aa-b28b-2cb2aa981968/pdf/upload -> 200 [2622.83ms] IP=127.0.0.1
+2026-04-21 17:16:13.855 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/reports/files/reports/c73ba1c8-5e4b-42aa-b28b-2cb2aa981968/2026/04/21/report.pdf -> 200 [1653.52ms] IP=127.0.0.1
+2026-04-21 17:16:13.859 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/reports/c73ba1c8-5e4b-42aa-b28b-2cb2aa981968/pdf/upload -> 200 [2664.11ms] IP=127.0.0.1
+2026-04-21 17:16:14.884 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [9.53ms] IP=127.0.0.1
+2026-04-21 17:16:25.296 | INFO     | app.services.report_service:generate_village_pdf:205 - PDF generated for village c73ba1c8-5e4b-42aa-b28b-2cb2aa981968: 2565 bytes
+2026-04-21 17:16:25.307 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/reports/c73ba1c8-5e4b-42aa-b28b-2cb2aa981968/pdf -> 200 [41.33ms] IP=127.0.0.1
+2026-04-21 17:16:31.598 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/reports/c73ba1c8-5e4b-42aa-b28b-2cb2aa981968/csv/sensors -> 200 [13.99ms] IP=127.0.0.1
+2026-04-21 17:16:42.782 | INFO     | app.services.report_service:generate_village_pdf:205 - PDF generated for village c73ba1c8-5e4b-42aa-b28b-2cb2aa981968: 2565 bytes
+2026-04-21 17:16:42.789 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/reports/c73ba1c8-5e4b-42aa-b28b-2cb2aa981968/pdf -> 200 [44.83ms] IP=127.0.0.1
+2026-04-21 17:17:00.796 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/cd08402b-e185-40c2-a24c-8240d3e735e7/dashboard -> 200 [15.75ms] IP=127.0.0.1
+2026-04-21 17:17:01.177 | INFO     | app.utils.middleware:dispatch:61 - PATCH /api/v1/auth/preferences -> 200 [36.32ms] IP=127.0.0.1
+2026-04-21 17:17:04.307 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [44.22ms] IP=127.0.0.1
+2026-04-21 17:17:08.670 | INFO     | app.utils.middleware:dispatch:61 - PATCH /api/v1/alerts/d36155cc-197a-4b0d-918e-86f86518e9b1/resolve -> 200 [50.24ms] IP=127.0.0.1
+2026-04-21 17:17:08.851 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [171.77ms] IP=127.0.0.1
+2026-04-21 17:17:13.357 | INFO     | app.utils.middleware:dispatch:61 - GET /alerts -> 200 [3.88ms] IP=127.0.0.1
+2026-04-21 17:17:13.476 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [7.42ms] IP=127.0.0.1
+2026-04-21 17:17:13.553 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [33.28ms] IP=127.0.0.1
+2026-04-21 17:17:13.567 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/users -> 200 [46.91ms] IP=127.0.0.1
+2026-04-21 17:17:13.632 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [111.84ms] IP=127.0.0.1
+2026-04-21 17:17:13.648 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [139.28ms] IP=127.0.0.1
+2026-04-21 17:17:13.656 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [142.23ms] IP=127.0.0.1
+2026-04-21 17:17:15.624 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [10.77ms] IP=127.0.0.1
+2026-04-21 17:17:16.870 | INFO     | app.utils.middleware:dispatch:61 - PATCH /api/v1/alerts/d8512ec9-cc9a-4edb-9c28-1b6007784a16/acknowledge -> 200 [45.03ms] IP=127.0.0.1
+2026-04-21 17:17:16.998 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [114.24ms] IP=127.0.0.1
+2026-04-21 17:17:26.774 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/cd08402b-e185-40c2-a24c-8240d3e735e7/dashboard -> 200 [25.69ms] IP=127.0.0.1
+2026-04-21 17:17:33.777 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantPage-MNlnIcJf.js -> 200 [7.29ms] IP=127.0.0.1
+2026-04-21 17:17:49.105 | INFO     | app.routers.chat:chat_with_assistant:233 - Received chat request with model gemma4:31b-cloud for village cd08402b-e185-40c2-a24c-8240d3e735e7
+2026-04-21 17:17:52.417 | ERROR    | app.routers.chat:chat_with_assistant:269 - Could not connect to Ollama at http://localhost:11434/api/chat
+2026-04-21 17:17:52.422 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/chat -> 200 [3323.37ms] IP=127.0.0.1
+2026-04-21 17:18:09.208 | INFO     | app.utils.middleware:dispatch:61 - GET /chat -> 200 [3.96ms] IP=127.0.0.1
+2026-04-21 17:18:09.299 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [6.49ms] IP=127.0.0.1
+2026-04-21 17:18:09.335 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [9.91ms] IP=127.0.0.1
+2026-04-21 17:18:11.473 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [4.92ms] IP=127.0.0.1
+2026-04-21 17:18:14.467 | INFO     | app.routers.chat:chat_with_assistant:233 - Received chat request with model gemma4:31b-cloud for village cd08402b-e185-40c2-a24c-8240d3e735e7
+2026-04-21 17:19:12.988 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/chat -> 200 [58523.51ms] IP=127.0.0.1
+2026-04-21 17:23:06.178 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/cd08402b-e185-40c2-a24c-8240d3e735e7/dashboard -> 200 [29.15ms] IP=127.0.0.1
+2026-04-21 17:23:07.147 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [70.96ms] IP=127.0.0.1
+2026-04-21 17:23:07.177 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/users -> 200 [85.25ms] IP=127.0.0.1
+2026-04-21 17:23:07.211 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [126.61ms] IP=127.0.0.1
+2026-04-21 17:23:07.253 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [169.11ms] IP=127.0.0.1
+2026-04-21 17:23:08.935 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/FeatureCenterPage-946mWMAM.js -> 200 [5.86ms] IP=127.0.0.1
+2026-04-21 17:23:10.802 | INFO     | app.utils.middleware:dispatch:61 - GET /feature-center -> 200 [3.91ms] IP=127.0.0.1
+2026-04-21 17:23:10.836 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-3i582I1n.js -> 200 [16.32ms] IP=127.0.0.1
+2026-04-21 17:23:10.851 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-CABaDHhH.css -> 200 [29.68ms] IP=127.0.0.1
+2026-04-21 17:23:10.985 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/FeatureCenterPage-721Cw9Sq.js -> 200 [15.84ms] IP=127.0.0.1
+2026-04-21 17:23:10.995 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-4BrfXjSe.js -> 200 [23.38ms] IP=127.0.0.1
+2026-04-21 17:23:10.996 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-CBFZ2ejV.js -> 200 [24.63ms] IP=127.0.0.1
+2026-04-21 17:23:11.012 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [19.86ms] IP=127.0.0.1
+2026-04-21 17:23:11.030 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-CVtMXegb.js -> 200 [10.39ms] IP=127.0.0.1
+2026-04-21 17:23:11.106 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [71.59ms] IP=127.0.0.1
+2026-04-21 17:23:12.265 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageProfilePage-BIsqOvNZ.js -> 200 [68.24ms] IP=127.0.0.1
+2026-04-21 17:23:12.276 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useQuery-Ezdj8xjx.js -> 200 [77.55ms] IP=127.0.0.1
+2026-04-21 17:23:12.280 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/EmptyState-B2AYPlcK.js -> 200 [82.36ms] IP=127.0.0.1
+2026-04-21 17:23:12.309 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-C9z_43cl.js -> 200 [105.05ms] IP=127.0.0.1
+2026-04-21 17:23:12.315 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPrompt-DZcvhIUL.js -> 200 [103.57ms] IP=127.0.0.1
+2026-04-21 17:23:12.323 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatCard-CHR8618i.js -> 200 [112.06ms] IP=127.0.0.1
+2026-04-21 17:23:12.392 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageSelector-D9mlMVQ-.js -> 200 [43.57ms] IP=127.0.0.1
+2026-04-21 17:23:12.407 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-BJHmDpyW.js -> 200 [42.4ms] IP=127.0.0.1
+2026-04-21 17:23:12.426 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageIntelligenceService-CNvYE1gL.js -> 200 [49.18ms] IP=127.0.0.1
+2026-04-21 17:23:12.430 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatusBadge-C2_wj6WF.js -> 200 [81.48ms] IP=127.0.0.1
+2026-04-21 17:23:12.630 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [156.06ms] IP=127.0.0.1
+2026-04-21 17:23:12.632 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/catalog -> 200 [155.2ms] IP=127.0.0.1
+2026-04-21 17:23:12.647 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/cd08402b-e185-40c2-a24c-8240d3e735e7/dashboard -> 200 [156.57ms] IP=127.0.0.1
+2026-04-21 17:23:14.922 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [32.49ms] IP=127.0.0.1
+2026-04-21 17:23:14.924 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/cd08402b-e185-40c2-a24c-8240d3e735e7 -> 200 [2447.62ms] IP=127.0.0.1
+2026-04-21 17:23:14.986 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/cd08402b-e185-40c2-a24c-8240d3e735e7/compare -> 200 [46.0ms] IP=127.0.0.1
+2026-04-21 17:23:24.777 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useMutation-BTFFKubk.js -> 200 [27.36ms] IP=127.0.0.1
+2026-04-21 17:23:24.778 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PredictionsPage-8sz2Vr2r.js -> 200 [30.98ms] IP=127.0.0.1
+2026-04-21 17:23:24.779 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/generateCategoricalChart-HvFb96lQ.js -> 200 [29.59ms] IP=127.0.0.1
+2026-04-21 17:23:24.781 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/predictionService-C5u3ECuo.js -> 200 [30.92ms] IP=127.0.0.1
+2026-04-21 17:23:24.784 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/BarChart-gZvzurr-.js -> 200 [29.13ms] IP=127.0.0.1
+2026-04-21 17:23:25.019 | INFO     | app.agents.orchestrator:run:279 - Orchestrator running for village cd08402b-e185-40c2-a24c-8240d3e735e7
+2026-04-21 17:23:25.021 | INFO     | app.agents.orchestrator:run:345 - Orchestration complete: village=cd08402b-e185-40c2-a24c-8240d3e735e7 score=15.43 category=low
+2026-04-21 17:23:25.081 | ERROR    | app.core.database:get_db:91 - Database session error: can't compare offset-naive and offset-aware datetimes
+2026-04-21 17:23:26.106 | ERROR    | app.core.database:get_db:91 - Database session error: can't compare offset-naive and offset-aware datetimes
+2026-04-21 17:23:28.259 | INFO     | app.agents.orchestrator:run:279 - Orchestrator running for village cd08402b-e185-40c2-a24c-8240d3e735e7
+2026-04-21 17:23:28.260 | INFO     | app.agents.orchestrator:run:345 - Orchestration complete: village=cd08402b-e185-40c2-a24c-8240d3e735e7 score=15.43 category=low
+2026-04-21 17:23:28.350 | ERROR    | app.core.database:get_db:91 - Database session error: can't compare offset-naive and offset-aware datetimes
+2026-04-21 17:23:29.713 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/feabe378-4852-4a70-8d93-5f0129266c4c/latest -> 200 [10.02ms] IP=127.0.0.1
+2026-04-21 17:23:29.779 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/feabe378-4852-4a70-8d93-5f0129266c4c/history -> 200 [26.82ms] IP=127.0.0.1
+2026-04-21 17:23:29.781 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/feabe378-4852-4a70-8d93-5f0129266c4c/explain -> 200 [21.26ms] IP=127.0.0.1
+2026-04-21 17:23:30.078 | INFO     | app.utils.middleware:dispatch:61 - PATCH /api/v1/auth/preferences -> 200 [20.18ms] IP=127.0.0.1
+2026-04-21 17:23:31.721 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/e9772782-4514-4a60-acbc-7c8d0c420e35/explain -> 200 [40.67ms] IP=127.0.0.1
+2026-04-21 17:23:31.723 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/e9772782-4514-4a60-acbc-7c8d0c420e35/latest -> 200 [46.5ms] IP=127.0.0.1
+2026-04-21 17:23:31.744 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/e9772782-4514-4a60-acbc-7c8d0c420e35/history -> 200 [67.96ms] IP=127.0.0.1
+2026-04-21 17:23:32.048 | INFO     | app.utils.middleware:dispatch:61 - PATCH /api/v1/auth/preferences -> 200 [21.17ms] IP=127.0.0.1
+2026-04-21 17:23:33.482 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HealthReportsPage-BoDUtAzr.js -> 200 [9.37ms] IP=127.0.0.1
+2026-04-21 17:23:33.501 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/zod-qKTaj4OW.js -> 200 [24.24ms] IP=127.0.0.1
+2026-04-21 17:23:33.604 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/health/reports/e9772782-4514-4a60-acbc-7c8d0c420e35 -> 200 [24.17ms] IP=127.0.0.1
+2026-04-21 17:23:33.610 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/health/clusters/e9772782-4514-4a60-acbc-7c8d0c420e35 -> 200 [28.27ms] IP=127.0.0.1
+2026-04-21 17:23:38.559 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/SensorsPage-DI8kzMW_.js -> 200 [22.01ms] IP=127.0.0.1
+2026-04-21 17:23:38.560 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/sensorService-DJDWGaVI.js -> 200 [22.02ms] IP=127.0.0.1
+2026-04-21 17:23:38.611 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=sensor:e9772782-4514-4a60-acbc-7c8d0c420e35 total=1
+2026-04-21 17:23:38.611 | INFO     | app.utils.websocket_manager:subscribe_village:107 - Redis subscriber started for village e9772782-4514-4a60-acbc-7c8d0c420e35
+2026-04-21 17:23:38.999 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/water-resources/ -> 200 [345.06ms] IP=127.0.0.1
+2026-04-21 17:23:39.030 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/readings/e9772782-4514-4a60-acbc-7c8d0c420e35 -> 200 [403.09ms] IP=127.0.0.1
+2026-04-21 17:23:39.045 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/village/e9772782-4514-4a60-acbc-7c8d0c420e35 -> 200 [417.32ms] IP=127.0.0.1
+2026-04-21 17:23:40.631 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/e9772782-4514-4a60-acbc-7c8d0c420e35 -> 200 [1976.36ms] IP=127.0.0.1
+2026-04-21 17:26:03.439 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=sensor:9cb484f8-da74-4ffd-acd4-8f09e6893a18 total=1
+2026-04-21 17:26:03.440 | INFO     | app.utils.websocket_manager:subscribe_village:107 - Redis subscriber started for village 9cb484f8-da74-4ffd-acd4-8f09e6893a18
+2026-04-21 17:26:03.451 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=sensor:e9772782-4514-4a60-acbc-7c8d0c420e35
+2026-04-21 17:26:03.451 | INFO     | app.routers.websockets:sensor_stream:48 - Sensor WS disconnected: village=e9772782-4514-4a60-acbc-7c8d0c420e35
+2026-04-21 17:26:03.468 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=sensor:9cb484f8-da74-4ffd-acd4-8f09e6893a18
+2026-04-21 17:26:03.470 | INFO     | app.routers.websockets:sensor_stream:48 - Sensor WS disconnected: village=9cb484f8-da74-4ffd-acd4-8f09e6893a18
+2026-04-21 17:26:03.473 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/map-overview -> 200 [144453.29ms] IP=127.0.0.1
+2026-04-21 17:26:03.684 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/water-resources/ -> 200 [211.51ms] IP=127.0.0.1
+2026-04-21 17:26:03.689 | INFO     | app.utils.middleware:dispatch:61 - PATCH /api/v1/auth/preferences -> 400 [261.77ms] IP=127.0.0.1
+2026-04-21 17:26:03.709 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/calendar-days-DbNmuXM6.js -> 200 [271.24ms] IP=127.0.0.1
+2026-04-21 17:26:03.710 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AdminPortalPage-CTJ_Jf-u.js -> 200 [272.51ms] IP=127.0.0.1
+2026-04-21 17:26:03.714 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/adminService-BGsZSll7.js -> 200 [273.35ms] IP=127.0.0.1
+2026-04-21 17:26:03.716 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ReportsPage-C4lbsy87.js -> 200 [277.74ms] IP=127.0.0.1
+2026-04-21 17:26:03.716 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-KpCXlfUE.js -> 200 [276.11ms] IP=127.0.0.1
+2026-04-21 17:26:03.719 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-Ma_IaN_D.js -> 200 [278.4ms] IP=127.0.0.1
+2026-04-21 17:26:03.745 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/readings/9cb484f8-da74-4ffd-acd4-8f09e6893a18 -> 200 [317.66ms] IP=127.0.0.1
+2026-04-21 17:26:03.754 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/village/9cb484f8-da74-4ffd-acd4-8f09e6893a18 -> 200 [327.62ms] IP=127.0.0.1
+2026-04-21 17:26:03.757 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/readings/9cb484f8-da74-4ffd-acd4-8f09e6893a18 -> 200 [285.66ms] IP=127.0.0.1
+2026-04-21 17:26:03.767 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [28.18ms] IP=127.0.0.1
+2026-04-21 17:26:03.768 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-CGwFgmGq.js -> 200 [28.73ms] IP=127.0.0.1
+2026-04-21 17:26:03.775 | INFO     | app.utils.middleware:dispatch:61 - GET /login -> 200 [36.16ms] IP=127.0.0.1
+2026-04-21 17:26:03.832 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/bell-ring-Cfp1-w2-.js -> 200 [93.21ms] IP=127.0.0.1
+2026-04-21 17:26:03.850 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/auth/login -> 200 [101.56ms] IP=127.0.0.1
+2026-04-21 17:26:03.885 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [45.9ms] IP=127.0.0.1
+2026-04-21 17:26:03.902 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/auth/login -> 200 [154.88ms] IP=127.0.0.1
+2026-04-21 17:26:03.903 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/sensors/village/9cb484f8-da74-4ffd-acd4-8f09e6893a18 -> 200 [431.3ms] IP=127.0.0.1
+2026-04-21 17:26:03.907 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/map-overview -> 200 [205.83ms] IP=127.0.0.1
+2026-04-21 17:26:03.920 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [31.86ms] IP=127.0.0.1
+2026-04-21 17:26:05.338 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [1427.24ms] IP=127.0.0.1
+2026-04-21 17:26:05.391 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/9cb484f8-da74-4ffd-acd4-8f09e6893a18 -> 200 [1963.56ms] IP=127.0.0.1
+2026-04-21 17:26:05.405 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/9cb484f8-da74-4ffd-acd4-8f09e6893a18 -> 200 [1933.35ms] IP=127.0.0.1
+2026-04-21 17:26:05.409 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [69.3ms] IP=127.0.0.1
+2026-04-21 17:26:05.465 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/users -> 200 [116.17ms] IP=127.0.0.1
+2026-04-21 17:26:05.467 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [117.81ms] IP=127.0.0.1
+2026-04-21 17:26:05.477 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [127.36ms] IP=127.0.0.1
+2026-04-21 17:26:05.490 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/audit -> 200 [109.22ms] IP=127.0.0.1
+2026-04-21 17:26:05.495 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/9cb484f8-da74-4ffd-acd4-8f09e6893a18/dashboard -> 200 [146.18ms] IP=127.0.0.1
+2026-04-21 17:26:05.504 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [17.88ms] IP=127.0.0.1
+2026-04-21 17:26:05.680 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [14.06ms] IP=127.0.0.1
+2026-04-21 17:26:09.070 | INFO     | app.utils.middleware:dispatch:61 - GET /admin-portal -> 200 [3.52ms] IP=127.0.0.1
+2026-04-21 17:26:09.127 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-b4v-6vAo.css -> 200 [20.73ms] IP=127.0.0.1
+2026-04-21 17:26:09.128 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-DgM-tk9V.js -> 200 [24.52ms] IP=127.0.0.1
+2026-04-21 17:26:09.232 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-Hp-hvpZT.js -> 200 [12.64ms] IP=127.0.0.1
+2026-04-21 17:26:09.308 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [51.29ms] IP=127.0.0.1
+2026-04-21 17:26:09.380 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-I02F0LMG.js -> 200 [49.46ms] IP=127.0.0.1
+2026-04-21 17:26:09.381 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatusBadge-CHmdqzAM.js -> 200 [49.31ms] IP=127.0.0.1
+2026-04-21 17:26:09.381 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useMutation-8Uyw3FGr.js -> 200 [50.79ms] IP=127.0.0.1
+2026-04-21 17:26:09.382 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AdminPortalPage-nqbRYfuQ.js -> 200 [50.7ms] IP=127.0.0.1
+2026-04-21 17:26:09.383 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useQuery-Vj2zPGMD.js -> 200 [51.51ms] IP=127.0.0.1
+2026-04-21 17:26:09.431 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-HCptDJds.js -> 200 [33.55ms] IP=127.0.0.1
+2026-04-21 17:26:09.433 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/adminService-CoGWnPuO.js -> 200 [39.1ms] IP=127.0.0.1
+2026-04-21 17:26:09.437 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [29.38ms] IP=127.0.0.1
+2026-04-21 17:26:09.555 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [92.28ms] IP=127.0.0.1
+2026-04-21 17:26:09.573 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/users -> 200 [103.89ms] IP=127.0.0.1
+2026-04-21 17:26:09.585 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/audit -> 200 [110.34ms] IP=127.0.0.1
+2026-04-21 17:26:09.590 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [121.34ms] IP=127.0.0.1
+2026-04-21 17:26:11.433 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [7.13ms] IP=127.0.0.1
+2026-04-21 17:27:40.347 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/calendar-days-NlV92iZt.js -> 200 [20.72ms] IP=127.0.0.1
+2026-04-21 17:27:40.348 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ReportsPage-D90Y_xFC.js -> 200 [25.31ms] IP=127.0.0.1
+2026-04-21 17:27:40.369 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPrompt-B9PGAH-g.js -> 200 [41.96ms] IP=127.0.0.1
+2026-04-21 17:27:40.370 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageSelector-480foaAu.js -> 200 [36.36ms] IP=127.0.0.1
+2026-04-21 17:27:40.378 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-sJxqj4SA.js -> 200 [44.08ms] IP=127.0.0.1
+2026-04-21 17:27:40.488 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/reports/activity -> 200 [57.92ms] IP=127.0.0.1
+2026-04-21 17:27:40.520 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [93.13ms] IP=127.0.0.1
+2026-04-21 17:27:40.581 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [150.75ms] IP=127.0.0.1
+2026-04-21 17:27:49.067 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/EmptyState-ByIljbrC.js -> 200 [13.99ms] IP=127.0.0.1
+2026-04-21 17:27:49.068 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageProfilePage-20uWdOQ8.js -> 200 [16.28ms] IP=127.0.0.1
+2026-04-21 17:27:49.075 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatCard-BkFRRJkV.js -> 200 [17.94ms] IP=127.0.0.1
+2026-04-21 17:27:49.075 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageIntelligenceService-B4AELWnC.js -> 200 [18.65ms] IP=127.0.0.1
+2026-04-21 17:27:49.076 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-fqFvCqG9.js -> 200 [19.0ms] IP=127.0.0.1
+2026-04-21 17:27:49.187 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/catalog -> 200 [58.69ms] IP=127.0.0.1
+2026-04-21 17:27:49.246 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [108.17ms] IP=127.0.0.1
+2026-04-21 17:27:50.326 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/e9772782-4514-4a60-acbc-7c8d0c420e35 -> 200 [1194.5ms] IP=127.0.0.1
+2026-04-21 17:27:50.394 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/e9772782-4514-4a60-acbc-7c8d0c420e35/compare -> 200 [43.1ms] IP=127.0.0.1
+2026-04-21 17:27:55.160 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PredictionsPage-BGqYGoUZ.js -> 200 [20.61ms] IP=127.0.0.1
+2026-04-21 17:27:55.167 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/predictionService-C_j4BtSG.js -> 200 [24.51ms] IP=127.0.0.1
+2026-04-21 17:27:55.193 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/generateCategoricalChart-BbX8BVIb.js -> 200 [51.3ms] IP=127.0.0.1
+2026-04-21 17:27:55.202 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/BarChart-DjwTstxf.js -> 200 [60.29ms] IP=127.0.0.1
+2026-04-21 17:27:55.343 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/e9772782-4514-4a60-acbc-7c8d0c420e35/latest -> 200 [11.12ms] IP=127.0.0.1
+2026-04-21 17:27:55.477 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/e9772782-4514-4a60-acbc-7c8d0c420e35/history -> 200 [101.38ms] IP=127.0.0.1
+2026-04-21 17:27:55.478 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/predictions/e9772782-4514-4a60-acbc-7c8d0c420e35/explain -> 200 [93.57ms] IP=127.0.0.1
+2026-04-21 17:27:59.698 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-B3G3iHmM.js -> 200 [17.79ms] IP=127.0.0.1
+2026-04-21 17:27:59.705 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-CN-IQ2iP.js -> 200 [20.44ms] IP=127.0.0.1
+2026-04-21 17:27:59.710 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-DfCNFVe-.js -> 200 [27.43ms] IP=127.0.0.1
+2026-04-21 17:27:59.737 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/bell-ring-CWX8MkMk.js -> 200 [52.16ms] IP=127.0.0.1
+2026-04-21 17:27:59.813 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [21.88ms] IP=127.0.0.1
+2026-04-21 17:30:34.657 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [4.25ms] IP=127.0.0.1
+2026-04-21 17:30:34.709 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [12.73ms] IP=127.0.0.1
+2026-04-21 17:30:34.863 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/users -> 200 [105.07ms] IP=127.0.0.1
+2026-04-21 17:30:34.905 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [155.37ms] IP=127.0.0.1
+2026-04-21 17:30:34.928 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/audit -> 200 [170.42ms] IP=127.0.0.1
+2026-04-21 17:30:34.950 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [199.2ms] IP=127.0.0.1
+2026-04-21 17:30:36.800 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [3.94ms] IP=127.0.0.1
+2026-04-27 13:59:57.430 | INFO     | app.ml.models:_load:101 - Water quality model loaded from ml_models\water_quality_rf.joblib
+2026-04-27 13:59:58.103 | INFO     | app.ml.models:_load:209 - Disease outbreak model loaded from ml_models\disease_outbreak_xgb.joblib
+2026-04-27 13:59:59.429 | INFO     | app.main:lifespan:46 - ============================================================
+2026-04-27 13:59:59.429 | INFO     | app.main:lifespan:47 -   Starting JALERT - Intelligent Water & Health Alert System v1.0.0
+2026-04-27 13:59:59.431 | INFO     | app.main:lifespan:48 -   Environment: development
+2026-04-27 13:59:59.438 | INFO     | app.main:lifespan:49 -   Database: SQLite via AsyncAdaptedQueuePool
+2026-04-27 13:59:59.439 | INFO     | app.main:lifespan:50 -   Database URL: sqlite+aiosqlite:///./jalert.db
+2026-04-27 13:59:59.441 | INFO     | app.main:lifespan:51 - ============================================================
+2026-04-27 13:59:59.622 | INFO     | app.core.database:init_db:104 - Database tables initialized
+2026-04-27 14:00:07.616 | INFO     | app.services.bootstrap_service:_build_village_candidates:229 - Prepared 300 real village candidates from groundwater datasets
+2026-04-27 14:00:08.328 | INFO     | app.core.redis_manager:connect:22 - Redis connected
+2026-04-27 14:00:08.329 | INFO     | app.main:lifespan:75 - Skipping Kafka startup during local web serving.
+2026-04-27 14:00:08.330 | INFO     | app.main:lifespan:80 - All systems online. JALERT is ready.
+2026-04-27 14:00:08.755 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [349.98ms] IP=127.0.0.1
+2026-04-27 14:00:17.284 | INFO     | app.services.ogd_data_service:_get_cached_official_water_observations:497 - Built official water observation cache in 8.94s
+2026-04-27 14:00:39.886 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [4.94ms] IP=127.0.0.1
+2026-04-27 14:00:52.337 | INFO     | app.services.ogd_data_service:_get_cached_groundwater_levels:511 - Built groundwater level cache in 35.02s
+2026-04-27 14:00:59.982 | INFO     | app.services.ogd_data_service:_warm_public_resources_cache_sync:587 - Built public water resource payload cache in 51.64s
+2026-04-27 14:05:07.998 | INFO     | app.utils.websocket_manager:connect:26 - WS connected: channel=sensor:e9772782-4514-4a60-acbc-7c8d0c420e35 total=1
+2026-04-27 14:05:08.000 | INFO     | app.utils.websocket_manager:subscribe_village:107 - Redis subscriber started for village e9772782-4514-4a60-acbc-7c8d0c420e35
+2026-04-27 14:05:12.771 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/water-resources/ -> 200 [4316.03ms] IP=127.0.0.1
+2026-04-27 14:05:12.975 | INFO     | app.utils.websocket_manager:disconnect:38 - WS disconnected: channel=sensor:e9772782-4514-4a60-acbc-7c8d0c420e35
+2026-04-27 14:05:12.991 | INFO     | app.routers.websockets:sensor_stream:48 - Sensor WS disconnected: village=e9772782-4514-4a60-acbc-7c8d0c420e35
+2026-04-27 14:07:06.399 | INFO     | app.utils.middleware:dispatch:61 - GET /health-reports -> 404 [1.17ms] IP=127.0.0.1
+2026-04-27 14:09:50.312 | INFO     | app.utils.middleware:dispatch:61 - GET /health-reports -> 404 [1.35ms] IP=127.0.0.1
+2026-04-27 14:11:34.456 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [10.05ms] IP=127.0.0.1
+2026-04-27 14:11:36.097 | INFO     | app.utils.middleware:dispatch:61 - GET /village-profile -> 200 [4.44ms] IP=127.0.0.1
+2026-04-27 14:11:36.172 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-DEf-uO4W.js -> 200 [20.21ms] IP=127.0.0.1
+2026-04-27 14:11:36.173 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-BMPGiehP.css -> 200 [19.54ms] IP=127.0.0.1
+2026-04-27 14:11:36.321 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageProfilePage-rsd55EbS.js -> 200 [27.01ms] IP=127.0.0.1
+2026-04-27 14:11:36.327 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useQuery-cdDarKUT.js -> 200 [31.18ms] IP=127.0.0.1
+2026-04-27 14:11:36.339 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/EmptyState-B0_YXWHa.js -> 200 [34.98ms] IP=127.0.0.1
+2026-04-27 14:11:36.341 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-YcK_hqOv.js -> 200 [37.63ms] IP=127.0.0.1
+2026-04-27 14:11:36.350 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-DMZ_Qiec.js -> 200 [40.49ms] IP=127.0.0.1
+2026-04-27 14:11:36.356 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPrompt-CCf_XdKM.js -> 200 [46.48ms] IP=127.0.0.1
+2026-04-27 14:11:36.379 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatCard-BaW_rxyZ.js -> 200 [41.51ms] IP=127.0.0.1
+2026-04-27 14:11:36.386 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/StatusBadge-Df7EO8tg.js -> 200 [34.1ms] IP=127.0.0.1
+2026-04-27 14:11:36.391 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-CBIhs52L.js -> 200 [24.57ms] IP=127.0.0.1
+2026-04-27 14:11:36.392 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/VillageSelector-BV6I9_a8.js -> 200 [26.11ms] IP=127.0.0.1
+2026-04-27 14:11:36.400 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageIntelligenceService-CYfgDLTa.js -> 200 [29.96ms] IP=127.0.0.1
+2026-04-27 14:11:36.413 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-D06_pTfs.js -> 200 [38.84ms] IP=127.0.0.1
+2026-04-27 14:11:38.797 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [3.8ms] IP=127.0.0.1
+2026-04-27 14:17:40.315 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-CmIldgVs.js -> 200 [119.08ms] IP=127.0.0.1
+2026-04-27 14:17:40.460 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/FeatureCenterPage-DxqTq-XK.js -> 200 [266.64ms] IP=127.0.0.1
+2026-04-27 14:19:13.249 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [47.52ms] IP=127.0.0.1
+2026-04-27 14:19:16.992 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [7.1ms] IP=127.0.0.1
+2026-04-27 14:20:01.922 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPage-DqsU3qVY.js -> 200 [8.57ms] IP=127.0.0.1
+2026-04-27 14:20:04.383 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/LoginPage-BVT61Jbt.js -> 200 [13.38ms] IP=127.0.0.1
+2026-04-27 14:20:04.385 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/zod-Boe-JV0L.js -> 200 [13.46ms] IP=127.0.0.1
+2026-04-27 14:20:05.954 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [6.69ms] IP=127.0.0.1
+2026-04-27 14:21:38.539 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [12.9ms] IP=127.0.0.1
+2026-04-27 14:21:43.177 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [4.85ms] IP=127.0.0.1
+2026-04-27 14:21:48.680 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [5.38ms] IP=127.0.0.1
+2026-04-27 14:21:54.287 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/auth/login -> 200 [376.07ms] IP=127.0.0.1
+2026-04-27 14:21:54.319 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [22.35ms] IP=127.0.0.1
+2026-04-27 14:21:54.379 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [19.05ms] IP=127.0.0.1
+2026-04-27 14:21:54.597 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [199.67ms] IP=127.0.0.1
+2026-04-27 14:21:54.616 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [214.34ms] IP=127.0.0.1
+2026-04-27 14:21:54.636 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/users -> 200 [216.22ms] IP=127.0.0.1
+2026-04-27 14:21:54.646 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/audit -> 200 [232.89ms] IP=127.0.0.1
+2026-04-27 14:22:02.902 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [25.54ms] IP=127.0.0.1
+2026-04-27 14:22:22.963 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/reports/activity -> 200 [19.03ms] IP=127.0.0.1
+2026-04-27 14:22:22.993 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [53.59ms] IP=127.0.0.1
+2026-04-27 14:22:23.004 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [63.44ms] IP=127.0.0.1
+2026-04-27 14:22:29.820 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [17.29ms] IP=127.0.0.1
+2026-04-27 14:22:42.912 | INFO     | app.routers.chat:chat_with_assistant:233 - Received chat request with model gemma4:31b-cloud for village e9772782-4514-4a60-acbc-7c8d0c420e35
+2026-04-27 14:22:46.464 | ERROR    | app.routers.chat:chat_with_assistant:269 - Could not connect to Ollama at http://localhost:11434/api/chat
+2026-04-27 14:22:46.466 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/chat -> 200 [3591.51ms] IP=127.0.0.1
+2026-04-27 14:27:28.814 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [9.3ms] IP=127.0.0.1
+2026-04-27 14:27:28.878 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [13.21ms] IP=127.0.0.1
+2026-04-27 14:27:30.865 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [6.78ms] IP=127.0.0.1
+2026-04-27 14:27:34.789 | INFO     | app.routers.chat:chat_with_assistant:233 - Received chat request with model gemma4:31b-cloud for village e9772782-4514-4a60-acbc-7c8d0c420e35
+2026-04-27 14:27:39.671 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/chat -> 200 [4885.87ms] IP=127.0.0.1
+2026-04-27 14:27:59.121 | INFO     | app.routers.chat:chat_with_assistant:233 - Received chat request with model gemma4:31b-cloud for village e9772782-4514-4a60-acbc-7c8d0c420e35
+2026-04-27 14:28:03.978 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/chat -> 200 [4859.09ms] IP=127.0.0.1
+2026-04-27 14:31:32.709 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [7.26ms] IP=127.0.0.1
+2026-04-27 14:31:32.774 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [7.79ms] IP=127.0.0.1
+2026-04-27 14:31:34.868 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [9.88ms] IP=127.0.0.1
+2026-04-27 14:31:41.464 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [9.19ms] IP=127.0.0.1
+2026-04-27 14:31:41.506 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [7.12ms] IP=127.0.0.1
+2026-04-27 14:31:43.821 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [5.69ms] IP=127.0.0.1
+2026-04-27 14:31:52.773 | INFO     | app.routers.chat:chat_with_assistant:233 - Received chat request with model gemma4:31b-cloud for village e9772782-4514-4a60-acbc-7c8d0c420e35
+2026-04-27 14:32:13.675 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/chat -> 200 [20903.86ms] IP=127.0.0.1
+2026-04-27 14:32:23.119 | INFO     | app.routers.chat:chat_with_assistant:233 - Received chat request with model gemma4:31b-cloud for village e9772782-4514-4a60-acbc-7c8d0c420e35
+2026-04-27 14:32:36.185 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [16.55ms] IP=127.0.0.1
+2026-04-27 14:32:36.221 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [12.25ms] IP=127.0.0.1
+2026-04-27 14:32:38.371 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [4.98ms] IP=127.0.0.1
+2026-04-27 14:32:41.432 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/catalog -> 200 [111.41ms] IP=127.0.0.1
+2026-04-27 14:32:41.443 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [118.74ms] IP=127.0.0.1
+2026-04-27 14:32:41.478 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [151.39ms] IP=127.0.0.1
+2026-04-27 14:32:43.476 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/e9772782-4514-4a60-acbc-7c8d0c420e35 -> 200 [2148.73ms] IP=127.0.0.1
+2026-04-27 14:32:43.544 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/village-intelligence/e9772782-4514-4a60-acbc-7c8d0c420e35/compare -> 200 [40.02ms] IP=127.0.0.1
+2026-04-27 14:32:48.853 | INFO     | app.utils.middleware:dispatch:61 - POST /api/v1/chat -> 200 [25735.91ms] IP=127.0.0.1
+2026-04-27 14:32:54.462 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [4.94ms] IP=127.0.0.1
+2026-04-27 14:32:54.606 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [50.0ms] IP=127.0.0.1
+2026-04-27 14:32:54.615 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [58.09ms] IP=127.0.0.1
+2026-04-27 14:32:56.629 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/admin/users -> 200 [104.82ms] IP=127.0.0.1
+2026-04-27 14:32:56.631 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/ -> 200 [116.45ms] IP=127.0.0.1
+2026-04-27 14:32:56.655 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [127.39ms] IP=127.0.0.1
+2026-04-27 14:32:56.673 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [15.16ms] IP=127.0.0.1
+2026-04-27 14:32:56.695 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/alerts/ -> 200 [178.71ms] IP=127.0.0.1
+2026-04-27 14:33:12.054 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/notifications/ -> 200 [14.1ms] IP=127.0.0.1
+2026-04-27 14:33:24.496 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/health/clusters/e9772782-4514-4a60-acbc-7c8d0c420e35 -> 200 [15.88ms] IP=127.0.0.1
+2026-04-27 14:33:24.502 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/health/reports/e9772782-4514-4a60-acbc-7c8d0c420e35 -> 200 [24.62ms] IP=127.0.0.1
+2026-04-27 14:37:07.142 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [11.51ms] IP=127.0.0.1
+2026-04-27 14:37:07.183 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [14.2ms] IP=127.0.0.1
+2026-04-27 14:37:07.196 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [27.0ms] IP=127.0.0.1
+2026-04-27 14:37:09.125 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [6.24ms] IP=127.0.0.1
+2026-04-27 14:37:10.176 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/me -> 200 [5.59ms] IP=127.0.0.1
+2026-04-27 14:37:10.263 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/auth/preferences -> 200 [42.49ms] IP=127.0.0.1
+2026-04-27 14:37:10.275 | INFO     | app.utils.middleware:dispatch:61 - GET /api/v1/villages/e9772782-4514-4a60-acbc-7c8d0c420e35/dashboard -> 200 [53.88ms] IP=127.0.0.1
+2026-04-27 14:37:12.328 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [3.09ms] IP=127.0.0.1
+2026-04-27 14:39:32.244 | INFO     | app.ml.models:_load:101 - Water quality model loaded from ml_models\water_quality_rf.joblib
+2026-04-27 14:39:32.483 | INFO     | app.ml.models:_load:209 - Disease outbreak model loaded from ml_models\disease_outbreak_xgb.joblib
+2026-04-27 14:39:32.816 | INFO     | app.main:lifespan:46 - ============================================================
+2026-04-27 14:39:32.816 | INFO     | app.main:lifespan:47 -   Starting JALERT - Intelligent Water & Health Alert System v1.0.0
+2026-04-27 14:39:32.816 | INFO     | app.main:lifespan:48 -   Environment: development
+2026-04-27 14:39:32.817 | INFO     | app.main:lifespan:49 -   Database: SQLite via AsyncAdaptedQueuePool
+2026-04-27 14:39:32.817 | INFO     | app.main:lifespan:50 -   Database URL: sqlite+aiosqlite:///./jalert.db
+2026-04-27 14:39:32.817 | INFO     | app.main:lifespan:51 - ============================================================
+2026-04-27 14:39:32.868 | INFO     | app.core.database:init_db:104 - Database tables initialized
+2026-04-27 14:39:38.500 | INFO     | app.services.bootstrap_service:_build_village_candidates:229 - Prepared 300 real village candidates from groundwater datasets
+2026-04-27 14:39:39.235 | INFO     | app.core.redis_manager:connect:22 - Redis connected
+2026-04-27 14:39:39.236 | INFO     | app.main:lifespan:75 - Skipping Kafka startup during local web serving.
+2026-04-27 14:39:39.237 | INFO     | app.main:lifespan:80 - All systems online. JALERT is ready.
+2026-04-27 14:39:39.779 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [349.23ms] IP=127.0.0.1
+2026-04-27 14:39:43.895 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [6.12ms] IP=127.0.0.1
+2026-04-27 14:39:47.650 | INFO     | app.services.ogd_data_service:_get_cached_official_water_observations:497 - Built official water observation cache in 8.41s
+2026-04-27 14:39:53.003 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [154.73ms] IP=127.0.0.1
+2026-04-27 14:39:57.728 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [92.88ms] IP=127.0.0.1
+2026-04-27 14:40:02.793 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [185.14ms] IP=127.0.0.1
+2026-04-27 14:40:18.391 | INFO     | app.services.ogd_data_service:_get_cached_groundwater_levels:511 - Built groundwater level cache in 30.73s
+2026-04-27 14:40:21.775 | INFO     | app.services.ogd_data_service:_warm_public_resources_cache_sync:587 - Built public water resource payload cache in 42.54s
+2026-04-27 14:43:45.855 | INFO     | app.utils.middleware:dispatch:61 - GET /feature-center -> 200 [13.8ms] IP=127.0.0.1
+2026-04-27 14:43:45.996 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-BaFLiVXE.js -> 200 [31.76ms] IP=127.0.0.1
+2026-04-27 14:43:46.009 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-DxWh28wS.css -> 200 [40.2ms] IP=127.0.0.1
+2026-04-27 14:43:46.014 | INFO     | app.utils.middleware:dispatch:61 - GET /manifest.webmanifest -> 200 [40.9ms] IP=127.0.0.1
+2026-04-27 14:43:46.242 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/FeatureCenterPage-OMEeHAnj.js -> 200 [26.37ms] IP=127.0.0.1
+2026-04-27 14:43:46.253 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-DSWahs0S.js -> 200 [35.11ms] IP=127.0.0.1
+2026-04-27 14:43:46.270 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-CTwFCkXR.js -> 200 [48.35ms] IP=127.0.0.1
+2026-04-27 14:43:46.299 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/jalert-logo-Cjb_t2Hq.png -> 200 [66.33ms] IP=127.0.0.1
+2026-04-27 14:43:46.367 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-70VBdbIf.js -> 200 [81.1ms] IP=127.0.0.1
+2026-04-27 14:43:46.410 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/feature_center_image-2NgkmPpT.png -> 200 [76.47ms] IP=127.0.0.1
+2026-04-27 14:43:47.065 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [8.45ms] IP=127.0.0.1
+2026-04-27 14:43:52.755 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-qXhp9Vw9.js -> 200 [49.17ms] IP=127.0.0.1
+2026-04-27 14:43:52.760 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useQuery-Fo52r7Hw.js -> 200 [38.26ms] IP=127.0.0.1
+2026-04-27 14:43:52.763 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-E5QcmMxq.js -> 200 [30.48ms] IP=127.0.0.1
+2026-04-27 14:43:52.767 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-DDDOeseT.js -> 200 [34.07ms] IP=127.0.0.1
+2026-04-27 14:43:52.768 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/format-Ckrn_PMB.js -> 200 [39.19ms] IP=127.0.0.1
+2026-04-27 14:43:52.783 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-dxbClHbq.js -> 200 [49.5ms] IP=127.0.0.1
+2026-04-27 14:43:52.808 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-B3yNB3DJ.js -> 200 [26.05ms] IP=127.0.0.1
+2026-04-27 14:43:52.819 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/bell-ring-FhGfeKRu.js -> 200 [18.53ms] IP=127.0.0.1
+2026-04-27 14:43:52.847 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [10.45ms] IP=127.0.0.1
+2026-04-27 14:43:52.908 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [58.44ms] IP=127.0.0.1
+2026-04-27 14:43:55.643 | INFO     | app.utils.middleware:dispatch:61 - GET / -> 200 [12.96ms] IP=127.0.0.1
+2026-04-27 14:43:55.765 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-BaFLiVXE.js -> 200 [24.66ms] IP=127.0.0.1
+2026-04-27 14:43:55.770 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/index-DxWh28wS.css -> 200 [21.72ms] IP=127.0.0.1
+2026-04-27 14:43:55.787 | INFO     | app.utils.middleware:dispatch:61 - GET /manifest.webmanifest -> 200 [33.4ms] IP=127.0.0.1
+2026-04-27 14:43:55.990 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/jalert-logo-Cjb_t2Hq.png -> 200 [45.17ms] IP=127.0.0.1
+2026-04-27 14:43:56.004 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/HomePage-qXhp9Vw9.js -> 200 [52.61ms] IP=127.0.0.1
+2026-04-27 14:43:56.012 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/useQuery-Fo52r7Hw.js -> 200 [55.66ms] IP=127.0.0.1
+2026-04-27 14:43:56.018 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/PageHero-DSWahs0S.js -> 200 [62.2ms] IP=127.0.0.1
+2026-04-27 14:43:56.021 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/ErrorState-dxbClHbq.js -> 200 [65.18ms] IP=127.0.0.1
+2026-04-27 14:43:56.028 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/Reveal-CTwFCkXR.js -> 200 [61.47ms] IP=127.0.0.1
+2026-04-27 14:43:56.140 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/villageService-E5QcmMxq.js -> 200 [52.82ms] IP=127.0.0.1
+2026-04-27 14:43:56.143 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/bell-ring-FhGfeKRu.js -> 200 [43.93ms] IP=127.0.0.1
+2026-04-27 14:43:56.151 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/activity-B3yNB3DJ.js -> 200 [51.72ms] IP=127.0.0.1
+2026-04-27 14:43:56.153 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/format-Ckrn_PMB.js -> 200 [65.31ms] IP=127.0.0.1
+2026-04-27 14:43:56.155 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/droplets-DDDOeseT.js -> 200 [63.04ms] IP=127.0.0.1
+2026-04-27 14:43:56.250 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/AssistantRobotScene-70VBdbIf.js -> 200 [61.92ms] IP=127.0.0.1
+2026-04-27 14:43:56.282 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/community_image-CpncUDE8.png -> 200 [67.86ms] IP=127.0.0.1
+2026-04-27 14:43:56.284 | INFO     | app.utils.middleware:dispatch:61 - GET /assets/hero_image-WaLcxmxo.png -> 200 [69.81ms] IP=127.0.0.1
+2026-04-27 14:43:56.749 | INFO     | app.utils.middleware:dispatch:61 - GET /favicon.ico -> 200 [8.72ms] IP=127.0.0.1
+2026-04-27 14:45:07.385 | INFO     | app.utils.middleware:dispatch:61 - GET /sw.js -> 200 [7.33ms] IP=127.0.0.1

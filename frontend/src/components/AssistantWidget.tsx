@@ -149,7 +149,7 @@ export const AssistantWidget = () => {
         <aside className="assistant-panel">
           <div className="inline-between">
             <div className="assistant-widget-header">
-              <AssistantRobot size="sm" className="assistant-widget-robot" />
+              <AssistantRobot size="sm" mode="animated" className="assistant-widget-robot" />
               <div>
               <h3>{t('assistant.title')}</h3>
               <p className="subtle">{t('assistant.subtitle')}</p>
@@ -239,7 +239,7 @@ export const AssistantWidget = () => {
         onClick={() => setIsOpen(true)}
       >
         <span className="assistant-fab-ring" />
-        <AssistantRobot size="sm" className="assistant-fab-robot" />
+        <AssistantRobot size="sm" mode="animated" className="assistant-fab-robot" />
       </button>
     </>
   );

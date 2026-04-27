@@ -479,18 +479,7 @@ export const VillageProfilePage = () => {
       .map((item) => item.id);
   }, [profileQuery.data, villagesQuery.data]);
 
-  const fallbackProfile = useMemo(() => {
-    if (!activeVillageId || !dashboardQuery.data || !villagesQuery.data?.length) {
-      return null;
-    }
-    const village = villagesQuery.data.find((item) => item.id === activeVillageId);
-    if (!village) {
-      return null;
-    }
-    return buildFallbackVillageProfile(village, dashboardQuery.data, findVillagePath(catalogData, activeVillageId));
-  }, [activeVillageId, catalogData, dashboardQuery.data, villagesQuery.data]);
-
-  const resolvedProfile = profileQuery.data ?? cachedProfile ?? fallbackProfile;
+  const resolvedProfile = profileQuery.data ?? cachedProfile;
 
   const comparisonQuery = useQuery({
     queryKey: ['village-compare', activeVillageId, comparisonIds],
@@ -619,7 +608,9 @@ export const VillageProfilePage = () => {
           </section>
 
           {profileQuery.isLoading && !resolvedProfile ? <LoadingState label="Loading village deep profile..." /> : null}
-          {profileQuery.isError && !resolvedProfile ? <ErrorState description="Village profile could not be loaded." /> : null}
+          {profileQuery.isError && !resolvedProfile ? (
+            <ErrorState description="Village profile could not be loaded. This page now waits for trusted data or a saved field snapshot." />
+          ) : null}
           {!activeVillageId ? (
             <EmptyState title="Choose a village to begin" description="Profile sections appear after village selection." />
           ) : null}
@@ -629,13 +620,6 @@ export const VillageProfilePage = () => {
               {fieldMode && cachedProfile && !profileQuery.data ? (
                 <section className="section content-card">
                   <p className="subtle">Showing the last saved village snapshot from field mode cache.</p>
-                </section>
-              ) : null}
-              {profileQuery.isError && fallbackProfile ? (
-                <section className="section content-card">
-                  <p className="subtle">
-                    Deep village profile service did not respond in time, so this page is showing the live village dashboard fallback for now.
-                  </p>
                 </section>
               ) : null}
               {(() => {

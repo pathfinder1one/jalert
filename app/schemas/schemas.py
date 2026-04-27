@@ -4,7 +4,17 @@ JALERT - Pydantic Schemas (Request/Response)
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import Optional, List, Dict, Any
 from datetime import datetime
-from app.models.user import UserRole, AlertSeverity, AlertStatus, AlertType, RiskCategory, SensorStatus, CitizenRequestStatus
+from app.models.user import (
+    UserRole,
+    AlertSeverity,
+    AlertStatus,
+    AlertType,
+    RiskCategory,
+    SensorStatus,
+    CitizenRequestStatus,
+    NotificationChannel,
+    NotificationDeliveryStatus,
+)
 
 
 # ── Auth ──────────────────────────────────────────────────────────────────────
@@ -44,6 +54,46 @@ class UserOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class UserProfileUpdate(BaseModel):
+    name: Optional[str] = Field(default=None, min_length=2, max_length=100)
+    phone: Optional[str] = Field(default=None, pattern=r"^\+?[1-9]\d{7,14}$")
+    preferred_language: Optional[str] = Field(default=None, pattern=r"^[a-z]{2}$")
+
+
+class UserChangePassword(BaseModel):
+    current_password: str = Field(..., min_length=8)
+    new_password: str = Field(..., min_length=8)
+
+
+class UserPreferenceOut(BaseModel):
+    language: str
+    comfort_mode: bool
+    field_mode: bool
+    accessibility_mode: bool
+    active_village_id: Optional[str]
+    saved_village_ids: List[str]
+    email_notifications: bool
+    sms_notifications: bool
+    voice_notifications: bool
+    daily_summary_enabled: bool
+
+    class Config:
+        from_attributes = True
+
+
+class UserPreferenceUpdate(BaseModel):
+    language: Optional[str] = Field(default=None, pattern=r"^[a-z]{2}$")
+    comfort_mode: Optional[bool] = None
+    field_mode: Optional[bool] = None
+    accessibility_mode: Optional[bool] = None
+    active_village_id: Optional[str] = None
+    saved_village_ids: Optional[List[str]] = None
+    email_notifications: Optional[bool] = None
+    sms_notifications: Optional[bool] = None
+    voice_notifications: Optional[bool] = None
+    daily_summary_enabled: Optional[bool] = None
 
 
 # ── Village ───────────────────────────────────────────────────────────────────
@@ -167,6 +217,15 @@ class AlertOut(BaseModel):
     triggered_by: Optional[str]
     created_at: datetime
     resolved_at: Optional[datetime]
+    assigned_to_user_id: Optional[str] = None
+    assigned_to_name: Optional[str] = None
+    acknowledged_by_id: Optional[str] = None
+    acknowledged_by_name: Optional[str] = None
+    acknowledged_at: Optional[datetime] = None
+    escalated_at: Optional[datetime] = None
+    escalation_level: int = 0
+    escalation_reason: Optional[str] = None
+    resolution_note: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -179,6 +238,24 @@ class AlertFilter(BaseModel):
     status: Optional[AlertStatus] = None
     limit: int = Field(default=50, le=200)
     offset: int = 0
+
+
+class AlertAcknowledgeUpdate(BaseModel):
+    note: Optional[str] = Field(default=None, max_length=500)
+
+
+class AlertAssignUpdate(BaseModel):
+    assigned_to_user_id: str
+    note: Optional[str] = Field(default=None, max_length=500)
+
+
+class AlertEscalateUpdate(BaseModel):
+    escalation_level: int = Field(default=1, ge=1, le=10)
+    reason: str = Field(..., min_length=4, max_length=500)
+
+
+class AlertResolveUpdate(BaseModel):
+    resolution_note: Optional[str] = Field(default=None, max_length=1000)
 
 
 # ── Health Reports ────────────────────────────────────────────────────────────
@@ -270,6 +347,57 @@ class CitizenRequestOut(BaseModel):
     resolution_notes: Optional[str]
     created_at: datetime
     updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class NotificationOut(BaseModel):
+    id: str
+    user_id: str
+    village_id: Optional[str]
+    alert_id: Optional[str]
+    kind: str
+    channel: NotificationChannel
+    severity: Optional[AlertSeverity]
+    title: str
+    message: str
+    link: Optional[str]
+    delivery_status: NotificationDeliveryStatus
+    is_read: bool
+    read_at: Optional[datetime]
+    data: Optional[Dict[str, Any]]
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class AdminUserUpdate(BaseModel):
+    name: Optional[str] = Field(default=None, min_length=2, max_length=100)
+    phone: Optional[str] = Field(default=None, pattern=r"^\+?[1-9]\d{7,14}$")
+    role: Optional[UserRole] = None
+    village_id: Optional[str] = None
+    is_active: Optional[bool] = None
+    preferred_language: Optional[str] = Field(default=None, pattern=r"^[a-z]{2}$")
+
+
+class AdminUserPasswordReset(BaseModel):
+    new_password: str = Field(..., min_length=8)
+
+
+class AuditLogOut(BaseModel):
+    id: str
+    user_id: Optional[str]
+    user_name: Optional[str] = None
+    user_email: Optional[str] = None
+    action: str
+    resource_type: str
+    resource_id: Optional[str]
+    detail: Optional[Dict[str, Any]]
+    ip_address: Optional[str]
+    user_agent: Optional[str]
+    created_at: datetime
 
     class Config:
         from_attributes = True

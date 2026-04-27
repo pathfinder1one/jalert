@@ -1,5 +1,13 @@
 import { http, clearStoredTokens, setStoredTokens } from './http';
-import type { AuthTokens, User, UserRole } from '../types/api';
+import type {
+  AuthTokens,
+  ChangePasswordPayload,
+  UpdateUserPreferencesPayload,
+  UpdateUserProfilePayload,
+  User,
+  UserPreferences,
+  UserRole,
+} from '../types/api';
 
 interface RegisterPayload {
   name: string;
@@ -28,6 +36,22 @@ export const authService = {
   },
   async me() {
     const { data } = await http.get<User>('/auth/me');
+    return data;
+  },
+  async updateProfile(payload: UpdateUserProfilePayload) {
+    const { data } = await http.patch<User>('/auth/me', payload);
+    return data;
+  },
+  async changePassword(payload: ChangePasswordPayload) {
+    const { data } = await http.post<{ status: string }>('/auth/change-password', payload);
+    return data;
+  },
+  async getPreferences() {
+    const { data } = await http.get<UserPreferences>('/auth/preferences');
+    return data;
+  },
+  async updatePreferences(payload: UpdateUserPreferencesPayload) {
+    const { data } = await http.patch<UserPreferences>('/auth/preferences', payload);
     return data;
   },
   logout() {

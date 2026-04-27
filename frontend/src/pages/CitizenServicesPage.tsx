@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -39,10 +39,38 @@ const requestTypes = [
   { value: 'illness_after_drinking', label: 'Illness after drinking water' },
 ];
 
+const offlineQueueKey = 'jalert.citizen-request.queue';
+
+interface OfflineCitizenRequest {
+  queued_at: string;
+  village_id: string;
+  reporter_name: string;
+  contact_phone?: string;
+  category: string;
+  severity: 'low' | 'moderate' | 'high' | 'critical';
+  preferred_channel: 'call' | 'sms' | 'visit';
+  description: string;
+}
+
+const readOfflineQueue = () => {
+  try {
+    const raw = localStorage.getItem(offlineQueueKey);
+    return raw ? (JSON.parse(raw) as OfflineCitizenRequest[]) : [];
+  } catch {
+    localStorage.removeItem(offlineQueueKey);
+    return [];
+  }
+};
+
+const writeOfflineQueue = (items: OfflineCitizenRequest[]) => {
+  localStorage.setItem(offlineQueueKey, JSON.stringify(items));
+};
+
 export const CitizenServicesPage = () => {
   const queryClient = useQueryClient();
   const { isAuthenticated, user } = useAuth();
   const { activeVillageId, setActiveVillageId, fieldMode } = usePreferences();
+  const [queuedRequests, setQueuedRequests] = useState<OfflineCitizenRequest[]>(() => readOfflineQueue());
 
   const villagesQuery = useQuery({
     queryKey: ['villages'],
@@ -193,6 +221,7 @@ export const CitizenServicesPage = () => {
       }),
     onSuccess: (createdRequest) => {
       toast.success('Service request submitted.');
+      setQueuedRequests(readOfflineQueue());
       localStorage.removeItem('jalert.citizen-request.draft');
       queryClient.setQueryData<CitizenRequest[]>(
         ['citizen-requests', activeVillageId],
@@ -216,8 +245,36 @@ export const CitizenServicesPage = () => {
       void queryClient.invalidateQueries({ queryKey: ['citizen-requests'] });
       void queryClient.invalidateQueries({ queryKey: ['village-profile-lite'] });
     },
-    onError: () => {
-      toast.error('Service request could not be submitted.');
+    onError: (_error, values) => {
+      const shouldQueue = fieldMode || (typeof navigator !== 'undefined' && !navigator.onLine);
+      if (!shouldQueue || !activeVillageId) {
+        toast.error('Service request could not be submitted.');
+        return;
+      }
+
+      const queuedItem: OfflineCitizenRequest = {
+        queued_at: new Date().toISOString(),
+        village_id: activeVillageId,
+        reporter_name: values.reporter_name,
+        contact_phone: values.contact_phone,
+        category: values.category,
+        severity: values.severity,
+        preferred_channel: values.preferred_channel,
+        description: values.description,
+      };
+      const nextQueue = [queuedItem, ...readOfflineQueue()];
+      writeOfflineQueue(nextQueue);
+      setQueuedRequests(nextQueue);
+      localStorage.removeItem('jalert.citizen-request.draft');
+      form.reset({
+        reporter_name: user?.name ?? '',
+        contact_phone: user?.phone ?? '',
+        category: 'no_water_today',
+        severity: 'moderate',
+        preferred_channel: 'call',
+        description: '',
+      });
+      toast.success('No network right now, so the request was saved offline and will sync later.');
     },
   });
   const updateRequestMutation = useMutation({
@@ -244,6 +301,55 @@ export const CitizenServicesPage = () => {
     };
   }, [resolvedRequests]);
   const canManageRequests = user?.role === 'admin' || user?.role === 'health_worker';
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
+
+    const syncQueuedRequests = async () => {
+      if (typeof navigator !== 'undefined' && !navigator.onLine) {
+        return;
+      }
+
+      const currentQueue = readOfflineQueue();
+      if (!currentQueue.length) {
+        setQueuedRequests([]);
+        return;
+      }
+
+      const remaining: OfflineCitizenRequest[] = [];
+      let syncedCount = 0;
+      for (const item of currentQueue) {
+        try {
+          await villageIntelligenceService.createCitizenRequest({
+            village_id: item.village_id,
+            reporter_name: item.reporter_name,
+            contact_phone: item.contact_phone,
+            category: item.category,
+            severity: item.severity,
+            preferred_channel: item.preferred_channel,
+            description: item.description,
+          });
+          syncedCount += 1;
+        } catch {
+          remaining.push(item);
+        }
+      }
+
+      writeOfflineQueue(remaining);
+      setQueuedRequests(remaining);
+      if (syncedCount > 0) {
+        toast.success(`${syncedCount} offline request${syncedCount > 1 ? 's' : ''} synced.`);
+        void queryClient.invalidateQueries({ queryKey: ['citizen-requests'] });
+        void queryClient.invalidateQueries({ queryKey: ['village-profile-lite'] });
+      }
+    };
+
+    void syncQueuedRequests();
+    window.addEventListener('online', syncQueuedRequests);
+    return () => window.removeEventListener('online', syncQueuedRequests);
+  }, [isAuthenticated, queryClient]);
 
   const whatsappShareText = useMemo(() => {
     if (!profileQuery.data) {
@@ -317,7 +423,21 @@ export const CitizenServicesPage = () => {
                   <strong>{requestSummary.resolved}</strong>
                   <p>Closed updates that help build trust and visible accountability.</p>
                 </article>
+                <article className="metric-card">
+                  <span className="eyebrow">Offline queue</span>
+                  <strong>{queuedRequests.length}</strong>
+                  <p>Requests saved on this device and waiting for sync.</p>
+                </article>
               </section>
+
+              {queuedRequests.length ? (
+                <section className="section content-card">
+                  <p className="subtle">
+                    {queuedRequests.length} request{queuedRequests.length > 1 ? 's are' : ' is'} stored offline on this device.
+                    They will sync automatically the next time this app is online.
+                  </p>
+                </section>
+              ) : null}
 
               <section className="section split-layout">
                 <article className="content-card">
@@ -326,7 +446,10 @@ export const CitizenServicesPage = () => {
                     Use this form for no water, dirty water, broken handpump, smell issues, or illness after drinking water.
                   </p>
 
-                  <form className="stack section-tight" onSubmit={form.handleSubmit((values) => createRequestMutation.mutate(values))}>
+                  <form
+                    className="stack section-tight"
+                    onSubmit={form.handleSubmit((values) => createRequestMutation.mutate(values))}
+                  >
                     <div className="form-grid two">
                       <div className="field">
                         <label htmlFor="reporter_name">Your name</label>

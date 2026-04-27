@@ -32,6 +32,9 @@ const CitizenServicesPage = lazy(() =>
   import('../pages/CitizenServicesPage').then((module) => ({ default: module.CitizenServicesPage })),
 );
 const ProfilePage = lazy(() => import('../pages/ProfilePage').then((module) => ({ default: module.ProfilePage })));
+const NotificationsPage = lazy(() =>
+  import('../pages/NotificationsPage').then((module) => ({ default: module.NotificationsPage })),
+);
 const LoginPage = lazy(() => import('../pages/LoginPage').then((module) => ({ default: module.LoginPage })));
 const AdminLoginPage = lazy(() =>
   import('../pages/AdminLoginPage').then((module) => ({ default: module.AdminLoginPage })),
@@ -73,6 +76,10 @@ export const AppRouter = () => {
           <Route path="/sensors" element={<SensorsPage />} />
           <Route path="/reports" element={<ReportsPage />} />
           <Route path="/chat" element={<AssistantPage />} />
+          <Route
+            path="/notifications"
+            element={isAuthenticated ? <NotificationsPage /> : <Navigate replace to="/login" />}
+          />
           <Route
             path="/admin-portal"
             element={

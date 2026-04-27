@@ -29,6 +29,43 @@ export interface User {
   created_at: string;
 }
 
+export interface UserPreferences {
+  language: string;
+  comfort_mode: boolean;
+  field_mode: boolean;
+  accessibility_mode: boolean;
+  active_village_id?: string | null;
+  saved_village_ids: string[];
+  email_notifications: boolean;
+  sms_notifications: boolean;
+  voice_notifications: boolean;
+  daily_summary_enabled: boolean;
+}
+
+export interface UpdateUserProfilePayload {
+  name?: string;
+  phone?: string | null;
+  preferred_language?: string;
+}
+
+export interface UpdateUserPreferencesPayload {
+  language?: string;
+  comfort_mode?: boolean;
+  field_mode?: boolean;
+  accessibility_mode?: boolean;
+  active_village_id?: string | null;
+  saved_village_ids?: string[];
+  email_notifications?: boolean;
+  sms_notifications?: boolean;
+  voice_notifications?: boolean;
+  daily_summary_enabled?: boolean;
+}
+
+export interface ChangePasswordPayload {
+  current_password: string;
+  new_password: string;
+}
+
 export interface Village {
   id: string;
   name: string;
@@ -147,6 +184,15 @@ export interface Alert {
   triggered_by?: string | null;
   created_at: string;
   resolved_at?: string | null;
+  assigned_to_user_id?: string | null;
+  assigned_to_name?: string | null;
+  acknowledged_by_id?: string | null;
+  acknowledged_by_name?: string | null;
+  acknowledged_at?: string | null;
+  escalated_at?: string | null;
+  escalation_level?: number;
+  escalation_reason?: string | null;
+  resolution_note?: string | null;
 }
 
 export interface Prediction {
@@ -227,6 +273,54 @@ export interface ReportUploadResponse {
   download_url: string;
   expires_in: number;
   key: string;
+}
+
+export type NotificationChannel = 'in_app' | 'email' | 'sms' | 'voice';
+export type NotificationDeliveryStatus = 'queued' | 'sent' | 'failed' | 'read';
+
+export interface Notification {
+  id: string;
+  user_id: string;
+  village_id?: string | null;
+  alert_id?: string | null;
+  kind: string;
+  channel: NotificationChannel;
+  severity?: AlertSeverity | null;
+  title: string;
+  message: string;
+  link?: string | null;
+  delivery_status: NotificationDeliveryStatus;
+  is_read: boolean;
+  read_at?: string | null;
+  data?: Record<string, unknown> | null;
+  created_at: string;
+}
+
+export interface AdminUserUpdatePayload {
+  name?: string;
+  phone?: string | null;
+  role?: UserRole;
+  village_id?: string | null;
+  is_active?: boolean;
+  preferred_language?: string;
+}
+
+export interface AdminUserPasswordResetPayload {
+  new_password: string;
+}
+
+export interface AuditLog {
+  id: string;
+  user_id?: string | null;
+  user_name?: string | null;
+  user_email?: string | null;
+  action: string;
+  resource_type: string;
+  resource_id?: string | null;
+  detail?: Record<string, unknown> | null;
+  ip_address?: string | null;
+  user_agent?: string | null;
+  created_at: string;
 }
 
 export interface AssistantLink {

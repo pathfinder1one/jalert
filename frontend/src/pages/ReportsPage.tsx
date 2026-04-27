@@ -29,69 +29,6 @@ const openBlob = (blob: Blob) => {
   setTimeout(() => URL.revokeObjectURL(url), 15000);
 };
 
-const sampleReportLibrary = [
-  {
-    id: 'sample-march-2026',
-    title: 'March 2026 Water Quality Report',
-    metaLabel: '1 Apr 2026',
-    villageCountLabel: '847 villages',
-    metricValue: '87.4',
-    metricLabel: 'avg score',
-    icon: <Waves size={28} />,
-    iconClassName: 'report-showcase-icon-water',
-  },
-  {
-    id: 'sample-february-2026',
-    title: 'February 2026 Water Quality Report',
-    metaLabel: '1 Mar 2026',
-    villageCountLabel: '847 villages',
-    metricValue: '85.1',
-    metricLabel: 'avg score',
-    icon: <Activity size={28} />,
-    iconClassName: 'report-showcase-icon-sensor',
-  },
-  {
-    id: 'sample-january-2026',
-    title: 'January 2026 Water Quality Report',
-    metaLabel: '1 Feb 2026',
-    villageCountLabel: '847 villages',
-    metricValue: '83.6',
-    metricLabel: 'avg score',
-    icon: <Link2 size={28} />,
-    iconClassName: 'report-showcase-icon-share',
-  },
-  {
-    id: 'sample-q1-2026',
-    title: 'Q1 2026 District Health Report',
-    metaLabel: '1 Apr 2026',
-    villageCountLabel: '847 villages',
-    metricValue: '85.4',
-    metricLabel: 'avg score',
-    icon: <HeartPulse size={28} />,
-    iconClassName: 'report-showcase-icon-health',
-  },
-  {
-    id: 'sample-surveillance',
-    title: 'Disease Surveillance Report - Mar 2026',
-    metaLabel: '5 Apr 2026',
-    villageCountLabel: '847 villages',
-    metricValue: '30',
-    metricLabel: 'day review',
-    icon: <FileText size={28} />,
-    iconClassName: 'report-showcase-icon-surveillance',
-  },
-  {
-    id: 'sample-annual-2025',
-    title: 'Annual Water Safety Report 2025',
-    metaLabel: '15 Jan 2026',
-    villageCountLabel: '812 villages',
-    metricValue: '81.2',
-    metricLabel: 'avg score',
-    icon: <ShieldCheck size={28} />,
-    iconClassName: 'report-showcase-icon-annual',
-  },
-];
-
 export const ReportsPage = () => {
   const { isAuthenticated, user } = useAuth();
   const { activeVillageId, setActiveVillageId } = usePreferences();
@@ -104,6 +41,8 @@ export const ReportsPage = () => {
     enabled: isAuthenticated,
     staleTime: 300_000,
   });
+
+  const canAccess = user?.role === 'admin' || user?.role === 'health_worker';
 
   useEffect(() => {
     if (!activeVillageId && villagesQuery.data?.length) {
@@ -118,7 +57,12 @@ export const ReportsPage = () => {
     staleTime: 60_000,
   });
 
-  const canAccess = user?.role === 'admin' || user?.role === 'health_worker';
+  const reportActivityQuery = useQuery({
+    queryKey: ['report-activity'],
+    queryFn: () => reportService.listActivity(20),
+    enabled: isAuthenticated && canAccess,
+    staleTime: 30_000,
+  });
   const villageCount = villagesQuery.data?.length ?? 0;
   const qualityScore = dashboardQuery.data?.latest_sensor.quality_score;
   const riskScore = dashboardQuery.data?.risk.score;
@@ -172,20 +116,6 @@ export const ReportsPage = () => {
     setShareLink(upload.download_url);
     window.open(upload.download_url, '_blank', 'noopener,noreferrer');
     toast.success('Secure report link created.');
-  };
-
-  const openSampleReport = async (title: string) => {
-    if (denyIfUnauthorized()) return;
-    const blob = await reportService.downloadPdf(activeVillageId!);
-    openBlob(blob);
-    toast.success(`${title} opened.`);
-  };
-
-  const downloadSampleReport = async (title: string, slug: string) => {
-    if (denyIfUnauthorized()) return;
-    const blob = await reportService.downloadPdf(activeVillageId!);
-    saveBlob(blob, `jalert-${activeVillageId}-${slug}.pdf`);
-    toast.success(`${title} downloaded.`);
   };
 
   const reportCards = [
@@ -338,30 +268,39 @@ export const ReportsPage = () => {
 
           <section className="section content-card report-section-heading">
             <div>
-              <div className="eyebrow">Sample reports</div>
-              <h2>Preview the report library layout</h2>
+              <div className="eyebrow">Recent report activity</div>
+              <h2>Real export and sharing history</h2>
               <p className="section-subtitle">
-                These sample cards mirror the monthly and annual report styles your team can publish from the portal.
+                These entries are drawn from live report actions instead of sample placeholders.
               </p>
             </div>
           </section>
 
-          <section className="section report-showcase-grid report-sample-grid">
-            {sampleReportLibrary.map((card) => (
-              <ReportDownloadCard
-                key={card.id}
-                icon={card.icon}
-                iconClassName={card.iconClassName}
-                title={card.title}
-                metaLabel={card.metaLabel}
-                villageCountLabel={card.villageCountLabel}
-                metricValue={card.metricValue}
-                metricLabel={card.metricLabel}
-                onDownload={() => void downloadSampleReport(card.title, card.id)}
-                onView={() => void openSampleReport(card.title)}
-                disabled={!activeVillageId}
-              />
-            ))}
+          <section className="section stack">
+            {reportActivityQuery.data?.length ? (
+              reportActivityQuery.data.map((item) => (
+                <article key={item.id} className="content-card">
+                  <div className="inline-between">
+                    <div>
+                      <h3>{item.action}</h3>
+                      <p className="section-subtitle">{item.user_name || item.user_email || 'System action'}</p>
+                    </div>
+                    <span className="status-badge neutral">{item.created_at.slice(0, 10)}</span>
+                  </div>
+                  <div className="meta-row">
+                    <span>{String(item.detail?.format || 'report')}</span>
+                    {item.detail?.days ? <span>{String(item.detail.days)} day window</span> : null}
+                    {item.detail?.village_id ? <span>Village {String(item.detail.village_id)}</span> : null}
+                  </div>
+                </article>
+              ))
+            ) : (
+              <div className="content-card">
+                <p className="section-subtitle">
+                  No report generation history is available yet. Export or share a report to build the live activity log.
+                </p>
+              </div>
+            )}
           </section>
         </>
       )}

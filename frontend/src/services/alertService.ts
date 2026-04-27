@@ -17,8 +17,26 @@ export const alertService = {
     const { data } = await http.post<Alert>('/alerts/manual', payload);
     return data;
   },
-  async resolve(alertId: string) {
-    const { data } = await http.patch<Alert>(`/alerts/${alertId}/resolve`);
+  async acknowledge(alertId: string, note?: string) {
+    const { data } = await http.patch<Alert>(`/alerts/${alertId}/acknowledge`, { note });
+    return data;
+  },
+  async assign(alertId: string, assigned_to_user_id: string, note?: string) {
+    const { data } = await http.patch<Alert>(`/alerts/${alertId}/assign`, {
+      assigned_to_user_id,
+      note,
+    });
+    return data;
+  },
+  async escalate(alertId: string, escalation_level: number, reason: string) {
+    const { data } = await http.patch<Alert>(`/alerts/${alertId}/escalate`, {
+      escalation_level,
+      reason,
+    });
+    return data;
+  },
+  async resolve(alertId: string, resolution_note?: string) {
+    const { data } = await http.patch<Alert>(`/alerts/${alertId}/resolve`, { resolution_note });
     return data;
   },
 };

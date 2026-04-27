@@ -1,9 +1,11 @@
 # JALERT routers package
 from app.routers import (
+    admin,
     alerts,
     auth,
     health,
     ml_training,
+    notifications,
     predictions,
     reports,
     sensors,
@@ -16,8 +18,10 @@ from app.routers import (
 
 __all__ = [
     "auth",
+    "admin",
     "sensors",
     "alerts",
+    "notifications",
     "predictions",
     "health",
     "reports",

@@ -1,62 +1,48 @@
-const ASSISTANT_ROBOT_EMBED =
-  'https://sketchfab.com/models/5e7f4e8f7cee4df58bd5759d83d3b509/embed?autostart=1&ui_controls=0&ui_infos=0&ui_stop=0&ui_watermark=0&ui_watermark_link=0&dnt=1';
-const ASSISTANT_ROBOT_THUMBNAIL =
-  'https://media.sketchfab.com/models/5e7f4e8f7cee4df58bd5759d83d3b509/thumbnails/5119dc1b3d0b4759801c6a7a360485c8/59b33432540d4c908130743830cb6da9.jpeg';
-const ASSISTANT_ROBOT_MODEL_URL =
-  'https://sketchfab.com/3d-models/cute-robot-5e7f4e8f7cee4df58bd5759d83d3b509';
+import { Suspense, lazy } from 'react';
+
+import type { AssistantRobotSize } from './AssistantRobotScene';
 
 type AssistantRobotProps = {
-  size?: 'sm' | 'md' | 'lg';
+  size?: AssistantRobotSize;
   showCredit?: boolean;
   className?: string;
+  mode?: 'auto' | 'animated' | 'still';
 };
+
+const AssistantRobotScene = lazy(() =>
+  import('./AssistantRobotScene').then((module) => ({ default: module.AssistantRobotScene })),
+);
+
+const RobotFallback = ({ size }: { size: AssistantRobotSize }) => (
+  <div className={`assistant-robot-fallback assistant-robot-fallback-${size}`} aria-hidden="true">
+    <div className="assistant-robot-fallback-head">
+      <span />
+      <span />
+    </div>
+    <div className="assistant-robot-fallback-body">
+      <div className="assistant-robot-fallback-core" />
+    </div>
+  </div>
+);
 
 export const AssistantRobot = ({
   size = 'md',
   showCredit = false,
   className = '',
+  mode = 'auto',
 }: AssistantRobotProps) => {
-  const useThumbnail = size === 'sm' || size === 'md';
+  const isAnimated = mode === 'animated' || (mode === 'auto' && size !== 'sm');
 
   return (
     <div className={`assistant-robot assistant-robot-${size} ${className}`.trim()}>
-      {useThumbnail ? (
-        <a
-          href={ASSISTANT_ROBOT_MODEL_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="assistant-robot-link"
-          aria-label="Open the Cute robot model on Sketchfab"
-        >
-          <img
-            src={ASSISTANT_ROBOT_THUMBNAIL}
-            alt="Cute robot assistant"
-            className="assistant-robot-frame assistant-robot-image"
-            loading="lazy"
-          />
-        </a>
-      ) : (
-        <iframe
-          title="Cute robot assistant"
-          className="assistant-robot-frame"
-          frameBorder="0"
-          allowFullScreen
-          allow="autoplay; fullscreen; xr-spatial-tracking"
-          loading="lazy"
-          src={ASSISTANT_ROBOT_EMBED}
-        />
-      )}
+      <div className="assistant-robot-frame" aria-hidden="true">
+        <Suspense fallback={<RobotFallback size={size} />}>
+          <AssistantRobotScene size={size} animated={isAnimated} />
+        </Suspense>
+      </div>
+
       {showCredit ? (
-        <p className="assistant-robot-credit">
-          Model:{' '}
-          <a href={ASSISTANT_ROBOT_MODEL_URL} target="_blank" rel="noreferrer">
-            Cute robot
-          </a>{' '}
-          by{' '}
-          <a href="https://sketchfab.com/korvanastudio" target="_blank" rel="noreferrer">
-            Korvana Studio
-          </a>
-        </p>
+        <p className="assistant-robot-credit">Local 3D assistant presence</p>
       ) : null}
     </div>
   );

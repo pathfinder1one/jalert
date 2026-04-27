@@ -72,6 +72,20 @@ class CitizenRequestStatus(str, enum.Enum):
     RESOLVED = "resolved"
 
 
+class NotificationChannel(str, enum.Enum):
+    IN_APP = "in_app"
+    EMAIL = "email"
+    SMS = "sms"
+    VOICE = "voice"
+
+
+class NotificationDeliveryStatus(str, enum.Enum):
+    QUEUED = "queued"
+    SENT = "sent"
+    FAILED = "failed"
+    READ = "read"
+
+
 # ── Models ────────────────────────────────────────────────────────────────────
 
 class User(Base):
@@ -100,6 +114,23 @@ class User(Base):
     )
     audit_logs: Mapped[List["AuditLog"]] = relationship(back_populates="user")
     citizen_requests: Mapped[List["CitizenRequest"]] = relationship(back_populates="user")
+    preferences: Mapped[Optional["UserPreference"]] = relationship(
+        back_populates="user",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )
+    notifications: Mapped[List["Notification"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
+    acknowledged_alert_incidents: Mapped[List["AlertIncident"]] = relationship(
+        back_populates="acknowledged_by_user",
+        foreign_keys="AlertIncident.acknowledged_by_id",
+    )
+    assigned_alert_incidents: Mapped[List["AlertIncident"]] = relationship(
+        back_populates="assigned_to_user",
+        foreign_keys="AlertIncident.assigned_to_user_id",
+    )
 
 
 class Village(Base):
@@ -210,11 +241,87 @@ class Alert(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
     village: Mapped["Village"] = relationship(back_populates="alerts")
+    incident: Mapped[Optional["AlertIncident"]] = relationship(
+        back_populates="alert",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )
+    notifications: Mapped[List["Notification"]] = relationship(back_populates="alert")
 
     __table_args__ = (
         Index("ix_alert_village_severity", "village_id", "severity"),
         Index("ix_alert_status", "status"),
         Index("ix_alert_created", "created_at"),
+    )
+
+    @property
+    def assigned_to_user_id(self) -> Optional[str]:
+        return self.incident.assigned_to_user_id if self.incident else None
+
+    @property
+    def assigned_to_name(self) -> Optional[str]:
+        if self.incident and self.incident.assigned_to_user:
+            return self.incident.assigned_to_user.name
+        return None
+
+    @property
+    def acknowledged_by_id(self) -> Optional[str]:
+        return self.incident.acknowledged_by_id if self.incident else None
+
+    @property
+    def acknowledged_by_name(self) -> Optional[str]:
+        if self.incident and self.incident.acknowledged_by_user:
+            return self.incident.acknowledged_by_user.name
+        return None
+
+    @property
+    def acknowledged_at(self) -> Optional[datetime]:
+        return self.incident.acknowledged_at if self.incident else None
+
+    @property
+    def escalated_at(self) -> Optional[datetime]:
+        return self.incident.escalated_at if self.incident else None
+
+    @property
+    def escalation_level(self) -> int:
+        return self.incident.escalation_level if self.incident else 0
+
+    @property
+    def escalation_reason(self) -> Optional[str]:
+        return self.incident.escalation_reason if self.incident else None
+
+    @property
+    def resolution_note(self) -> Optional[str]:
+        return self.incident.resolution_note if self.incident else None
+
+
+class AlertIncident(Base):
+    __tablename__ = "alert_incidents"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    alert_id: Mapped[str] = mapped_column(ForeignKey("alerts.id"), unique=True, nullable=False)
+    assigned_to_user_id: Mapped[Optional[str]] = mapped_column(ForeignKey("users.id"))
+    acknowledged_by_id: Mapped[Optional[str]] = mapped_column(ForeignKey("users.id"))
+    acknowledged_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
+    escalated_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
+    escalation_level: Mapped[int] = mapped_column(Integer, default=0)
+    escalation_reason: Mapped[Optional[str]] = mapped_column(Text)
+    resolution_note: Mapped[Optional[str]] = mapped_column(Text)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    alert: Mapped["Alert"] = relationship(back_populates="incident")
+    assigned_to_user: Mapped[Optional["User"]] = relationship(
+        back_populates="assigned_alert_incidents",
+        foreign_keys=[assigned_to_user_id],
+    )
+    acknowledged_by_user: Mapped[Optional["User"]] = relationship(
+        back_populates="acknowledged_alert_incidents",
+        foreign_keys=[acknowledged_by_id],
+    )
+
+    __table_args__ = (
+        Index("ix_alert_incident_alert", "alert_id"),
+        Index("ix_alert_incident_assigned", "assigned_to_user_id"),
     )
 
 
@@ -296,6 +403,71 @@ class AuditLog(Base):
         Index("ix_audit_user", "user_id"),
         Index("ix_audit_action", "action"),
         Index("ix_audit_time", "created_at"),
+    )
+
+    @property
+    def user_name(self) -> Optional[str]:
+        return self.user.name if self.user else None
+
+    @property
+    def user_email(self) -> Optional[str]:
+        return self.user.email if self.user else None
+
+
+class UserPreference(Base):
+    __tablename__ = "user_preferences"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), unique=True, nullable=False)
+    language: Mapped[str] = mapped_column(String(5), default="en")
+    comfort_mode: Mapped[bool] = mapped_column(Boolean, default=False)
+    field_mode: Mapped[bool] = mapped_column(Boolean, default=False)
+    accessibility_mode: Mapped[bool] = mapped_column(Boolean, default=False)
+    active_village_id: Mapped[Optional[str]] = mapped_column(ForeignKey("villages.id"))
+    saved_village_ids: Mapped[Optional[list]] = mapped_column(JSON, default=list)
+    email_notifications: Mapped[bool] = mapped_column(Boolean, default=True)
+    sms_notifications: Mapped[bool] = mapped_column(Boolean, default=True)
+    voice_notifications: Mapped[bool] = mapped_column(Boolean, default=False)
+    daily_summary_enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    user: Mapped["User"] = relationship(back_populates="preferences")
+
+    __table_args__ = (
+        Index("ix_user_preference_user", "user_id"),
+    )
+
+
+class Notification(Base):
+    __tablename__ = "notifications"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), nullable=False)
+    village_id: Mapped[Optional[str]] = mapped_column(ForeignKey("villages.id"))
+    alert_id: Mapped[Optional[str]] = mapped_column(ForeignKey("alerts.id"))
+    kind: Mapped[str] = mapped_column(String(100), nullable=False)
+    channel: Mapped[NotificationChannel] = mapped_column(Enum(NotificationChannel), default=NotificationChannel.IN_APP)
+    severity: Mapped[Optional[AlertSeverity]] = mapped_column(Enum(AlertSeverity))
+    title: Mapped[str] = mapped_column(String(255), nullable=False)
+    message: Mapped[str] = mapped_column(Text, nullable=False)
+    link: Mapped[Optional[str]] = mapped_column(String(255))
+    delivery_status: Mapped[NotificationDeliveryStatus] = mapped_column(
+        Enum(NotificationDeliveryStatus),
+        default=NotificationDeliveryStatus.QUEUED,
+    )
+    is_read: Mapped[bool] = mapped_column(Boolean, default=False)
+    read_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
+    data: Mapped[Optional[dict]] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    user: Mapped["User"] = relationship(back_populates="notifications")
+    alert: Mapped[Optional["Alert"]] = relationship(back_populates="notifications")
+
+    __table_args__ = (
+        Index("ix_notification_user_created", "user_id", "created_at"),
+        Index("ix_notification_user_read", "user_id", "is_read"),
+        Index("ix_notification_alert", "alert_id"),
     )
 
 

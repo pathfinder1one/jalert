@@ -1,6 +1,6 @@
 """
 JALERT - Alerts Router
-Alert management, manual triggers, resolution
+Alert management, incident workflow, manual triggers, and resolution.
 """
 from typing import List
 from fastapi import APIRouter, Depends, status
@@ -8,7 +8,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.security import require_health_worker, require_any, get_current_user
-from app.schemas.schemas import AlertCreate, AlertOut, AlertFilter
+from app.schemas.schemas import (
+    AlertAcknowledgeUpdate,
+    AlertAssignUpdate,
+    AlertCreate,
+    AlertEscalateUpdate,
+    AlertFilter,
+    AlertOut,
+    AlertResolveUpdate,
+)
 from app.services.alert_service import AlertService
 from app.models.user import User
 
@@ -52,8 +60,64 @@ async def trigger_manual_alert(
 @router.patch("/{alert_id}/resolve", response_model=AlertOut)
 async def resolve_alert(
     alert_id: str,
+    payload: AlertResolveUpdate,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(require_health_worker),
 ):
     """Resolve an active alert"""
-    return await AlertService.resolve_alert(alert_id, current_user.id, db)
+    return await AlertService.resolve_alert(
+        alert_id,
+        current_user.id,
+        db,
+        resolution_note=payload.resolution_note,
+    )
+
+
+@router.patch("/{alert_id}/acknowledge", response_model=AlertOut)
+async def acknowledge_alert(
+    alert_id: str,
+    payload: AlertAcknowledgeUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_health_worker),
+):
+    """Acknowledge an active alert and attach an optional note."""
+    return await AlertService.acknowledge_alert(
+        alert_id,
+        current_user.id,
+        payload.note,
+        db,
+    )
+
+
+@router.patch("/{alert_id}/assign", response_model=AlertOut)
+async def assign_alert(
+    alert_id: str,
+    payload: AlertAssignUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_health_worker),
+):
+    """Assign an alert to a responder."""
+    return await AlertService.assign_alert(
+        alert_id,
+        payload.assigned_to_user_id,
+        current_user.id,
+        payload.note,
+        db,
+    )
+
+
+@router.patch("/{alert_id}/escalate", response_model=AlertOut)
+async def escalate_alert(
+    alert_id: str,
+    payload: AlertEscalateUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_health_worker),
+):
+    """Escalate an alert with a reason and numeric level."""
+    return await AlertService.escalate_alert(
+        alert_id,
+        payload.escalation_level,
+        payload.reason,
+        current_user.id,
+        db,
+    )

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronDown, LogIn, LogOut, ShieldCheck, UserPlus, UserRound } from 'lucide-react';
+import { Bell, ChevronDown, LogIn, LogOut, ShieldCheck, UserPlus, UserRound } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 
@@ -56,6 +56,10 @@ export const ProfileDropdown = () => {
             </>
           ) : (
             <>
+              <Link to="/notifications" onClick={() => setIsOpen(false)}>
+                Notifications
+                <Bell size={16} />
+              </Link>
               {user?.role === 'admin' ? (
                 <Link to="/admin-portal" onClick={() => setIsOpen(false)}>
                   Admin portal

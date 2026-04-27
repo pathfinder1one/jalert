@@ -1,5 +1,5 @@
 import { http } from './http';
-import type { ReportUploadResponse } from '../types/api';
+import type { AuditLog, ReportUploadResponse } from '../types/api';
 
 export const reportService = {
   async downloadPdf(villageId: string) {
@@ -17,6 +17,12 @@ export const reportService = {
   },
   async uploadPdf(villageId: string) {
     const { data } = await http.post<ReportUploadResponse>(`/reports/${villageId}/pdf/upload`);
+    return data;
+  },
+  async listActivity(limit = 20) {
+    const { data } = await http.get<AuditLog[]>('/reports/activity', {
+      params: { limit },
+    });
     return data;
   },
 };

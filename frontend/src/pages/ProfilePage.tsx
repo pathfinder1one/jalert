@@ -1,4 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   Bell,
   CalendarDays,
@@ -12,11 +13,13 @@ import {
   Waves,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { EmptyState } from '../components/EmptyState';
 import { StatCard } from '../components/StatCard';
 import { StatusBadge } from '../components/StatusBadge';
 import { useAuth } from '../context/AuthContext';
 import { usePreferences } from '../context/PreferencesContext';
+import { authService } from '../services/authService';
 import { alertService } from '../services/alertService';
 import { predictionService } from '../services/predictionService';
 import { villageService } from '../services/villageService';
@@ -39,7 +42,7 @@ const LANGUAGE_OPTIONS = [
 ] as const;
 
 export const ProfilePage = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, refreshProfile } = useAuth();
   const {
     comfortMode,
     toggleComfortMode,
@@ -51,7 +54,24 @@ export const ProfilePage = () => {
     activeVillageId,
     language,
     setLanguage,
+    emailNotifications,
+    toggleEmailNotifications,
+    smsNotifications,
+    toggleSmsNotifications,
+    voiceNotifications,
+    toggleVoiceNotifications,
+    dailySummaryEnabled,
+    toggleDailySummaryEnabled,
   } = usePreferences();
+  const [name, setName] = useState(user?.name ?? '');
+  const [phone, setPhone] = useState(user?.phone ?? '');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+
+  useEffect(() => {
+    setName(user?.name ?? '');
+    setPhone(user?.phone ?? '');
+  }, [user?.name, user?.phone]);
 
   const villagesQuery = useQuery({
     queryKey: ['villages-profile'],
@@ -97,6 +117,38 @@ export const ProfilePage = () => {
   const currentVillageLabel = activeVillage
     ? `${activeVillage.name}, ${activeVillage.district}, ${activeVillage.state}`
     : 'No village selected yet';
+
+  const profileMutation = useMutation({
+    mutationFn: async () =>
+      authService.updateProfile({
+        name,
+        phone: phone || null,
+        preferred_language: language,
+      }),
+    onSuccess: async () => {
+      await refreshProfile();
+      toast.success('Profile updated.');
+    },
+    onError: () => {
+      toast.error('Profile could not be updated.');
+    },
+  });
+
+  const passwordMutation = useMutation({
+    mutationFn: async () =>
+      authService.changePassword({
+        current_password: currentPassword,
+        new_password: newPassword,
+      }),
+    onSuccess: () => {
+      setCurrentPassword('');
+      setNewPassword('');
+      toast.success('Password changed.');
+    },
+    onError: () => {
+      toast.error('Password change failed.');
+    },
+  });
 
   return (
     <div className="profile-page">
@@ -227,6 +279,17 @@ export const ProfilePage = () => {
           </div>
 
           <div className="profile-pref-stack">
+            <div className="form-grid two">
+              <div className="field">
+                <label htmlFor="profile-name">Full name</label>
+                <input id="profile-name" value={name} onChange={(event) => setName(event.target.value)} />
+              </div>
+              <div className="field">
+                <label htmlFor="profile-phone">Phone</label>
+                <input id="profile-phone" value={phone} onChange={(event) => setPhone(event.target.value)} />
+              </div>
+            </div>
+
             <div className="profile-pref-row">
               <div className="profile-pref-copy">
                 <span className="profile-pref-label">
@@ -242,6 +305,16 @@ export const ProfilePage = () => {
                   </option>
                 ))}
               </select>
+            </div>
+            <div className="helper-row">
+              <button
+                type="button"
+                className="primary-button"
+                onClick={() => profileMutation.mutate()}
+                disabled={profileMutation.isPending || !name.trim()}
+              >
+                Save profile
+              </button>
             </div>
 
             <div className="profile-pref-row">
@@ -301,8 +374,76 @@ export const ProfilePage = () => {
                   <Bell size={18} />
                   Notifications
                 </span>
-                <p className="subtle">Live website alerts stay enabled for the village currently linked to your profile.</p>
+                <p className="subtle">These settings now sync with your account and delivery preferences.</p>
               </div>
+            </div>
+
+            <div className="profile-pref-row">
+              <div className="profile-pref-copy">
+                <span className="profile-pref-label">
+                  <Bell size={18} />
+                  Email alerts
+                </span>
+                <p className="subtle">Receive account-level summary notifications by email when available.</p>
+              </div>
+              <button
+                type="button"
+                className={`profile-toggle ${emailNotifications ? 'active' : ''}`}
+                onClick={toggleEmailNotifications}
+              >
+                {emailNotifications ? 'On' : 'Off'}
+              </button>
+            </div>
+
+            <div className="profile-pref-row">
+              <div className="profile-pref-copy">
+                <span className="profile-pref-label">
+                  <Bell size={18} />
+                  SMS alerts
+                </span>
+                <p className="subtle">Use SMS for high-severity warnings when field connectivity is mixed.</p>
+              </div>
+              <button
+                type="button"
+                className={`profile-toggle ${smsNotifications ? 'active' : ''}`}
+                onClick={toggleSmsNotifications}
+              >
+                {smsNotifications ? 'On' : 'Off'}
+              </button>
+            </div>
+
+            <div className="profile-pref-row">
+              <div className="profile-pref-copy">
+                <span className="profile-pref-label">
+                  <Bell size={18} />
+                  Voice alerts
+                </span>
+                <p className="subtle">Critical alerts can trigger voice-call delivery for urgent outreach.</p>
+              </div>
+              <button
+                type="button"
+                className={`profile-toggle ${voiceNotifications ? 'active' : ''}`}
+                onClick={toggleVoiceNotifications}
+              >
+                {voiceNotifications ? 'On' : 'Off'}
+              </button>
+            </div>
+
+            <div className="profile-pref-row">
+              <div className="profile-pref-copy">
+                <span className="profile-pref-label">
+                  <Bell size={18} />
+                  Daily summary
+                </span>
+                <p className="subtle">Keep a short in-app daily operations summary ready each morning.</p>
+              </div>
+              <button
+                type="button"
+                className={`profile-toggle ${dailySummaryEnabled ? 'active' : ''}`}
+                onClick={toggleDailySummaryEnabled}
+              >
+                {dailySummaryEnabled ? 'On' : 'Off'}
+              </button>
             </div>
           </div>
         </article>
@@ -329,11 +470,11 @@ export const ProfilePage = () => {
                         {village.id === activeVillage?.id ? 'Current' : 'Saved'}
                       </span>
                     </div>
-                    <Link className="ghost-button" to="/village-status">
-                      Open village
-                    </Link>
-                  </article>
-                ))}
+                  <Link className="ghost-button" to="/village-status">
+                    Open village
+                  </Link>
+                </article>
+              ))}
               </div>
             ) : (
               <EmptyState
@@ -355,12 +496,54 @@ export const ProfilePage = () => {
               <Link className="secondary-button" to="/village-status">
                 Open village dashboard
               </Link>
+              <Link className="ghost-button" to="/notifications">
+                Notification inbox
+              </Link>
               <Link className="ghost-button" to="/alerts">
                 View alerts
               </Link>
               <button type="button" className="ghost-button profile-logout-button" onClick={() => logout()}>
                 <LogOut size={16} />
                 Logout
+              </button>
+            </div>
+          </article>
+
+          <article className="content-card">
+            <div className="profile-section-head">
+              <div>
+                <h2>Security</h2>
+                <p className="section-subtitle">Change your password and keep the account ready for shared devices.</p>
+              </div>
+            </div>
+            <div className="form-grid two">
+              <div className="field">
+                <label htmlFor="current-password">Current password</label>
+                <input
+                  id="current-password"
+                  type="password"
+                  value={currentPassword}
+                  onChange={(event) => setCurrentPassword(event.target.value)}
+                />
+              </div>
+              <div className="field">
+                <label htmlFor="new-password">New password</label>
+                <input
+                  id="new-password"
+                  type="password"
+                  value={newPassword}
+                  onChange={(event) => setNewPassword(event.target.value)}
+                />
+              </div>
+            </div>
+            <div className="helper-row">
+              <button
+                type="button"
+                className="primary-button"
+                onClick={() => passwordMutation.mutate()}
+                disabled={passwordMutation.isPending || newPassword.length < 8 || currentPassword.length < 8}
+              >
+                Change password
               </button>
             </div>
           </article>

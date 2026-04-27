@@ -40,6 +40,7 @@ def _label_water_quality(row) -> int:
 
 @router.post("/train/water-quality")
 async def train_water_quality_model(
+    allow_synthetic_fallback: bool = False,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(require_admin),
 ):
@@ -58,7 +59,15 @@ async def train_water_quality_model(
     readings = result.scalars().all()
 
     if len(readings) < 100:
-        # Generate synthetic training data if real data is insufficient
+        if not allow_synthetic_fallback:
+            raise HTTPException(
+                status_code=409,
+                detail=(
+                    "Not enough trusted water-quality training data is available yet. "
+                    "Load official datasets or retry with allow_synthetic_fallback=true."
+                ),
+            )
+        # Generate synthetic training data only when explicitly requested
         np.random.seed(42)
         n = 2000
         data = {
@@ -90,6 +99,7 @@ async def train_water_quality_model(
 
 @router.post("/train/disease-outbreak")
 async def train_disease_model(
+    allow_synthetic_fallback: bool = False,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(require_admin),
 ):
@@ -100,7 +110,16 @@ async def train_disease_model(
         result = disease_outbreak_model.train(df, y)
         return {"status": "trained", **metadata, **result}
 
-    # Synthetic training data (replace with Kaggle dataset in production)
+    if not allow_synthetic_fallback:
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                "No trusted disease-training dataset is available yet. "
+                "Load official datasets or retry with allow_synthetic_fallback=true."
+            ),
+        )
+
+    # Synthetic training data is available only as an explicit fallback mode.
     np.random.seed(42)
     n = 3000
     data = {

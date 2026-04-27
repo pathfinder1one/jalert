@@ -1,10 +1,9 @@
 import { Activity, MapPinned, Send, ShieldCheck, Sparkles, User, Waves } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 import { AssistantRobot } from '../components/AssistantRobot';
-import { PageHero } from '../components/PageHero';
-import { imagery } from '../assets/imagery';
 import { LoginPrompt } from '../components/LoginPrompt';
 import { useAuth } from '../context/AuthContext';
 import { usePreferences } from '../context/PreferencesContext';
@@ -142,69 +141,74 @@ export const AssistantPage = () => {
 
   return (
     <>
-      <PageHero
-        eyebrow="JALERT AI Hub"
-        title="Your dedicated village assistant"
-        subtitle="Powered by live village data, with local AI responses when the configured model is available."
-        image={imagery.report}
-        badges={['Natural language Q&A', 'Live village context', 'Water and alert insights', 'Multilingual support']}
-        primaryLabel="Open fullscreen chat"
-        primaryTo="/chat"
-        secondaryLabel="Open village status"
-        secondaryTo="/village-status"
-        statItems={[
-          { label: 'Village', value: activeVillageId ? 'Linked' : 'Needed' },
-          { label: 'Mode', value: responseModeLabel },
-          { label: 'Turns', value: String(conversationTurnCount) },
-        ]}
-      />
-
       {!isAuthenticated ? (
         <section className="section">
           <LoginPrompt />
         </section>
       ) : (
-        <section className="section">
+        <section className="section assistant-page-shell">
           <div className="assistant-workspace">
             <div className="content-card assistant-chat-shell">
               <div className="assistant-chat-hero">
                 <div className="assistant-chat-hero-main">
-                  <div className="assistant-chat-avatar-stack">
-                    <AssistantRobot size="md" showCredit />
-                    <div className="assistant-chat-presence">
-                      <span className="assistant-status-dot" />
-                      Monitoring live village signals
+                  <div className="assistant-chat-copy assistant-chat-copy-compact">
+                    <div className="assistant-chat-topbar">
+                      <p className="assistant-chat-kicker">JALERT AI desk</p>
+                      <div className="assistant-chat-presence">
+                        <span className="assistant-status-dot" />
+                        Monitoring live village signals
+                      </div>
                     </div>
+
+                    <h1 className="assistant-chat-title">Village assistant</h1>
+                    <p className="assistant-chat-lede">
+                      Ask about water contamination, outbreaks, recent alerts, and practical next
+                      steps with village context already attached.
+                    </p>
                   </div>
 
-                  <div className="assistant-chat-copy">
-                    <p className="assistant-chat-kicker">AI field desk</p>
-                    <h2>JALERT Robot Assistant</h2>
-                    <p className="assistant-chat-lede">
-                      Ask about water safety, disease signals, recent alerts, and next actions. This
-                      workspace is tuned for fast village-level decisions instead of generic chatbot
-                      replies.
-                    </p>
-
-                    <div className="assistant-chat-pill-row">
-                      <span className="assistant-chat-pill">
-                        <MapPinned size={16} />
-                        {activeVillageId ? 'Village context linked' : 'Choose a village for grounded answers'}
-                      </span>
-                      <span className="assistant-chat-pill">
-                        <Sparkles size={16} />
-                        {responseModeLabel} responses
-                      </span>
-                      <span className="assistant-chat-pill">
-                        <ShieldCheck size={16} />
-                        Water and health safe-ops support
-                      </span>
-                    </div>
+                  <div className="assistant-chat-side-actions">
+                    <Link to="/village-status" className="assistant-chat-action-link">
+                      Open village status
+                    </Link>
+                    <Link to="/feature-center" className="assistant-chat-action-link ghost">
+                      Explore tools
+                    </Link>
                   </div>
                 </div>
 
+                <div className="assistant-chat-summary-row">
+                  <div className="assistant-chat-summary-card">
+                    <span>Village</span>
+                    <strong>{activeVillageId ? 'Linked' : 'Needed'}</strong>
+                  </div>
+                  <div className="assistant-chat-summary-card">
+                    <span>Mode</span>
+                    <strong>{responseModeLabel}</strong>
+                  </div>
+                  <div className="assistant-chat-summary-card">
+                    <span>Role</span>
+                    <strong>{roleLabel}</strong>
+                  </div>
+                </div>
+
+                <div className="assistant-chat-pill-row">
+                  <span className="assistant-chat-pill">
+                    <MapPinned size={16} />
+                    {activeVillageId ? 'Village context linked' : 'Choose a village for grounded answers'}
+                  </span>
+                  <span className="assistant-chat-pill">
+                    <Sparkles size={16} />
+                    {responseModeLabel} responses
+                  </span>
+                  <span className="assistant-chat-pill">
+                    <ShieldCheck size={16} />
+                    Water and health safe-ops support
+                  </span>
+                </div>
+
                 <div className="assistant-prompt-strip">
-                  <span className="assistant-prompt-strip-label">Try a sharper ask</span>
+                  <span className="assistant-prompt-strip-label">Start with one of these</span>
                   <div className="assistant-prompt-list">
                     {quickPrompts.map((item) => (
                       <button
@@ -224,14 +228,14 @@ export const AssistantPage = () => {
                 {history.map((msg) => (
                   <article
                     key={msg.id}
-                    className={`assistant-bubble-row ${msg.role === 'user' ? 'is-user' : 'is-assistant'}`}
+                    className={`assistant-bubble-row ${msg.role === 'user' ? 'is-user' : 'is-assistant'} ${msg.id === 'greeting' ? 'is-welcome' : ''}`}
                   >
                     {msg.role === 'user' ? (
                       <div className="assistant-user-avatar">
                         <User size={18} />
                       </div>
                     ) : (
-                      <AssistantRobot size="sm" className="assistant-message-avatar" />
+                      <AssistantRobot size="sm" mode="still" className="assistant-message-avatar" />
                     )}
 
                     <div className="assistant-message-bubble">
@@ -249,7 +253,7 @@ export const AssistantPage = () => {
 
                 {isThinking ? (
                   <article className="assistant-bubble-row is-assistant">
-                    <AssistantRobot size="sm" className="assistant-message-avatar" />
+                    <AssistantRobot size="sm" mode="still" className="assistant-message-avatar" />
                     <div className="assistant-message-bubble assistant-thinking-bubble">
                       <div className="assistant-message-meta">
                         <span>JALERT assistant</span>
@@ -294,26 +298,16 @@ export const AssistantPage = () => {
 
             <aside className="assistant-sidebar">
               <div className="content-card assistant-sidebar-card assistant-sidebar-spotlight">
-                <p className="assistant-sidebar-eyebrow">Village context</p>
-                <h3>Designed for fast field answers</h3>
+                <p className="assistant-sidebar-eyebrow">Ask better</p>
+                <h3>Make the question specific</h3>
                 <p className="assistant-sidebar-copy">
-                  The assistant works best when your question includes a timeframe, a location, and a
-                  signal such as water source, symptoms, or alert type.
+                  The best answers include a timeframe, a location, and the signal you care about.
                 </p>
-                <div className="assistant-mini-metrics">
-                  <div className="assistant-mini-card">
-                    <span>Village</span>
-                    <strong>{activeVillageId ? 'Linked' : 'Needed'}</strong>
-                  </div>
-                  <div className="assistant-mini-card">
-                    <span>Role</span>
-                    <strong>{roleLabel}</strong>
-                  </div>
-                  <div className="assistant-mini-card">
-                    <span>Turns</span>
-                    <strong>{conversationTurnCount || 'New'}</strong>
-                  </div>
-                </div>
+                <ul className="assistant-tip-list">
+                  <li>Say when: today, last 7 days, this monsoon, or this week.</li>
+                  <li>Say where: village, ward, source, or health area.</li>
+                  <li>Say what: water quality, symptoms, alerts, or risk level.</li>
+                </ul>
               </div>
 
               <div className="content-card assistant-sidebar-card">
@@ -349,15 +343,6 @@ export const AssistantPage = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="content-card assistant-sidebar-card">
-                <p className="assistant-sidebar-eyebrow">Prompt tips</p>
-                <ul className="assistant-tip-list">
-                  <li>Mention a window like today, last 7 days, or this monsoon for sharper answers.</li>
-                  <li>Ask for next steps when you need action, not just a summary.</li>
-                  <li>Include the signal you care about: water source, symptoms, alert level, or village risk.</li>
-                </ul>
               </div>
             </aside>
           </div>

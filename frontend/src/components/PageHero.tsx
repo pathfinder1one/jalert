@@ -6,6 +6,8 @@ export const PageHero = ({
   title,
   subtitle,
   image,
+  imagePosition = 'center 30%',
+  overlay = 'default',
   primaryLabel,
   primaryTo,
   secondaryLabel,
@@ -16,6 +18,8 @@ export const PageHero = ({
   title: string;
   subtitle: string;
   image: string;
+  imagePosition?: string;
+  overlay?: 'default' | 'minimal';
   primaryLabel?: string;
   primaryTo?: string;
   secondaryLabel?: string;
@@ -24,10 +28,10 @@ export const PageHero = ({
   badges?: string[]; // kept for backward compat, no-op
   statItems?: { label: string; value: string }[];
 }) => (
-  <section className="page-hero-cinematic">
+  <section className={`page-hero-cinematic page-hero-cinematic--${overlay}`}>
     {/* Background image */}
     <div className="page-hero-bg">
-      <img src={image} alt={title} className="page-hero-bg-img" />
+      <img src={image} alt={title} className="page-hero-bg-img" style={{ objectPosition: imagePosition }} />
       <div className="page-hero-grad-left" />
       <div className="page-hero-grad-bottom" />
     </div>

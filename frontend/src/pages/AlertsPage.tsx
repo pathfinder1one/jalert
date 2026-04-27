@@ -12,9 +12,11 @@ import { PageHero } from '../components/PageHero';
 import { VillageSelector } from '../components/VillageSelector';
 import { useAuth } from '../context/AuthContext';
 import { usePreferences } from '../context/PreferencesContext';
+import { adminService } from '../services/adminService';
 import { alertService } from '../services/alertService';
 import { villageService } from '../services/villageService';
 import type { AlertStatus, AlertType, AlertSeverity } from '../types/api';
+import { sentenceCase } from '../utils/format';
 
 export const AlertsPage = () => {
   const { t } = useTranslation();
@@ -61,8 +63,43 @@ export const AlertsPage = () => {
     placeholderData: (previousData) => previousData,
   });
 
+  const teamMembersQuery = useQuery({
+    queryKey: ['alert-team-members'],
+    queryFn: () => adminService.listUsers(false),
+    enabled: isAuthenticated && user?.role === 'admin',
+    staleTime: 60_000,
+  });
+
+  const acknowledgeMutation = useMutation({
+    mutationFn: ({ alertId, note }: { alertId: string; note?: string }) =>
+      alertService.acknowledge(alertId, note),
+    onSuccess: () => {
+      toast.success('Alert acknowledged.');
+      void queryClient.invalidateQueries({ queryKey: ['alerts'] });
+    },
+  });
+
+  const assignMutation = useMutation({
+    mutationFn: ({ alertId, assignedToUserId, note }: { alertId: string; assignedToUserId: string; note?: string }) =>
+      alertService.assign(alertId, assignedToUserId, note),
+    onSuccess: () => {
+      toast.success('Alert assigned.');
+      void queryClient.invalidateQueries({ queryKey: ['alerts'] });
+    },
+  });
+
+  const escalateMutation = useMutation({
+    mutationFn: ({ alertId, level, reason }: { alertId: string; level: number; reason: string }) =>
+      alertService.escalate(alertId, level, reason),
+    onSuccess: () => {
+      toast.success('Alert escalated.');
+      void queryClient.invalidateQueries({ queryKey: ['alerts'] });
+    },
+  });
+
   const resolveMutation = useMutation({
-    mutationFn: (alertId: string) => alertService.resolve(alertId),
+    mutationFn: ({ alertId, resolutionNote }: { alertId: string; resolutionNote?: string }) =>
+      alertService.resolve(alertId, resolutionNote),
     onSuccess: () => {
       toast.success('Alert marked as resolved.');
       void queryClient.invalidateQueries({ queryKey: ['alerts'] });
@@ -90,6 +127,25 @@ export const AlertsPage = () => {
     () => user?.role === 'admin' || user?.role === 'health_worker',
     [user?.role],
   );
+
+  const assignmentOptions = useMemo(() => {
+    const options = [
+      ...(user ? [{ id: user.id, name: `${user.name} (Me)` }] : []),
+      ...((teamMembersQuery.data ?? [])
+        .filter((member) => member.is_active)
+        .filter((member) => !activeVillageId || !member.village_id || member.village_id === activeVillageId)
+        .map((member) => ({ id: member.id, name: `${member.name} (${sentenceCase(member.role)})` }))),
+    ];
+
+    const seen = new Set<string>();
+    return options.filter((option) => {
+      if (seen.has(option.id)) {
+        return false;
+      }
+      seen.add(option.id);
+      return true;
+    });
+  }, [activeVillageId, teamMembersQuery.data, user]);
 
   const suggestedVillages = useMemo(() => {
     const villageMap = new Map((villagesQuery.data ?? []).map((village) => [village.id, village]));
@@ -265,8 +321,19 @@ export const AlertsPage = () => {
               <AlertCard
                 key={alert.id}
                 alert={alert}
-                canResolve={canManage}
-                onResolve={(id) => resolveMutation.mutate(id)}
+                canManage={canManage}
+                currentUserId={user?.id}
+                assignmentOptions={assignmentOptions}
+                onAcknowledge={(id, note) => acknowledgeMutation.mutate({ alertId: id, note })}
+                onAssign={(id, assignedToUserId, note) =>
+                  assignMutation.mutate({ alertId: id, assignedToUserId, note })
+                }
+                onEscalate={(id, level, reason) =>
+                  escalateMutation.mutate({ alertId: id, level, reason })
+                }
+                onResolve={(id, resolutionNote) =>
+                  resolveMutation.mutate({ alertId: id, resolutionNote })
+                }
               />
             ))}
           </section>

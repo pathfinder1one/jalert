@@ -124,8 +124,47 @@ def check_sensor_health(self):
 @celery_app.task(name="app.tasks.send_daily_summary", bind=True)
 def send_daily_summary(self):
     """Generate and email daily summary for admin"""
+    import asyncio
+    from sqlalchemy import select
+    from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
+    from sqlalchemy.orm import selectinload
+
+    from app.models.user import NotificationChannel, NotificationDeliveryStatus, User, UserRole
+    from app.services.notification_center_service import NotificationCenterService
+
     logger.info("Daily summary task triggered")
-    # In production: fetch high-risk villages, generate PDF, email admin
+
+    async def _run():
+        engine = _create_task_engine()
+        SessionLocal = async_sessionmaker(engine, class_=AsyncSession)
+        async with SessionLocal() as db:
+            result = await db.execute(
+                select(User)
+                .options(selectinload(User.preferences))
+                .where(User.role == UserRole.ADMIN, User.is_active == True)  # noqa: E712
+            )
+            admins = result.scalars().all()
+            for admin in admins:
+                preferences = getattr(admin, "preferences", None)
+                if preferences and not preferences.daily_summary_enabled:
+                    continue
+                await NotificationCenterService.create(
+                    db,
+                    user_id=admin.id,
+                    kind="daily_summary",
+                    title="Daily operations summary ready",
+                    message=(
+                        "Your daily JALERT summary is ready. Review alerts, audit activity, "
+                        "and active villages from the admin portal."
+                    ),
+                    channel=NotificationChannel.IN_APP,
+                    delivery_status=NotificationDeliveryStatus.SENT,
+                    link="/admin-portal",
+                )
+            await db.commit()
+        await engine.dispose()
+
+    asyncio.run(_run())
     return {"status": "summary sent"}
 
 

@@ -1,0 +1,11 @@
+{
+  "name": "JALERT",
+  "short_name": "JALERT",
+  "description": "Offline-ready village water and health alert workspace.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eef7fb",
+  "theme_color": "#0f4c81",
+  "lang": "en",
+  "scope": "/"
+}
