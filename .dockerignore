@@ -18,3 +18,11 @@ jalert_local.db
 jalert_local.db-shm
 jalert_local.db-wal
 node_modules
+.git
+.gitignore
+.env
+tests/
+ml_models/*.joblib
+*.md
+tmp_video_frames/
+.claude/

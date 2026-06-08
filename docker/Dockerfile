@@ -3,10 +3,11 @@ FROM node:20-alpine AS frontend-builder
 WORKDIR /frontend
 
 COPY frontend/package*.json ./
-RUN npm ci
+RUN npm ci --prefer-offline
 
 COPY frontend/ ./
-RUN npm run build
+# Limit Node heap to avoid OOM on Railway free tier; skip tsc, just vite build
+RUN NODE_OPTIONS="--max-old-space-size=512" npx vite build
 
 FROM python:3.11-slim AS base
 
