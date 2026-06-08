@@ -256,43 +256,52 @@ class Alert(Base):
 
     @property
     def assigned_to_user_id(self) -> Optional[str]:
-        return self.incident.assigned_to_user_id if self.incident else None
+        incident = self.__dict__.get("incident")
+        return incident.assigned_to_user_id if incident else None
 
     @property
     def assigned_to_name(self) -> Optional[str]:
-        if self.incident and self.incident.assigned_to_user:
-            return self.incident.assigned_to_user.name
+        incident = self.__dict__.get("incident")
+        if incident and incident.__dict__.get("assigned_to_user"):
+            return incident.assigned_to_user.name
         return None
 
     @property
     def acknowledged_by_id(self) -> Optional[str]:
-        return self.incident.acknowledged_by_id if self.incident else None
+        incident = self.__dict__.get("incident")
+        return incident.acknowledged_by_id if incident else None
 
     @property
     def acknowledged_by_name(self) -> Optional[str]:
-        if self.incident and self.incident.acknowledged_by_user:
-            return self.incident.acknowledged_by_user.name
+        incident = self.__dict__.get("incident")
+        if incident and incident.__dict__.get("acknowledged_by_user"):
+            return incident.acknowledged_by_user.name
         return None
 
     @property
     def acknowledged_at(self) -> Optional[datetime]:
-        return self.incident.acknowledged_at if self.incident else None
+        incident = self.__dict__.get("incident")
+        return incident.acknowledged_at if incident else None
 
     @property
     def escalated_at(self) -> Optional[datetime]:
-        return self.incident.escalated_at if self.incident else None
+        incident = self.__dict__.get("incident")
+        return incident.escalated_at if incident else None
 
     @property
     def escalation_level(self) -> int:
-        return self.incident.escalation_level if self.incident else 0
+        incident = self.__dict__.get("incident")
+        return incident.escalation_level if incident else 0
 
     @property
     def escalation_reason(self) -> Optional[str]:
-        return self.incident.escalation_reason if self.incident else None
+        incident = self.__dict__.get("incident")
+        return incident.escalation_reason if incident else None
 
     @property
     def resolution_note(self) -> Optional[str]:
-        return self.incident.resolution_note if self.incident else None
+        incident = self.__dict__.get("incident")
+        return incident.resolution_note if incident else None
 
 
 class AlertIncident(Base):

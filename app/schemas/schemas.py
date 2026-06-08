@@ -24,7 +24,6 @@ class UserRegister(BaseModel):
     email: EmailStr
     phone: Optional[str] = Field(None, pattern=r"^\+?[1-9]\d{7,14}$")
     password: str = Field(..., min_length=8)
-    role: UserRole = UserRole.PUBLIC
     village_id: Optional[str] = None
     preferred_language: str = Field(default="en", pattern=r"^[a-z]{2}$")
 

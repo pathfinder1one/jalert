@@ -5,7 +5,7 @@ FastAPI Application Entry Point
 import asyncio
 from contextlib import asynccontextmanager
 from pathlib import Path
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import FileResponse, JSONResponse
@@ -15,6 +15,8 @@ import sys
 from app.core.config import settings
 from app.core.database import init_db, close_db, AsyncSessionLocal, DATABASE_URL, IS_SQLITE, engine
 from app.core.redis_manager import redis_manager
+from app.core.security import require_admin
+from app.models.user import User
 from app.services.bootstrap_service import seed_sensor_network_if_empty, seed_villages_if_empty
 from app.services.ogd_data_service import warm_public_water_resource_cache
 from app.services.sensor_service import SensorService
@@ -38,16 +40,25 @@ logger.add(
 )
 
 
+def _safe_database_url(url: str) -> str:
+    if "@" not in url or "://" not in url:
+        return url
+    scheme, rest = url.split("://", 1)
+    _, host = rest.rsplit("@", 1)
+    return f"{scheme}://***:***@{host}"
+
+
 # ── Lifespan ──────────────────────────────────────────────────────────────────
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup and shutdown events"""
+    settings.validate_production_security()
     logger.info("=" * 60)
     logger.info(f"  Starting {settings.APP_NAME} v{settings.APP_VERSION}")
     logger.info(f"  Environment: {settings.ENVIRONMENT}")
     logger.info(f"  Database: {'SQLite' if IS_SQLITE else 'Server DB'} via {type(engine.sync_engine.pool).__name__}")
-    logger.info(f"  Database URL: {DATABASE_URL}")
+    logger.info(f"  Database URL: {_safe_database_url(DATABASE_URL)}")
     logger.info("=" * 60)
 
     app.state.database_available = False
@@ -120,8 +131,9 @@ and protecting rural communities in India.
 - 📄 **Automated reports** — PDF + CSV generation
 - ⚡ **Real-time streaming** — WebSocket + Redis pub/sub
         """,
-        docs_url="/docs",
-        redoc_url="/redoc",
+        docs_url=None if settings.is_production else "/docs",
+        redoc_url=None if settings.is_production else "/redoc",
+        openapi_url=None if settings.is_production else "/openapi.json",
         lifespan=lifespan,
     )
 
@@ -210,7 +222,7 @@ and protecting rural communities in India.
         )
 
     @app.get("/metrics", tags=["System"])
-    async def metrics():
+    async def metrics(current_user: User = Depends(require_admin)):
         """Basic operational metrics"""
         from app.utils.websocket_manager import ws_manager
         return {

@@ -1,1 +1,0 @@
-import{h as e}from"./index-BaFLiVXE.js";const r={async list(){const{data:a}=await e.get("/villages/");return a},async get(a){const{data:t}=await e.get(`/villages/${a}`);return t},async getDashboard(a){const{data:t}=await e.get(`/villages/${a}/dashboard`);return t}};export{r as v};

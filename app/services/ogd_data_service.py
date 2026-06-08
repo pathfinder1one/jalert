@@ -698,28 +698,30 @@ def load_ogd_disease_training_data() -> Optional[Tuple[pd.DataFrame, pd.Series, 
     combined["vomiting_cases"] = np.round(contamination + combined["turbidity"] / 4).clip(lower=0)
     combined["symptom_count"] = combined["diarrhea_cases"] + combined["fever_cases"] + combined["vomiting_cases"]
 
-    risk_score = (
-        combined["diarrhea_cases"] * 0.4
-        + combined["fever_cases"] * 0.25
-        + combined["vomiting_cases"] * 0.15
-        + contamination * 4
-        + aquifer_stress * 2
-    )
+    # Label is derived from environmental proxies ONLY (contamination + aquifer
+    # stress). Symptom columns (diarrhea_cases, fever_cases, vomiting_cases,
+    # symptom_count) are kept for context / audit but must NOT appear in the
+    # label formula — they are passed as model features at inference time and
+    # including them here would cause circular (near-100 %) data leakage.
+    risk_score = contamination * 6 + aquifer_stress * 4
     threshold = float(risk_score.quantile(0.68)) if len(risk_score) >= 20 else float(risk_score.mean())
     labels = (risk_score >= threshold).astype(int)
 
+    # Return features matching DISEASE_FEATURES in models.py.
+    # Label is derived from contamination + aquifer_stress ONLY, so symptom
+    # columns are now safe to include as features — no circular dependency.
     features = combined[[
         "water_quality_score",
         "ecoli",
         "turbidity",
         "rainfall_mm",
+        "days_since_rain",
+        "temperature",
+        "humidity",
         "symptom_count",
         "fever_cases",
         "diarrhea_cases",
         "vomiting_cases",
-        "days_since_rain",
-        "temperature",
-        "humidity",
     ]].copy()
     processed_path = _save_processed_frame(combined, "disease_outbreak_training.csv")
     metadata = {

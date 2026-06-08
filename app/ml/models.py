@@ -30,23 +30,30 @@ MODEL_DIR.mkdir(parents=True, exist_ok=True)
 WATER_FEATURES = [
     "ph", "turbidity", "ecoli", "tds", "temperature",
     "dissolved_oxygen", "nitrate", "arsenic", "fluoride",
-    "ph_deviation",      # |ph - 7.0|
-    "turbidity_log",     # log1p(turbidity)
-    "contamination_index",  # composite
+    "ph_deviation",   # |ph - 7.0|
+    "turbidity_log",  # log1p(turbidity)
+    # contamination_index intentionally excluded: it is a weighted composite
+    # of the same raw features that generate the label, causing near-perfect
+    # data leakage during training.
 ]
 
 DISEASE_FEATURES = [
+    # Environmental / water quality signals.
     "water_quality_score",
     "ecoli",
     "turbidity",
     "rainfall_mm",
+    "days_since_rain",
+    "temperature",
+    "humidity",
+    # Clinical / health-report signals.
+    # Safe to include: the label is now derived from contamination + aquifer_stress
+    # ONLY (not from these columns), so there is no circular dependency.
+    # At inference time PredictionService passes real health-report counts here.
     "symptom_count",
     "fever_cases",
     "diarrhea_cases",
     "vomiting_cases",
-    "days_since_rain",
-    "temperature",
-    "humidity",
 ]
 
 
@@ -251,6 +258,7 @@ class DiseaseOutbreakModel:
         }
 
     def train(self, X: pd.DataFrame, y: pd.Series) -> Dict[str, Any]:
+        X = X.copy()
         for col in self.feature_names:
             if col not in X.columns:
                 X[col] = 0.0
@@ -263,7 +271,7 @@ class DiseaseOutbreakModel:
 
         self.model = xgb.XGBClassifier(
             n_estimators=200, learning_rate=0.05, max_depth=6,
-            scale_pos_weight=3, use_label_encoder=False,
+            scale_pos_weight=3,
             eval_metric="logloss", random_state=42, n_jobs=1,
         )
         self.model.fit(X_train_s, y_train, eval_set=[(X_test_s, y_test)], verbose=False)

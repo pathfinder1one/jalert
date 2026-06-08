@@ -3,11 +3,14 @@ JALERT - Sensor Router
 IoT data ingestion, sensor management, historical data
 """
 from typing import List
-from fastapi import APIRouter, Depends, Query, status
+from hmac import compare_digest
+
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.config import settings
 from app.core.database import get_db
-from app.core.security import require_health_worker, require_any, get_current_user
+from app.core.security import require_health_worker, require_any
 from app.schemas.schemas import SensorReadingIngest, SensorReadingOut, SensorCreate, SensorOut
 from app.services.sensor_service import SensorService
 from app.models.user import User
@@ -15,11 +18,29 @@ from app.models.user import User
 router = APIRouter(prefix="/sensors", tags=["Sensors"])
 
 
+async def verify_sensor_api_key(
+    x_sensor_api_key: str | None = Header(default=None, alias="X-Sensor-Api-Key"),
+) -> None:
+    configured_keys = settings.SENSOR_INGEST_API_KEYS
+    if not configured_keys and not settings.is_production:
+        return
+    if not configured_keys:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Sensor ingestion is not configured",
+        )
+    if not x_sensor_api_key or not any(compare_digest(x_sensor_api_key, key) for key in configured_keys):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid sensor API key",
+        )
+
+
 @router.post("/ingest", response_model=SensorReadingOut, status_code=status.HTTP_201_CREATED)
 async def ingest_reading(
     data: SensorReadingIngest,
     db: AsyncSession = Depends(get_db),
-    # IoT devices use API key; simplified here
+    _: None = Depends(verify_sensor_api_key),
 ):
     """Ingest a single IoT sensor reading"""
     reading = await SensorService.ingest_reading(data, db)
@@ -30,6 +51,7 @@ async def ingest_reading(
 async def ingest_batch(
     readings: List[SensorReadingIngest],
     db: AsyncSession = Depends(get_db),
+    _: None = Depends(verify_sensor_api_key),
 ):
     """Batch ingest multiple sensor readings"""
     return await SensorService.batch_ingest(readings, db)

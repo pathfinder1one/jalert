@@ -84,12 +84,20 @@ class RedisManager:
     # ── Sensor data buffer ────────────────────────────────────────────────────
 
     async def push_sensor_reading(self, village_id: str, reading: dict) -> None:
+        if not self._pool:
+            logger.warning(f"Redis sensor buffer skipped for {village_id}: client not connected")
+            return
         key = f"sensor:buffer:{village_id}"
-        await self.client.lpush(key, json.dumps(reading))
-        await self.client.ltrim(key, 0, 999)  # Keep last 1000 readings
-        await self.client.expire(key, 86400)
+        try:
+            await self.client.lpush(key, json.dumps(reading))
+            await self.client.ltrim(key, 0, 999)  # Keep last 1000 readings
+            await self.client.expire(key, 86400)
+        except Exception as exc:
+            logger.warning(f"Redis sensor buffer skipped for {village_id}: {exc}")
 
     async def get_sensor_buffer(self, village_id: str, count: int = 100) -> list:
+        if not self._pool:
+            return []
         key = f"sensor:buffer:{village_id}"
         raw = await self.client.lrange(key, 0, count - 1)
         return [json.loads(r) for r in raw]

@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from fastapi import HTTPException, status
 
-from app.models.user import User
+from app.models.user import User, UserRole
 from app.schemas.schemas import UserRegister, UserLogin, TokenResponse
 from app.core.security import (
     hash_password, verify_password,
@@ -36,7 +36,7 @@ class AuthService:
             email=data.email,
             phone=data.phone,
             hashed_password=hash_password(data.password),
-            role=data.role,
+            role=UserRole.PUBLIC,
             village_id=data.village_id,
             preferred_language=data.preferred_language,
         )

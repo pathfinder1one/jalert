@@ -8,12 +8,15 @@ from functools import lru_cache
 from typing import List
 
 
+DEFAULT_SECRET_KEY = "CHANGE_THIS_IN_PRODUCTION_SUPER_SECRET_KEY_256_BITS"
+
+
 class Settings(BaseSettings):
     # App
     APP_NAME: str = "JALERT - Intelligent Water & Health Alert System"
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = False
-    ENVIRONMENT: str = "production"
+    ENVIRONMENT: str = "development"
     SQL_ECHO: bool = False
     CORS_ORIGINS: List[str] = ["http://localhost:5173", "http://127.0.0.1:8000"]
 
@@ -44,7 +47,7 @@ class Settings(BaseSettings):
 
     # JWT
     SECRET_KEY: str = Field(
-        default="CHANGE_THIS_IN_PRODUCTION_SUPER_SECRET_KEY_256_BITS", env="SECRET_KEY"
+        default=DEFAULT_SECRET_KEY, env="SECRET_KEY"
     )
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
@@ -98,6 +101,7 @@ class Settings(BaseSettings):
     # Rate Limiting
     RATE_LIMIT_REQUESTS: int = 100
     RATE_LIMIT_WINDOW: int = 60  # seconds
+    SENSOR_INGEST_API_KEYS: List[str] = Field(default_factory=list, env="SENSOR_INGEST_API_KEYS")
 
     # Celery
     CELERY_BROKER_URL: str = Field(
@@ -138,9 +142,27 @@ class Settings(BaseSettings):
                 return False
         return value
 
-    @field_validator("CORS_ORIGINS", mode="before")
+    @property
+    def is_production(self) -> bool:
+        return self.ENVIRONMENT.strip().lower() in {"prod", "production"}
+
+    def validate_production_security(self) -> None:
+        if not self.is_production:
+            return
+        missing = []
+        if self.SECRET_KEY == DEFAULT_SECRET_KEY:
+            missing.append("SECRET_KEY")
+        if not self.SENSOR_INGEST_API_KEYS:
+            missing.append("SENSOR_INGEST_API_KEYS")
+        if not self.CORS_ORIGINS:
+            missing.append("CORS_ORIGINS")
+        if missing:
+            joined = ", ".join(missing)
+            raise RuntimeError(f"Production security settings are missing or unsafe: {joined}")
+
+    @field_validator("CORS_ORIGINS", "SENSOR_INGEST_API_KEYS", mode="before")
     @classmethod
-    def parse_cors_origins(cls, value):
+    def parse_list_values(cls, value):
         if isinstance(value, list):
             return value
         if isinstance(value, str):

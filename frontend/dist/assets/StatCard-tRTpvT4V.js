@@ -1,1 +1,0 @@
-import{j as s}from"./index-BaFLiVXE.js";const c=({label:e,value:l,helper:a})=>s.jsxs("article",{className:"metric-card",children:[s.jsx("p",{className:"subtle",children:e}),s.jsx("span",{className:"stat-value",children:l}),a?s.jsx("p",{className:"subtle",children:a}):null]});export{c as S};

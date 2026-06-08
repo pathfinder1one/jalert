@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { env } from '../config/env';
+import { getStoredTokens } from '../services/http';
 
 export const useRealtimeVillage = (
   villageId?: string | null,
@@ -13,7 +14,13 @@ export const useRealtimeVillage = (
       return undefined;
     }
 
-    const ws = new WebSocket(`${env.wsBaseUrl}/village/${villageId}/${channel}`);
+    const tokens = getStoredTokens();
+    if (!tokens?.access_token) {
+      return undefined;
+    }
+
+    const params = new URLSearchParams({ token: tokens.access_token });
+    const ws = new WebSocket(`${env.wsBaseUrl}/village/${villageId}/${channel}?${params.toString()}`);
 
     ws.onopen = () => setIsConnected(true);
     ws.onclose = () => setIsConnected(false);

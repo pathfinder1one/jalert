@@ -137,12 +137,13 @@ async def train_disease_model(
     }
     df = pd.DataFrame(data)
 
-    # Label: outbreak if multiple high-risk factors align
+    # Label: base outbreak on environmental / water-quality signals ONLY.
+    # fever_cases / diarrhea_cases / symptom_count are features in
+    # DISEASE_FEATURES; using them in the label formula would create a trivially
+    # learnable circular dependency (data leakage).
     y = (
         (df["ecoli"] > 1) |
-        (df["fever_cases"] >= 5) |
-        (df["diarrhea_cases"] >= 4) |
-        ((df["water_quality_score"] < 40) & (df["symptom_count"] >= 5))
+        (df["water_quality_score"] < 35)
     ).astype(int)
 
     result = disease_outbreak_model.train(df, y)
