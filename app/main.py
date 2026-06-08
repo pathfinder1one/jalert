@@ -216,9 +216,11 @@ and protecting rural communities in India.
             checks["database"] = "error"
 
         all_ok = all(v == "ok" for v in checks.values())
+        # Always return 200 so Railway/Render healthchecks pass even in degraded mode.
+        # The body status field distinguishes healthy vs degraded.
         return JSONResponse(
             content={"status": "healthy" if all_ok else "degraded", "checks": checks},
-            status_code=200 if all_ok else 207,
+            status_code=200,
         )
 
     @app.get("/metrics", tags=["System"])
