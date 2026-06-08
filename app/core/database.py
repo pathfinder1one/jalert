@@ -20,6 +20,12 @@ class Base(DeclarativeBase):
 DATABASE_URL = settings.DATABASE_URL
 IS_SQLITE = DATABASE_URL.startswith("sqlite")
 
+# Convert postgresql:// to postgresql+asyncpg:// for async driver
+if DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
+elif DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+asyncpg://", 1)
+
 if IS_SQLITE:
     sqlite_path = DATABASE_URL.replace("sqlite+aiosqlite:///", "", 1)
     if sqlite_path and sqlite_path != ":memory:":
@@ -108,3 +114,4 @@ async def close_db():
     """Close database connections"""
     await engine.dispose()
     logger.info("Database connections closed")
+
