@@ -22,7 +22,7 @@ node_modules
 .gitignore
 .env
 tests/
-ml_models/*.joblib
+#ml_models/*.joblib
 *.md
 tmp_video_frames/
 .claude/
